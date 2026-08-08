@@ -15,6 +15,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
   
   <style>
+    /* ===== BASE STYLES ===== */
     *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif}
     body{background:#1a1a1a;width:100%;height:100%;overflow:hidden}
     #app-wrapper{width:100%;height:100vh;background:#fef9e7;display:flex;flex-direction:column}
@@ -22,6 +23,8 @@
     #app-content{flex:1;overflow-y:auto;padding:12px 16px;background:#fef9e7}
     .page{display:none;flex-direction:column;gap:14px;padding-bottom:12px;animation:fadeUp .25s ease}.page.active{display:flex}
     @keyframes fadeUp{0%{opacity:.6;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+    
+    /* ===== ONBOARDING ===== */
     #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:20px;gap:20px}
     #page-onboarding.active{display:flex}
     #page-onboarding .logo{font-size:4.5rem;background:#f7c948;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 15px 40px rgba(247,201,72,.3)}
@@ -31,11 +34,15 @@
     #page-onboarding .loading-dots span:nth-child(2){animation-delay:.2s}
     #page-onboarding .loading-dots span:nth-child(3){animation-delay:.4s}
     @keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+    
+    /* ===== ROLE SELECTION ===== */
     #page-role{justify-content:center;min-height:70vh;gap:20px}
     .role-btn{background:#fff;border:2px solid #f7c948;border-radius:60px;padding:22px 10px;font-size:1.5rem;font-weight:700;color:#1e1e1e;box-shadow:0 6px 0 #e6b13a;transition:.08s linear;cursor:pointer;text-align:center;width:100%;max-width:320px;margin:0 auto}
     .role-btn:active{transform:translateY(5px);box-shadow:0 1px 0 #e6b13a}
     .role-btn i{margin-right:12px;color:#dba32b}
     .role-btn span{display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px}
+    
+    /* ===== COMMON COMPONENTS ===== */
     .yellow-btn{background:#f7c948;border:none;padding:14px 12px;border-radius:60px;font-weight:700;font-size:1.1rem;color:#1e1e1e;box-shadow:0 5px 0 #dba32b;cursor:pointer;text-align:center;width:100%}
     .yellow-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #dba32b}
     .input-group{display:flex;flex-direction:column;gap:4px}
@@ -45,34 +52,40 @@
     .back-link{color:#b89b4b;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:none;background:transparent;font-size:.95rem;padding:4px 0;width:fit-content}
     .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2px}
     .app-header h2{font-size:1.5rem;font-weight:800;color:#1e1e1e}
+    .app-header .badge{background:#f7c948;padding:4px 14px;border-radius:40px;font-size:.7rem;font-weight:700}
     .subhead{color:#5e5a4a;font-size:.9rem;border-left:4px solid #f5b342;padding-left:12px;background:#fff9e6;border-radius:0 12px 12px 0;padding:6px 12px;margin-top:-6px}
     .text-center{text-align:center}.text-muted{color:#7a725a;font-size:.8rem}
-    #bottom-nav-user,#bottom-nav-provider{background:#fff;border-top:2px solid #f7e9b0;padding:6px 12px 10px;display:none;justify-content:space-around;align-items:center;flex-shrink:0;margin-top:auto}
-    #bottom-nav-user.show,#bottom-nav-provider.show{display:flex}
-    .nav-item{display:flex;flex-direction:column;align-items:center;color:#a0967a;font-size:.6rem;font-weight:600;cursor:pointer;padding:4px 12px;border-radius:40px;border:none;background:transparent;gap:1px;min-width:50px}
-    .nav-item i{font-size:1.3rem}
-    .nav-item.active{color:#dba32b;background:#fef6dc;padding:4px 14px}
     .dash-card{background:#fefcf5;border-radius:20px;padding:16px;border:1px solid #f7e3a0;box-shadow:0 4px 0 #efe1b0}
+    .dash-stat{display:flex;justify-content:space-between;font-weight:600;padding:5px 0}
+    .wallet-badge{background:#f7c948;border-radius:40px;padding:4px 14px;font-weight:700;font-size:.8rem}
+    
+    /* ===== TOAST ===== */
     .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e1e1e;color:#fff;padding:12px 24px;border-radius:40px;font-weight:600;font-size:.9rem;z-index:9999;display:none;max-width:90%;text-align:center}
     .toast.show{display:block;animation:fadeUp .3s ease}
     .toast.success{background:#2e7d32}
     .toast.error{background:#c62828}
     .toast.warning{background:#e65100}
+    
+    /* ===== OTP ===== */
     .otp-status{text-align:center;font-weight:600;margin-top:4px;font-size:.9rem}
     .otp-status.success{color:#2e7d32}
     .otp-status.error{color:#c62828}
     .otp-row{display:flex;gap:10px;align-items:center}
     .otp-row input{flex:2;text-align:center;font-size:1.2rem;letter-spacing:4px}
     .otp-row .yellow-btn{flex:1;padding:14px 6px;font-size:.9rem;width:auto}
-    .category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .category-item{background:#fefcf5;border:1.5px solid #f7e3a0;border-radius:40px;padding:12px 6px;text-align:center;font-weight:600;color:#2d2a1e;box-shadow:0 3px 0 #e6d19c;cursor:pointer;font-size:.8rem}
-    .category-item i{display:block;font-size:1.4rem;margin-bottom:2px;color:#dba32b}
+    
+    /* ===== HOME ===== */
     .offer-banner{background:linear-gradient(145deg,#f7d44a,#f5b342);border-radius:24px;padding:18px 16px;color:#1e1e1e;box-shadow:0 5px 0 #dba32b}
     .offer-banner h3{font-size:1.3rem;font-weight:800}
     .offer-banner p{font-weight:500;opacity:.85;margin-top:2px}
     .search-bar{background:#fefcf5;border:2px solid #f7e3a0;border-radius:60px;padding:10px 18px;display:flex;align-items:center;gap:10px}
     .search-bar i{color:#b89b4b;font-size:1.1rem}
     .search-bar input{border:none;background:transparent;font-size:1rem;width:100%;outline:none}
+    .category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .category-item{background:#fefcf5;border:1.5px solid #f7e3a0;border-radius:40px;padding:12px 6px;text-align:center;font-weight:600;color:#2d2a1e;box-shadow:0 3px 0 #e6d19c;cursor:pointer;font-size:.8rem}
+    .category-item i{display:block;font-size:1.4rem;margin-bottom:2px;color:#dba32b}
+    
+    /* ===== WALLET ===== */
     .wallet-box{text-align:center;padding:20px;background:linear-gradient(145deg,#f7c948,#f5b342);border-radius:24px;color:#1e1e1e}
     .wallet-box .amount{font-size:2.2rem;font-weight:800}
     .wallet-box .label{font-size:.85rem;opacity:.8}
@@ -80,6 +93,47 @@
     .wallet-transaction .amount.credit{color:#2e7d32}
     .wallet-transaction .amount.debit{color:#c62828}
     .commission-info{background:#fff9e6;border-radius:16px;padding:10px 14px;border-left:4px solid #f5b342;font-size:.85rem;color:#5e5a4a}
+    
+    /* ===== PROVIDER CARD ===== */
+    .provider-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+    .provider-card .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0}
+    .provider-card .info{flex:1}
+    .provider-card .info .name{font-weight:700;font-size:.9rem}
+    .provider-card .info .detail{font-size:.7rem;color:#5e5a4a;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    .badge-distance{background:#f0e3c0;padding:2px 10px;border-radius:40px;font-size:.6rem;font-weight:600}
+    .contact-buttons{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
+    .contact-buttons a{flex:1;padding:6px 8px;border-radius:40px;text-align:center;text-decoration:none;font-weight:700;font-size:.65rem;display:flex;align-items:center;justify-content:center;gap:4px;min-width:50px}
+    .btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 3px 0 #128C7E}
+    .btn-phone-call{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;padding:8px 16px;border-radius:40px;border:none;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
+    .btn-book{background:#f7c948;color:#1e1e1e;box-shadow:0 3px 0 #dba32b;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+    
+    /* ===== ORDER & BOOKING ===== */
+    .order-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;justify-content:space-between;align-items:center}
+    .status-badge{padding:4px 12px;border-radius:40px;font-size:.7rem;font-weight:700}
+    .status-badge.pending{background:#ffd54f}
+    .status-badge.ongoing{background:#4FC3F7}
+    .status-badge.completed{background:#81C784;color:#1e1e1e}
+    .status-badge.cancelled{background:#e57373;color:#fff}
+    .booking-request{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;border-left:4px solid #f7c948}
+    .booking-actions{display:flex;gap:8px;margin-top:8px}
+    .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+    .btn-reject{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+    
+    /* ===== MAP ===== */
+    #mapContainer{height:180px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
+    #providerMapContainer{height:200px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
+    .map-loading{display:flex;align-items:center;justify-content:center;height:100%;color:#5e5a4a;background:#fefcf5;font-size:.8rem;gap:8px}
+    .map-loading i{color:#f7c948;animation:spin 1s linear infinite}
+    @keyframes spin{100%{transform:rotate(360deg)}}
+    .location-input-row{display:flex;gap:8px;align-items:center}
+    .location-input-row input{flex:1;padding:10px 16px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:.9rem;outline:none}
+    .location-input-row button{padding:10px 14px;border-radius:40px;border:none;background:#f7c948;font-weight:600;cursor:pointer;box-shadow:0 3px 0 #dba32b;white-space:nowrap;font-size:.8rem}
+    .map-location-text{margin-top:4px;text-align:center;font-size:.7rem;color:#5e5a4a}
+    .filter-row{display:flex;gap:6px;overflow-x:auto;padding:4px 0}
+    .filter-row button{padding:6px 14px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-weight:600;font-size:.7rem;cursor:pointer;white-space:nowrap}
+    .filter-row button.active{background:#f7c948;border-color:#f7c948;box-shadow:0 3px 0 #dba32b}
+    
+    /* ===== ADMIN ===== */
     .admin-lock{text-align:center;padding:10px 0}
     .admin-lock input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:1rem;outline:none;width:100%;text-align:center}
     .admin-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -92,44 +146,72 @@
     .admin-actions{display:flex;gap:6px}
     .admin-actions button{background:#f7c948;border:none;border-radius:40px;padding:4px 10px;font-weight:600;font-size:.65rem;cursor:pointer}
     .admin-actions button.danger{background:#e53935;color:#fff}
-    .filter-row{display:flex;gap:6px;overflow-x:auto;padding:4px 0}
-    .filter-row button{padding:6px 14px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-weight:600;font-size:.7rem;cursor:pointer;white-space:nowrap}
-    .filter-row button.active{background:#f7c948;border-color:#f7c948;box-shadow:0 3px 0 #dba32b}
-    #mapContainer{height:180px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
-    .map-loading{display:flex;align-items:center;justify-content:center;height:100%;color:#5e5a4a;background:#fefcf5;font-size:.8rem;gap:8px}
-    .map-loading i{color:#f7c948;animation:spin 1s linear infinite}
-    @keyframes spin{100%{transform:rotate(360deg)}}
-    .location-input-row{display:flex;gap:8px;align-items:center}
-    .location-input-row input{flex:1;padding:10px 16px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:.9rem;outline:none}
-    .location-input-row button{padding:10px 14px;border-radius:40px;border:none;background:#f7c948;font-weight:600;cursor:pointer;box-shadow:0 3px 0 #dba32b;white-space:nowrap;font-size:.8rem}
-    .map-location-text{margin-top:4px;text-align:center;font-size:.7rem;color:#5e5a4a}
-    .provider-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-    .provider-card .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0}
-    .provider-card .info{flex:1}
-    .provider-card .info .name{font-weight:700;font-size:.9rem}
-    .provider-card .info .detail{font-size:.7rem;color:#5e5a4a;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-    .badge-distance{background:#f0e3c0;padding:2px 10px;border-radius:40px;font-size:.6rem;font-weight:600}
-    .contact-buttons{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
-    .contact-buttons a{flex:1;padding:6px 8px;border-radius:40px;text-align:center;text-decoration:none;font-weight:700;font-size:.65rem;display:flex;align-items:center;justify-content:center;gap:4px;min-width:50px}
-    .btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 3px 0 #128C7E}
-    .btn-phone-call{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;padding:8px 16px;border-radius:40px;border:none;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
-    .btn-book{background:#f7c948;color:#1e1e1e;box-shadow:0 3px 0 #dba32b;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
-    .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
-    .btn-reject{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
-    .order-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;justify-content:space-between;align-items:center}
-    .status-badge{padding:4px 12px;border-radius:40px;font-size:.7rem;font-weight:700}
-    .status-badge.pending{background:#ffd54f}
-    .status-badge.ongoing{background:#4FC3F7}
-    .status-badge.completed{background:#81C784;color:#1e1e1e}
-    .status-badge.cancelled{background:#e57373;color:#fff}
-    .booking-request{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;border-left:4px solid #f7c948}
-    .booking-actions{display:flex;gap:8px;margin-top:8px}
+    
+    /* ===== NAVIGATION BARS ===== */
+    #bottom-nav-user, #bottom-nav-provider {
+      background: white;
+      border-top: 2px solid #f7e9b0;
+      padding: 6px 12px 10px 12px;
+      display: none;
+      justify-content: space-around;
+      align-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+      margin-top: auto;
+    }
+    #bottom-nav-user.show, #bottom-nav-provider.show { display: flex; }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #a0967a;
+      font-size: 0.6rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 40px;
+      border: none;
+      background: transparent;
+      gap: 1px;
+      min-width: 50px;
+    }
+    .nav-item i { font-size: 1.3rem; }
+    .nav-item.active {
+      color: #dba32b;
+      background: #fef6dc;
+      padding: 4px 14px;
+    }
+    
+    /* ===== LOGOUT & ADMIN LINK ===== */
+    .logout-btn {
+      background: #e53935;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 5px 0 #b71c1c;
+      margin-top: 10px;
+    }
+    .logout-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b71c1c; }
+    
+    .admin-link {
+      color: #b89b4b;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: .85rem;
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+    }
+    
     .loading-spinner{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px;color:#5e5a4a}
     .loading-spinner i{color:#f7c948;font-size:1.5rem;animation:spin 1s linear infinite}
-    #providerMapContainer{height:200px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
-    .logout-btn{background:#e53935;color:#fff;border:none;padding:12px;border-radius:40px;font-weight:700;font-size:1rem;cursor:pointer;width:100%;box-shadow:0 5px 0 #b71c1c}
-    .logout-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #b71c1c}
-    .admin-link{color:#b89b4b;font-weight:600;cursor:pointer;text-decoration:underline;font-size:.85rem}
   </style>
 </head>
 <body>
@@ -137,45 +219,263 @@
 <div id="status-bar"><span class="time" id="statusTime">9:41</span><span class="icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span></div>
 <div id="toast" class="toast"></div>
 <div id="app-content">
-<!-- Onboarding -->
-<div id="page-onboarding" class="page active"><div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:60vh;"><div class="logo"><i class="fas fa-handshake"></i></div><div><div class="app-name">সেবা বাজার</div><div class="app-tagline">পেশাদার সেবা এক ক্লিকে</div></div><div class="loading-dots"><span></span><span></span><span></span></div><div style="font-size:.8rem;color:#b89b4b;margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...</div></div></div>
-<!-- Role Selection -->
-<div id="page-role" class="page"><div class="app-header" style="justify-content:center;text-align:center;"><h2>👋 স্বাগতম</h2></div><div class="subhead" style="text-align:center;border-left:none;background:transparent;padding:0;">আপনি কি হিসেবে যুক্ত হবেন?</div><div class="role-btn" onclick="selectRole('user')"><i class="fas fa-user"></i> ইউজার <span>সেবা নিতে চাই</span></div><div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-tools"></i> প্রোভাইডার <span>সেবা দিতে চাই</span></div><div class="text-center text-muted" style="margin-top:16px;"><i class="fas fa-shield-alt"></i> নিরাপদ & বিশ্বস্ত</div></div>
-<!-- User Form -->
-<div id="page-user-form" class="page"><button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> পিছনে</button><div class="app-header"><h2>📝 আপনার তথ্য</h2></div><div class="subhead">ইউজার হিসেবে নিবন্ধন</div><div class="input-group"><label><i class="fas fa-user"></i> আপনার নাম</label><input type="text" id="user-name" placeholder="আপনার নাম"></div><div class="input-group"><label><i class="fas fa-map-pin"></i> লোকেশন</label><input type="text" id="user-location" placeholder="ঢাকা, মিরপুর"></div><button class="yellow-btn" onclick="goToPage('page-user-otp')">পরবর্তী <i class="fas fa-arrow-right"></i></button></div>
-<!-- User OTP -->
-<div id="page-user-otp" class="page"><button class="back-link" onclick="goToPage('page-user-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button><div class="app-header"><h2>📱 মোবাইল নম্বর</h2></div><div class="subhead">ওটিপি পাঠাতে নম্বর দিন</div><div class="input-group"><label><i class="fas fa-phone-alt"></i> মোবাইল নম্বর</label><input type="tel" id="user-phone" placeholder="০১XXXXXXXXX"></div><button class="yellow-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button><div class="otp-row"><input type="text" id="user-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('user')"><i class="fas fa-check"></i> যাচাই</button></div><div id="userOtpStatus" class="otp-status"></div></div>
-<!-- User Home -->
-<div id="page-user-home" class="page"><div class="app-header"><h2>🏠 হোম</h2><span class="badge"><i class="fas fa-bell"></i></span></div><div class="search-bar"><i class="fas fa-search"></i><input type="text" placeholder="কী সার্ভিস খুঁজছেন?" id="userSearchInput"></div><div class="offer-banner"><h3>🔥 আজকের অফার</h3><p>সকল সার্ভিসে ২০% ডিসকাউন্ট! <span style="background:#1e1e1e;color:#fff;padding:2px 14px;border-radius:40px;font-size:.75rem;">নতুন ইউজার</span></p><div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;"><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">প্লাম্বার</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">ইলেকট্রিশিয়ান</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">এসি টেকনিশিয়ান</span></div></div><div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="userWalletBalance">০</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> রিচার্জ</button></div><div class="category-grid"><div class="category-item" onclick="openCategory('প্লাম্বার')"><i class="fas fa-wrench"></i> প্লাম্বার</div><div class="category-item" onclick="openCategory('ইলেকট্রিশিয়ান')"><i class="fas fa-bolt"></i> ইলেকট্রিশিয়ান</div><div class="category-item" onclick="openCategory('এসি টেকনিশিয়ান')"><i class="fas fa-snowflake"></i> এসি</div><div class="category-item" onclick="openCategory('ক্লিনার')"><i class="fas fa-broom"></i> ক্লিনার</div><div class="category-item" onclick="openCategory('কার্পেন্টার')"><i class="fas fa-hammer"></i> কার্পেন্টার</div><div class="category-item" onclick="openCategory('মেকানিক')"><i class="fas fa-car"></i> মেকানিক</div></div></div>
-<!-- User Category -->
-<div id="page-user-category" class="page"><button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> ক্যাটাগরিতে</button><div class="app-header"><h2 id="category-title">📍 প্লাম্বার</h2></div><div class="subhead" id="category-sub">আপনার কাছাকাছি প্রোভাইডার</div><div class="location-input-row"><input type="text" id="userLocationInput" placeholder="আপনার লোকেশন দিন"><button onclick="searchLocation()"><i class="fas fa-search"></i> খুঁজুন</button></div><div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)">সব</button><button onclick="filterDistance('1',event)">১ কিমি</button><button onclick="filterDistance('3',event)">৩ কিমি</button><button onclick="filterDistance('5',event)">৫ কিমি</button><button onclick="filterDistance('10',event)">১০ কিমি</button></div><div id="mapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="mapLocationText">ঢাকা, বাংলাদেশ</span></div><div id="provider-list"></div></div>
-<!-- User Orders -->
-<div id="page-user-orders" class="page"><button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button><div class="app-header"><h2>📋 আমার অর্ডার</h2></div><div class="subhead">আপনার করা সকল অর্ডার</div><div id="userOrderList"><div class="loading-spinner"><i class="fas fa-spinner"></i> অর্ডার লোড হচ্ছে...</div></div></div>
-<!-- User Wallet -->
-<div id="page-user-wallet" class="page"><button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button><div class="app-header"><h2>💳 ওয়ালেট</h2></div><div class="subhead">আপনার ট্রানজেকশন হিস্টোরি</div><div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="walletBalanceDisplay">০</span></div></div><div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="rechargeAmount" placeholder="যেমন: ৫০০"></div><button class="yellow-btn" onclick="rechargeWallet()"><i class="fas fa-plus"></i> রিচার্জ করুন</button><div class="commission-info"><i class="fas fa-info-circle"></i> <strong>বিঃদ্রঃ</strong> প্রতি বুকিংয়ে <strong>১০%</strong> কমিশন কেটে নেওয়া হবে।</div><div id="userTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> ট্রানজেকশন লোড হচ্ছে...</div></div></div>
-<!-- User Profile -->
-<div id="page-user-profile" class="page"><button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button><div class="app-header"><h2>👤 প্রোফাইল</h2></div><div class="dash-card"><p><i class="fas fa-user"></i> <strong id="profileName">-</strong></p><p><i class="fas fa-map-pin"></i> <span id="profileLocation">-</span></p><p><i class="fas fa-phone-alt"></i> <span id="profilePhone">-</span></p><p><i class="fas fa-wallet"></i> ব্যালেন্স: ৳ <span id="profileWallet">০</span></p><hr><p><i class="fas fa-star" style="color:#f5b342;"></i> রেটিং: ৪.৮ (২৩টি রিভিউ)</p></div><button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</button><div style="text-align:center;margin-top:10px;"><span class="admin-link" onclick="window.location.hash='admin'">🔐 অ্যাডমিন প্যানেল</span></div></div>
-<!-- Provider Form -->
-<div id="page-provider-form" class="page"><button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> রোল নির্বাচন</button><div class="app-header"><h2>🛠️ প্রোভাইডার তথ্য</h2></div><div class="subhead">আপনার পেশাগত তথ্য দিন</div><div class="input-group"><label><i class="fas fa-user"></i> নাম</label><input type="text" id="provider-name" placeholder="করিম মিয়া"></div><div class="input-group"><label><i class="fas fa-briefcase"></i> কাজ/পেশা</label><input type="text" id="provider-work" placeholder="প্লাম্বার, ইলেকট্রিশিয়ান"></div><div class="input-group"><label><i class="fas fa-clock"></i> অভিজ্ঞতা (বছর)</label><input type="number" id="provider-experience" placeholder="৫"></div><div class="input-group"><label><i class="fas fa-id-card"></i> এনআইডি নম্বর</label><input type="text" id="provider-nid" placeholder="এনআইডি"></div><button class="yellow-btn" onclick="goToPage('page-provider-otp')">পরবর্তী <i class="fas fa-arrow-right"></i></button></div>
-<!-- Provider OTP -->
-<div id="page-provider-otp" class="page"><button class="back-link" onclick="goToPage('page-provider-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button><div class="app-header"><h2>📱 প্রোভাইডার নম্বর</h2></div><div class="subhead">ওটিপি যাচাই</div><div class="input-group"><label><i class="fas fa-phone-alt"></i> মোবাইল</label><input type="tel" id="provider-phone" placeholder="০১XXXXXXXXX"></div><button class="yellow-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button><div class="otp-row"><input type="text" id="provider-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> যাচাই</button></div><div id="providerOtpStatus" class="otp-status"></div></div>
-<!-- Provider Home -->
-<div id="page-provider-home" class="page"><div class="app-header"><h2>📊 ড্যাশবোর্ড</h2><span class="badge"><i class="fas fa-bell"></i></span></div><div class="subhead">স্বাগতম, <span id="providerNameDisplay">-</span></div><div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="providerWalletBalance">০</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> তুলুন</button></div><div class="dash-card"><div class="dash-stat"><span>📌 কাজের ক্যাটাগরি</span> <span class="wallet-badge" id="providerCategory">-</span></div><div class="dash-stat"><span>⭐ রেটিং</span> <span>৪.৯ (৪২ রিভিউ)</span></div><div class="dash-stat"><span>📦 সম্পূর্ণ অর্ডার</span> <span id="providerTotalOrders">০টি</span></div><hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">০</span></span></div></div><div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#2d2a1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div></div>
-<!-- Provider Orders -->
-<div id="page-provider-orders" class="page"><button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button><div class="app-header"><h2>📋 বুকিং রিকোয়েস্ট</h2></div><div class="subhead">আপনার কাছে আসা বুকিং অনুরোধ</div><div id="providerBookingList"><div class="loading-spinner"><i class="fas fa-spinner"></i> বুকিং লোড হচ্ছে...</div></div></div>
-<!-- Provider Wallet -->
-<div id="page-provider-wallet" class="page"><button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button><div class="app-header"><h2>💳 ওয়ালেট</h2></div><div class="subhead">আপনার আয়-ব্যয়ের হিস্টোরি</div><div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="providerWalletDisplay">০</span></div></div><div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="withdrawAmount" placeholder="যেমন: ৫০০"></div><button class="yellow-btn" onclick="withdrawMoney()"><i class="fas fa-arrow-up"></i> টাকা তুলুন</button><div id="providerTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> ট্রানজেকশন লোড হচ্ছে...</div></div></div>
-<!-- Provider Profile -->
-<div id="page-provider-profile" class="page"><button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button><div class="app-header"><h2>👨‍🔧 প্রোফাইল</h2></div><div class="dash-card"><p><i class="fas fa-user"></i> <strong id="providerProfileName">-</strong></p><p><i class="fas fa-briefcase"></i> <span id="providerProfileWork">-</span> (<span id="providerProfileExp">-</span> বছর)</p><p><i class="fas fa-id-card"></i> এনআইডি: <span id="providerProfileNid">-</span></p><p><i class="fas fa-phone-alt"></i> <span id="providerProfilePhone">-</span></p><p><i class="fas fa-wallet"></i> ব্যালেন্স: ৳ <span id="providerProfileWallet">০</span></p><hr><p><i class="fas fa-star" style="color:#f5b342;"></i> রেটিং: ৪.৯ (৪২টি রিভিউ)</p><p><i class="fas fa-check-circle" style="color:#4CAF50;"></i> মোট অর্ডার: <span id="providerProfileOrders">০</span>টি</p></div><button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</button><div style="text-align:center;margin-top:10px;"><span class="admin-link" onclick="window.location.hash='admin'">🔐 অ্যাডমিন প্যানেল</span></div></div>
-<!-- Admin Login -->
-<div id="page-admin-login" class="page"><button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button><div class="app-header"><h2>🔐 অ্যাডমিন অ্যাক্সেস</h2></div><div class="subhead">শুধুমাত্র অ্যাপ ওনারের জন্য</div><div class="admin-lock"><input type="password" id="adminPassword" placeholder="সিক্রেট পাসওয়ার্ড দিন" /><button class="yellow-btn" onclick="verifyAdmin()">প্রবেশ করুন <i class="fas fa-arrow-right"></i></button><div style="margin-top:8px;font-size:.8rem;color:#e53935;" id="adminError"></div></div></div>
-<!-- Admin Dashboard -->
-<div id="page-admin-dashboard" class="page"><button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button><div class="app-header"><h2>📊 অ্যাডমিন</h2></div><div class="subhead">আপনার অ্যাপের সারাংশ</div><div class="admin-stats-grid"><div class="admin-stat-card"><i class="fas fa-users"></i><div class="number" id="adminTotalUsers">০</div><div class="label">মোট ইউজার</div></div><div class="admin-stat-card"><i class="fas fa-tools"></i><div class="number" id="adminTotalProviders">০</div><div class="label">মোট প্রোভাইডার</div></div><div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">০</div><div class="label">মোট অর্ডার</div></div><div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ ০</div><div class="label">মোট আয়</div></div></div><div class="dash-card"><h3 style="font-size:.9rem;">📌 পেন্ডিং প্রোভাইডার</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div><div class="dash-card"><h3 style="font-size:.9rem;">💰 কমিশন রিপোর্ট</h3><div class="dash-stat"><span>মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">০</span></span></div><div class="dash-stat"><span>এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">০</span></span></div><div class="dash-stat"><span>পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">০</span></span></div></div><button class="yellow-btn" onclick="downloadReport()"><i class="fas fa-download"></i> রিপোর্ট ডাউনলোড</button><button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> অ্যাডমিন লগআউট</button></div>
+
+<!-- ============================================================ -->
+<!-- PAGE: ONBOARDING -->
+<!-- ============================================================ -->
+<div id="page-onboarding" class="page active">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:60vh;">
+    <div class="logo"><i class="fas fa-handshake"></i></div>
+    <div><div class="app-name">সেবা বাজার</div><div class="app-tagline">পেশাদার সেবা এক ক্লিকে</div></div>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+    <div style="font-size:.8rem;color:#b89b4b;margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...</div>
+  </div>
 </div>
-<!-- Navigation -->
-<div id="bottom-nav-user"><button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span>হোম</span></button><button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span>অর্ডার</span></button><button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button><button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button></div>
-<div id="bottom-nav-provider"><button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span>ড্যাশবোর্ড</span></button><button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span>বুকিং</span></button><button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button><button class="nav-item" data-page="page-provider-profile" onclick="navigateToProvider('page-provider-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button></div>
+
+<!-- ============================================================ -->
+<!-- PAGE: ROLE SELECTION -->
+<!-- ============================================================ -->
+<div id="page-role" class="page">
+  <div class="app-header" style="justify-content:center;text-align:center;"><h2>👋 স্বাগতম</h2></div>
+  <div class="subhead" style="text-align:center;border-left:none;background:transparent;padding:0;">আপনি কি হিসেবে যুক্ত হবেন?</div>
+  <div class="role-btn" onclick="selectRole('user')"><i class="fas fa-user"></i> ইউজার <span>সেবা নিতে চাই</span></div>
+  <div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-tools"></i> প্রোভাইডার <span>সেবা দিতে চাই</span></div>
+  <div class="text-center text-muted" style="margin-top:16px;"><i class="fas fa-shield-alt"></i> নিরাপদ & বিশ্বস্ত</div>
 </div>
+
+<!-- ============================================================ -->
+<!-- PAGE: USER FORM -->
+<!-- ============================================================ -->
+<div id="page-user-form" class="page">
+  <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> পিছনে</button>
+  <div class="app-header"><h2>📝 আপনার তথ্য</h2></div>
+  <div class="subhead">ইউজার হিসেবে নিবন্ধন</div>
+  <div class="input-group"><label><i class="fas fa-user"></i> আপনার নাম</label><input type="text" id="user-name" placeholder="আপনার নাম"></div>
+  <div class="input-group"><label><i class="fas fa-map-pin"></i> লোকেশন</label><input type="text" id="user-location" placeholder="ঢাকা, মিরপুর"></div>
+  <button class="yellow-btn" onclick="goToPage('page-user-otp')">পরবর্তী <i class="fas fa-arrow-right"></i></button>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: USER OTP -->
+<!-- ============================================================ -->
+<div id="page-user-otp" class="page">
+  <button class="back-link" onclick="goToPage('page-user-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button>
+  <div class="app-header"><h2>📱 মোবাইল নম্বর</h2></div>
+  <div class="subhead">ওটিপি পাঠাতে নম্বর দিন</div>
+  <div class="input-group"><label><i class="fas fa-phone-alt"></i> মোবাইল নম্বর</label><input type="tel" id="user-phone" placeholder="০১XXXXXXXXX"></div>
+  <button class="yellow-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
+  <div class="otp-row"><input type="text" id="user-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('user')"><i class="fas fa-check"></i> যাচাই</button></div>
+  <div id="userOtpStatus" class="otp-status"></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: USER HOME -->
+<!-- ============================================================ -->
+<div id="page-user-home" class="page">
+  <div class="app-header"><h2>🏠 হোম</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+  <div class="search-bar"><i class="fas fa-search"></i><input type="text" placeholder="কী সার্ভিস খুঁজছেন?" id="userSearchInput"></div>
+  <div class="offer-banner"><h3>🔥 আজকের অফার</h3><p>সকল সার্ভিসে ২০% ডিসকাউন্ট! <span style="background:#1e1e1e;color:#fff;padding:2px 14px;border-radius:40px;font-size:.75rem;">নতুন ইউজার</span></p><div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;"><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">প্লাম্বার</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">ইলেকট্রিশিয়ান</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">এসি টেকনিশিয়ান</span></div></div>
+  <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="userWalletBalance">০</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> রিচার্জ</button></div>
+  <div class="category-grid">
+    <div class="category-item" onclick="openCategory('প্লাম্বার')"><i class="fas fa-wrench"></i> প্লাম্বার</div>
+    <div class="category-item" onclick="openCategory('ইলেকট্রিশিয়ান')"><i class="fas fa-bolt"></i> ইলেকট্রিশিয়ান</div>
+    <div class="category-item" onclick="openCategory('এসি টেকনিশিয়ান')"><i class="fas fa-snowflake"></i> এসি</div>
+    <div class="category-item" onclick="openCategory('ক্লিনার')"><i class="fas fa-broom"></i> ক্লিনার</div>
+    <div class="category-item" onclick="openCategory('কার্পেন্টার')"><i class="fas fa-hammer"></i> কার্পেন্টার</div>
+    <div class="category-item" onclick="openCategory('মেকানিক')"><i class="fas fa-car"></i> মেকানিক</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: USER CATEGORY -->
+<!-- ============================================================ -->
+<div id="page-user-category" class="page">
+  <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> ক্যাটাগরিতে</button>
+  <div class="app-header"><h2 id="category-title">📍 প্লাম্বার</h2></div>
+  <div class="subhead" id="category-sub">আপনার কাছাকাছি প্রোভাইডার</div>
+  <div class="location-input-row"><input type="text" id="userLocationInput" placeholder="আপনার লোকেশন দিন"><button onclick="searchLocation()"><i class="fas fa-search"></i> খুঁজুন</button></div>
+  <div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)">সব</button><button onclick="filterDistance('1',event)">১ কিমি</button><button onclick="filterDistance('3',event)">৩ কিমি</button><button onclick="filterDistance('5',event)">৫ কিমি</button><button onclick="filterDistance('10',event)">১০ কিমি</button></div>
+  <div id="mapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div>
+  <div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="mapLocationText">ঢাকা, বাংলাদেশ</span></div>
+  <div id="provider-list"></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: USER ORDERS -->
+<!-- ============================================================ -->
+<div id="page-user-orders" class="page">
+  <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
+  <div class="app-header"><h2>📋 আমার অর্ডার</h2></div>
+  <div class="subhead">আপনার করা সকল অর্ডার</div>
+  <div id="userOrderList"><div class="loading-spinner"><i class="fas fa-spinner"></i> অর্ডার লোড হচ্ছে...</div></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: USER WALLET -->
+<!-- ============================================================ -->
+<div id="page-user-wallet" class="page">
+  <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
+  <div class="app-header"><h2>💳 ওয়ালেট</h2></div>
+  <div class="subhead">আপনার ট্রানজেকশন হিস্টোরি</div>
+  <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="walletBalanceDisplay">০</span></div></div>
+  <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="rechargeAmount" placeholder="যেমন: ৫০০"></div>
+  <button class="yellow-btn" onclick="rechargeWallet()"><i class="fas fa-plus"></i> রিচার্জ করুন</button>
+  <div class="commission-info"><i class="fas fa-info-circle"></i> <strong>বিঃদ্রঃ</strong> প্রতি বুকিংয়ে <strong>১০%</strong> কমিশন কেটে নেওয়া হবে।</div>
+  <div id="userTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> ট্রানজেকশন লোড হচ্ছে...</div></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: USER PROFILE -->
+<!-- ============================================================ -->
+<div id="page-user-profile" class="page">
+  <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
+  <div class="app-header"><h2>👤 প্রোফাইল</h2></div>
+  <div class="dash-card">
+    <p><i class="fas fa-user"></i> <strong id="profileName">-</strong></p>
+    <p><i class="fas fa-map-pin"></i> <span id="profileLocation">-</span></p>
+    <p><i class="fas fa-phone-alt"></i> <span id="profilePhone">-</span></p>
+    <p><i class="fas fa-wallet"></i> ব্যালেন্স: ৳ <span id="profileWallet">০</span></p>
+    <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> রেটিং: ৪.৮ (২৩টি রিভিউ)</p>
+  </div>
+  <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+  <span class="admin-link" onclick="window.location.hash='admin'">🔐 অ্যাডমিন প্যানেল</span>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER FORM -->
+<!-- ============================================================ -->
+<div id="page-provider-form" class="page">
+  <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> রোল নির্বাচন</button>
+  <div class="app-header"><h2>🛠️ প্রোভাইডার তথ্য</h2></div>
+  <div class="subhead">আপনার পেশাগত তথ্য দিন</div>
+  <div class="input-group"><label><i class="fas fa-user"></i> নাম</label><input type="text" id="provider-name" placeholder="করিম মিয়া"></div>
+  <div class="input-group"><label><i class="fas fa-briefcase"></i> কাজ/পেশা</label><input type="text" id="provider-work" placeholder="প্লাম্বার, ইলেকট্রিশিয়ান"></div>
+  <div class="input-group"><label><i class="fas fa-clock"></i> অভিজ্ঞতা (বছর)</label><input type="number" id="provider-experience" placeholder="৫"></div>
+  <div class="input-group"><label><i class="fas fa-id-card"></i> এনআইডি নম্বর</label><input type="text" id="provider-nid" placeholder="এনআইডি"></div>
+  <button class="yellow-btn" onclick="goToPage('page-provider-otp')">পরবর্তী <i class="fas fa-arrow-right"></i></button>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER OTP -->
+<!-- ============================================================ -->
+<div id="page-provider-otp" class="page">
+  <button class="back-link" onclick="goToPage('page-provider-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button>
+  <div class="app-header"><h2>📱 প্রোভাইডার নম্বর</h2></div>
+  <div class="subhead">ওটিপি যাচাই</div>
+  <div class="input-group"><label><i class="fas fa-phone-alt"></i> মোবাইল</label><input type="tel" id="provider-phone" placeholder="০১XXXXXXXXX"></div>
+  <button class="yellow-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
+  <div class="otp-row"><input type="text" id="provider-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> যাচাই</button></div>
+  <div id="providerOtpStatus" class="otp-status"></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER HOME -->
+<!-- ============================================================ -->
+<div id="page-provider-home" class="page">
+  <div class="app-header"><h2>📊 ড্যাশবোর্ড</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+  <div class="subhead">স্বাগতম, <span id="providerNameDisplay">-</span></div>
+  <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="providerWalletBalance">০</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> তুলুন</button></div>
+  <div class="dash-card">
+    <div class="dash-stat"><span>📌 কাজের ক্যাটাগরি</span> <span class="wallet-badge" id="providerCategory">-</span></div>
+    <div class="dash-stat"><span>⭐ রেটিং</span> <span>৪.৯ (৪২ রিভিউ)</span></div>
+    <div class="dash-stat"><span>📦 সম্পূর্ণ অর্ডার</span> <span id="providerTotalOrders">০টি</span></div>
+    <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">০</span></span></div>
+  </div>
+  <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#2d2a1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER ORDERS -->
+<!-- ============================================================ -->
+<div id="page-provider-orders" class="page">
+  <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
+  <div class="app-header"><h2>📋 বুকিং রিকোয়েস্ট</h2></div>
+  <div class="subhead">আপনার কাছে আসা বুকিং অনুরোধ</div>
+  <div id="providerBookingList"><div class="loading-spinner"><i class="fas fa-spinner"></i> বুকিং লোড হচ্ছে...</div></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER WALLET -->
+<!-- ============================================================ -->
+<div id="page-provider-wallet" class="page">
+  <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
+  <div class="app-header"><h2>💳 ওয়ালেট</h2></div>
+  <div class="subhead">আপনার আয়-ব্যয়ের হিস্টোরি</div>
+  <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="providerWalletDisplay">০</span></div></div>
+  <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="withdrawAmount" placeholder="যেমন: ৫০০"></div>
+  <button class="yellow-btn" onclick="withdrawMoney()"><i class="fas fa-arrow-up"></i> টাকা তুলুন</button>
+  <div id="providerTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> ট্রানজেকশন লোড হচ্ছে...</div></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER PROFILE -->
+<!-- ============================================================ -->
+<div id="page-provider-profile" class="page">
+  <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
+  <div class="app-header"><h2>👨‍🔧 প্রোফাইল</h2></div>
+  <div class="dash-card">
+    <p><i class="fas fa-user"></i> <strong id="providerProfileName">-</strong></p>
+    <p><i class="fas fa-briefcase"></i> <span id="providerProfileWork">-</span> (<span id="providerProfileExp">-</span> বছর)</p>
+    <p><i class="fas fa-id-card"></i> এনআইডি: <span id="providerProfileNid">-</span></p>
+    <p><i class="fas fa-phone-alt"></i> <span id="providerProfilePhone">-</span></p>
+    <p><i class="fas fa-wallet"></i> ব্যালেন্স: ৳ <span id="providerProfileWallet">০</span></p>
+    <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> রেটিং: ৪.৯ (৪২টি রিভিউ)</p>
+    <p><i class="fas fa-check-circle" style="color:#4CAF50;"></i> মোট অর্ডার: <span id="providerProfileOrders">০</span>টি</p>
+  </div>
+  <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
+  <span class="admin-link" onclick="window.location.hash='admin'">🔐 অ্যাডমিন প্যানেল</span>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: ADMIN LOGIN -->
+<!-- ============================================================ -->
+<div id="page-admin-login" class="page">
+  <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
+  <div class="app-header"><h2>🔐 অ্যাডমিন অ্যাক্সেস</h2></div>
+  <div class="subhead">শুধুমাত্র অ্যাপ ওনারের জন্য</div>
+  <div class="admin-lock"><input type="password" id="adminPassword" placeholder="সিক্রেট পাসওয়ার্ড দিন" /><button class="yellow-btn" onclick="verifyAdmin()">প্রবেশ করুন <i class="fas fa-arrow-right"></i></button><div style="margin-top:8px;font-size:.8rem;color:#e53935;" id="adminError"></div></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE: ADMIN DASHBOARD -->
+<!-- ============================================================ -->
+<div id="page-admin-dashboard" class="page">
+  <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
+  <div class="app-header"><h2>📊 অ্যাডমিন</h2></div>
+  <div class="subhead">আপনার অ্যাপের সারাংশ</div>
+  <div class="admin-stats-grid">
+    <div class="admin-stat-card"><i class="fas fa-users"></i><div class="number" id="adminTotalUsers">০</div><div class="label">মোট ইউজার</div></div>
+    <div class="admin-stat-card"><i class="fas fa-tools"></i><div class="number" id="adminTotalProviders">০</div><div class="label">মোট প্রোভাইডার</div></div>
+    <div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">০</div><div class="label">মোট অর্ডার</div></div>
+    <div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ ০</div><div class="label">মোট আয়</div></div>
+  </div>
+  <div class="dash-card"><h3 style="font-size:.9rem;">📌 পেন্ডিং প্রোভাইডার</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div>
+  <div class="dash-card"><h3 style="font-size:.9rem;">💰 কমিশন রিপোর্ট</h3><div class="dash-stat"><span>মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">০</span></span></div><div class="dash-stat"><span>এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">০</span></span></div><div class="dash-stat"><span>পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">০</span></span></div></div>
+  <button class="yellow-btn" onclick="downloadReport()"><i class="fas fa-download"></i> রিপোর্ট ডাউনলোড</button>
+  <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> অ্যাডমিন লগআউট</button>
+</div>
+
+</div><!-- /app-content -->
+
+<!-- ============================================================ -->
+<!-- NAVIGATION BARS -->
+<!-- ============================================================ -->
+<!-- User Navigation -->
+<div id="bottom-nav-user">
+  <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span>হোম</span></button>
+  <button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span>অর্ডার</span></button>
+  <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
+  <button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
+</div>
+<!-- Provider Navigation -->
+<div id="bottom-nav-provider">
+  <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span>ড্যাশবোর্ড</span></button>
+  <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span>বুকিং</span></button>
+  <button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
+  <button class="nav-item" data-page="page-provider-profile" onclick="navigateToProvider('page-provider-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
+</div>
+
+</div><!-- /app-wrapper -->
 
 <script>
 // ============================================================
@@ -199,7 +499,7 @@ if (typeof firebase !== 'undefined') {
   const db = firebase.firestore();
   db.settings({ merge: true });
 
-  console.log('✅ Firebase initialized successfully!');
+  console.log('✅ Firebase initialized!');
 
   // ============================================================
   //  APP STATE
@@ -211,7 +511,7 @@ if (typeof firebase !== 'undefined') {
   const otpStore = new Map();
 
   // ============================================================
-  //  TOAST & NAVIGATION
+  //  TOAST
   // ============================================================
   function showToast(msg, type = 'success') {
     const t = document.getElementById('toast');
@@ -222,6 +522,9 @@ if (typeof firebase !== 'undefined') {
     t._timeout = setTimeout(() => t.classList.remove('show'), 3000);
   }
 
+  // ============================================================
+  //  NAVIGATION
+  // ============================================================
   function goToPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const el = document.getElementById(id);
@@ -236,6 +539,16 @@ if (typeof firebase !== 'undefined') {
     });
   }
 
+  function navigateTo(pageId) {
+    if (isLoggedIn && currentUserRole === 'user') goToPage(pageId);
+    else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
+  }
+
+  function navigateToProvider(pageId) {
+    if (isLoggedIn && currentUserRole === 'provider') goToPage(pageId);
+    else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
+  }
+
   // ============================================================
   //  ROLE SELECTION
   // ============================================================
@@ -245,7 +558,7 @@ if (typeof firebase !== 'undefined') {
   };
 
   // ============================================================
-  //  OTP SYSTEM (ডেমো - Firebase Phone Auth এর জন্য)
+  //  OTP SYSTEM
   // ============================================================
   window.sendOTP = function(role) {
     const phoneInput = role === 'user' ? document.getElementById('user-phone') : document.getElementById('provider-phone');
@@ -263,53 +576,19 @@ if (typeof firebase !== 'undefined') {
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
     
-    // ডেমো OTP (Firebase Phone Auth এর জন্য)
     const otpCode = String(Math.floor(1000 + Math.random() * 9000));
     otpStore.set(cleaned, otpCode);
     console.log('📱 OTP for ' + cleaned + ': ' + otpCode);
     
-    // Firebase Phone Auth এ OTP পাঠানোর চেষ্টা (যদি রিয়েল হয়)
-    try {
-      // Firebase Phone Auth
-      const phoneNumber = '+88' + cleaned;
-      const appVerifier = new firebase.auth.RecaptchaVerifier('userSendOtpBtn', {
-        size: 'invisible'
-      });
-      
-      auth.signInWithPhoneNumber(phoneNumber, appVerifier)
-        .then(function(confirmationResult) {
-          window.confirmationResult = confirmationResult;
-          statusDiv.textContent = '✅ OTP পাঠানো হয়েছে! আপনার ফোন চেক করুন।';
-          statusDiv.className = 'otp-status success';
-          showToast('OTP পাঠানো হয়েছে!', 'success');
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fas fa-sms"></i> ওটিপি পাঠান';
-        })
-        .catch(function(error) {
-          console.error('Phone Auth Error:', error);
-          // ফেলব্যাক: ডেমো OTP দেখান
-          statusDiv.textContent = '✅ ডেমো OTP: ' + otpCode + ' (Firebase Auth Error: ' + error.message + ')';
-          statusDiv.className = 'otp-status success';
-          showToast('ডেমো OTP: ' + otpCode, 'warning');
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fas fa-sms"></i> ওটিপি পাঠান';
-        });
-    } catch(e) {
-      // ফেলব্যাক: ডেমো OTP
-      statusDiv.textContent = '✅ ডেমো OTP: ' + otpCode;
-      statusDiv.className = 'otp-status success';
-      showToast('ডেমো OTP: ' + otpCode, 'warning');
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-sms"></i> ওটিপি পাঠান';
-    }
+    statusDiv.textContent = '✅ OTP পাঠানো হয়েছে! (ডেমো OTP: ' + otpCode + ')';
+    statusDiv.className = 'otp-status success';
+    showToast('OTP পাঠানো হয়েছে!', 'success');
     
-    // OTP ইনপুটে ডেমো OTP সেট করুন
     const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
-    if (otpInput) {
-      setTimeout(() => {
-        otpInput.value = otpCode;
-      }, 1000);
-    }
+    if (otpInput) { setTimeout(() => { otpInput.value = otpCode; }, 500); }
+    
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sms"></i> ওটিপি পাঠান';
   };
 
   window.verifyOTP = function(role) {
@@ -330,140 +609,133 @@ if (typeof firebase !== 'undefined') {
       return;
     }
     
-    // প্রথমে Firebase Phone Auth চেক করুন
-    if (window.confirmationResult) {
-      window.confirmationResult.confirm(otp)
-        .then(function(result) {
-          // সফল লগইন
-          const user = result.user;
-          handleSuccessfulLogin(user.uid, role, phone);
-        })
-        .catch(function(error) {
-          console.error('OTP Confirm Error:', error);
-          // ডেমো OTP চেক
-          const savedOtp = otpStore.get(phone);
-          if (savedOtp && savedOtp === otp) {
-            handleSuccessfulLogin('demo_' + Date.now(), role, phone);
-          } else {
-            statusDiv.textContent = '❌ ভুল OTP! আবার চেষ্টা করুন।';
-            statusDiv.className = 'otp-status error';
-            showToast('ভুল OTP!', 'error');
-          }
-        });
-    } else {
-      // ডেমো OTP চেক
-      const savedOtp = otpStore.get(phone);
-      if (savedOtp && savedOtp === otp) {
-        handleSuccessfulLogin('demo_' + Date.now(), role, phone);
+    const savedOtp = otpStore.get(phone);
+    if (savedOtp && savedOtp === otp) {
+      statusDiv.textContent = '✅ লগইন সফল!';
+      statusDiv.className = 'otp-status success';
+      showToast('স্বাগতম!', 'success');
+      otpStore.delete(phone);
+      isLoggedIn = true;
+
+      if (role === 'user') {
+        registerUser(phone);
       } else {
-        statusDiv.textContent = '❌ ভুল OTP! আবার চেষ্টা করুন।';
-        statusDiv.className = 'otp-status error';
-        showToast('ভুল OTP!', 'error');
+        registerProvider(phone);
       }
+    } else {
+      statusDiv.textContent = '❌ ভুল OTP! আবার চেষ্টা করুন।';
+      statusDiv.className = 'otp-status error';
+      showToast('❌ ভুল OTP!', 'error');
     }
   };
 
   // ============================================================
-  //  SUCCESSFUL LOGIN HANDLER
+  //  REGISTER USER
   // ============================================================
-  async function handleSuccessfulLogin(uid, role, phone) {
-    const statusDiv = role === 'user' ? document.getElementById('userOtpStatus') : document.getElementById('providerOtpStatus');
-    
-    statusDiv.textContent = '✅ লগইন সফল!';
-    statusDiv.className = 'otp-status success';
-    showToast('স্বাগতম!', 'success');
-    
-    isLoggedIn = true;
-    currentUserId = uid;
+  async function registerUser(phone) {
+    const name = document.getElementById('user-name').value.trim() || 'ইউজার';
+    const location = document.getElementById('user-location').value.trim() || 'ঢাকা';
     
     try {
-      // Firestore এ ইউজার চেক করুন
-      const userDoc = await db.collection('users').doc(uid).get();
-      
-      if (role === 'user') {
-        const name = document.getElementById('user-name').value.trim() || 'ইউজার';
-        const location = document.getElementById('user-location').value.trim() || 'ঢাকা';
-        
-        if (!userDoc.exists) {
-          // নতুন ইউজার - Firestore এ সেভ করুন
-          await db.collection('users').doc(uid).set({
-            uid: uid,
-            name: name,
-            location: location,
-            phone: phone,
-            wallet: 0,
-            role: 'user',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-        }
-        
-        // ডাটা লোড করুন
-        const doc = await db.collection('users').doc(uid).get();
-        currentUserData = doc.data();
-        currentUserData.uid = uid;
-        
-        updateUserUI(currentUserData);
-        document.getElementById('bottom-nav-user').classList.add('show');
-        document.getElementById('bottom-nav-provider').classList.remove('show');
-        goToPage('page-user-home');
-        updateNav('page-user-home');
-        
-      } else {
-        const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
-        const work = document.getElementById('provider-work').value.trim() || 'পেশা';
-        const experience = parseInt(document.getElementById('provider-experience').value) || 0;
-        const nid = document.getElementById('provider-nid').value.trim() || '';
-        
-        if (!userDoc.exists) {
-          // নতুন প্রোভাইডার - Firestore এ সেভ করুন
-          await db.collection('providers').doc(uid).set({
-            uid: uid,
-            name: name,
-            work: work,
-            experience: experience,
-            nid: nid,
-            phone: phone,
-            wallet: 0,
-            role: 'provider',
-            status: 'pending',
-            rating: 0,
-            totalOrders: 0,
-            location: 'ঢাকা, মিরপুর',
-            lat: 23.735,
-            lng: 90.380,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-          
-          // users কালেকশনেও যোগ করুন
-          await db.collection('users').doc(uid).set({
-            uid: uid,
-            name: name,
-            phone: phone,
-            role: 'provider',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
-        }
-        
-        // ডাটা লোড করুন
-        const doc = await db.collection('providers').doc(uid).get();
-        currentUserData = doc.data();
-        currentUserData.uid = uid;
-        
-        updateProviderUI(currentUserData);
-        document.getElementById('bottom-nav-provider').classList.add('show');
-        document.getElementById('bottom-nav-user').classList.remove('show');
-        goToPage('page-provider-home');
-        updateNav('page-provider-home');
-        setTimeout(() => initProviderMap(23.735, 90.380), 500);
+      // Firebase Auth এ সাইন ইন (ডেমো)
+      const credential = firebase.auth.PhoneAuthProvider.credential('+88' + phone, '123456');
+      let userCredential;
+      try {
+        userCredential = await auth.signInWithCredential(credential);
+      } catch(e) {
+        // যদি ইউজার না থাকে, নতুন তৈরি করুন
+        userCredential = await auth.signInWithCredential(credential);
       }
+      const uid = userCredential.user.uid;
       
-      // localStorage এ সেভ করুন (সেশন রিটেইনের জন্য)
-      localStorage.setItem('user_data', JSON.stringify(currentUserData));
-      localStorage.setItem('user_id', uid);
+      // Firestore এ ইউজার সেভ করুন
+      await db.collection('users').doc(uid).set({
+        uid: uid,
+        name: name,
+        location: location,
+        phone: phone,
+        wallet: 0,
+        role: 'user',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
       
+      currentUserId = uid;
+      const doc = await db.collection('users').doc(uid).get();
+      currentUserData = doc.data();
+      currentUserData.uid = uid;
+      
+      updateUserUI(currentUserData);
+      document.getElementById('bottom-nav-user').classList.add('show');
+      document.getElementById('bottom-nav-provider').classList.remove('show');
+      goToPage('page-user-home');
+      updateNav('page-user-home');
+      showToast('রেজিস্ট্রেশন সফল!', 'success');
     } catch (error) {
-      console.error('Firestore Error:', error);
-      showToast('ডাটা সেভ করতে সমস্যা হয়েছে', 'error');
+      console.error('রেজিস্ট্রেশন ত্রুটি:', error);
+      showToast('রেজিস্ট্রেশন ব্যর্থ: ' + error.message, 'error');
+    }
+  }
+
+  // ============================================================
+  //  REGISTER PROVIDER
+  // ============================================================
+  async function registerProvider(phone) {
+    const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
+    const work = document.getElementById('provider-work').value.trim() || 'পেশা';
+    const experience = parseInt(document.getElementById('provider-experience').value) || 0;
+    const nid = document.getElementById('provider-nid').value.trim() || '';
+    
+    try {
+      const credential = firebase.auth.PhoneAuthProvider.credential('+88' + phone, '123456');
+      let userCredential;
+      try {
+        userCredential = await auth.signInWithCredential(credential);
+      } catch(e) {
+        userCredential = await auth.signInWithCredential(credential);
+      }
+      const uid = userCredential.user.uid;
+      
+      await db.collection('providers').doc(uid).set({
+        uid: uid,
+        name: name,
+        work: work,
+        experience: experience,
+        nid: nid,
+        phone: phone,
+        wallet: 0,
+        role: 'provider',
+        status: 'pending',
+        rating: 0,
+        totalOrders: 0,
+        location: 'ঢাকা, মিরপুর',
+        lat: 23.735,
+        lng: 90.380,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+      
+      await db.collection('users').doc(uid).set({
+        uid: uid,
+        name: name,
+        phone: phone,
+        role: 'provider',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+      
+      currentUserId = uid;
+      const doc = await db.collection('providers').doc(uid).get();
+      currentUserData = doc.data();
+      currentUserData.uid = uid;
+      
+      updateProviderUI(currentUserData);
+      document.getElementById('bottom-nav-provider').classList.add('show');
+      document.getElementById('bottom-nav-user').classList.remove('show');
+      goToPage('page-provider-home');
+      updateNav('page-provider-home');
+      setTimeout(() => initProviderMap(23.735, 90.380), 500);
+      showToast('প্রোভাইডার রেজিস্ট্রেশন সফল! অনুমোদনের অপেক্ষায়', 'success');
+    } catch (error) {
+      console.error('প্রোভাইডার রেজিস্ট্রেশন ত্রুটি:', error);
+      showToast('রেজিস্ট্রেশন ব্যর্থ: ' + error.message, 'error');
     }
   }
 
@@ -491,35 +763,10 @@ if (typeof firebase !== 'undefined') {
     document.getElementById('providerWalletBalance').textContent = (data.wallet || 0).toLocaleString();
     document.getElementById('providerWalletDisplay').textContent = (data.wallet || 0).toLocaleString();
     document.getElementById('providerWalletStat').textContent = (data.wallet || 0).toLocaleString();
-    
-    // স্ট্যাটাস আপডেট
-    const statusEl = document.getElementById('providerStatus');
-    if (data.status === 'approved') {
-      statusEl.textContent = '✅ অনুমোদিত';
-      statusEl.style.color = '#2e7d32';
-    } else if (data.status === 'pending') {
-      statusEl.textContent = '⏳ অনুমোদনের অপেক্ষায়';
-      statusEl.style.color = '#e65100';
-    } else {
-      statusEl.textContent = '❌ প্রত্যাখ্যান';
-      statusEl.style.color = '#c62828';
-    }
   }
 
   // ============================================================
-  //  NAVIGATION WRAPPERS
-  // ============================================================
-  window.navigateTo = function(page) {
-    if (isLoggedIn && currentUserRole === 'user') goToPage(page);
-    else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
-  };
-  window.navigateToProvider = function(page) {
-    if (isLoggedIn && currentUserRole === 'provider') goToPage(page);
-    else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
-  };
-
-  // ============================================================
-  //  WALLET (Firestore সংযুক্ত)
+  //  WALLET
   // ============================================================
   window.rechargeWallet = async function() {
     if (!isLoggedIn || currentUserRole !== 'user') {
@@ -539,18 +786,13 @@ if (typeof firebase !== 'undefined') {
         const currentWallet = doc.data().wallet || 0;
         transaction.update(userRef, { wallet: currentWallet + amount });
       });
-      
-      // আপডেটেড ডাটা লোড
       const doc = await db.collection('users').doc(currentUserId).get();
       currentUserData = doc.data();
       currentUserData.uid = currentUserId;
       updateUserUI(currentUserData);
-      localStorage.setItem('user_data', JSON.stringify(currentUserData));
-      
       showToast('✅ ' + amount + ' টাকা রিচার্জ হয়েছে!', 'success');
     } catch (error) {
-      console.error('রিচার্জ ত্রুটি:', error);
-      showToast('❌ রিচার্জ করতে সমস্যা হয়েছে', 'error');
+      showToast('❌ রিচার্জ ব্যর্থ', 'error');
     }
   };
 
@@ -573,17 +815,13 @@ if (typeof firebase !== 'undefined') {
         if (amount > currentWallet) throw new Error('পর্যাপ্ত টাকা নেই!');
         transaction.update(providerRef, { wallet: currentWallet - amount });
       });
-      
       const doc = await db.collection('providers').doc(currentUserId).get();
       currentUserData = doc.data();
       currentUserData.uid = currentUserId;
       updateProviderUI(currentUserData);
-      localStorage.setItem('user_data', JSON.stringify(currentUserData));
-      
       showToast('✅ ' + amount + ' টাকা উইথড্র করা হয়েছে!', 'success');
     } catch (error) {
-      console.error('উইথড্র ত্রুটি:', error);
-      showToast('❌ উইথড্র করতে সমস্যা হয়েছে: ' + error.message, 'error');
+      showToast('❌ উইথড্র ব্যর্থ: ' + error.message, 'error');
     }
   };
 
@@ -596,8 +834,6 @@ if (typeof firebase !== 'undefined') {
       currentUserRole = null;
       currentUserId = null;
       currentUserData = null;
-      localStorage.removeItem('user_data');
-      localStorage.removeItem('user_id');
       document.getElementById('bottom-nav-user').classList.remove('show');
       document.getElementById('bottom-nav-provider').classList.remove('show');
       goToPage('page-role');
@@ -606,7 +842,7 @@ if (typeof firebase !== 'undefined') {
   };
 
   // ============================================================
-  //  ADMIN (Firestore সংযুক্ত)
+  //  ADMIN
   // ============================================================
   window.verifyAdmin = function() {
     const password = document.getElementById('adminPassword').value;
@@ -615,8 +851,53 @@ if (typeof firebase !== 'undefined') {
       document.getElementById('adminError').textContent = '';
       loadAdminDashboard();
     } else {
-      document.getElementById('adminError').textContent = '❌ ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।';
+      document.getElementById('adminError').textContent = '❌ ভুল পাসওয়ার্ড!';
     }
+  };
+
+  async function loadAdminDashboard() {
+    try {
+      const usersSnap = await db.collection('users').get();
+      document.getElementById('adminTotalUsers').textContent = usersSnap.size;
+      
+      const providersSnap = await db.collection('providers').get();
+      document.getElementById('adminTotalProviders').textContent = providersSnap.size;
+      
+      const bookingsSnap = await db.collection('bookings').get();
+      document.getElementById('adminTotalOrders').textContent = bookingsSnap.size;
+      
+      const pendingSnap = await db.collection('providers').where('status', '==', 'pending').get();
+      const container = document.getElementById('adminPendingProviders');
+      if (pendingSnap.empty) {
+        container.innerHTML = '<div style="text-align:center;padding:10px;color:#5e5a4a;"><i class="fas fa-check-circle" style="color:#4CAF50;"></i> কোনো পেন্ডিং প্রোভাইডার নেই</div>';
+      } else {
+        let html = '';
+        pendingSnap.forEach(doc => {
+          const data = doc.data();
+          html += `<div class="admin-user-item"><div class="info">${data.name || 'নাম নেই'} <span style="font-size:0.6rem;color:#5e5a4a;">(${data.work || 'পেশা'})</span></div><div class="admin-actions"><button onclick="approveProvider('${doc.id}')"><i class="fas fa-check"></i></button><button class="danger" onclick="rejectProvider('${doc.id}')"><i class="fas fa-times"></i></button></div></div>`;
+        });
+        container.innerHTML = html;
+      }
+    } catch(e) {
+      console.error('Admin load error:', e);
+    }
+  }
+
+  window.approveProvider = async function(id) {
+    try {
+      await db.collection('providers').doc(id).update({ status: 'approved' });
+      showToast('✅ প্রোভাইডার অনুমোদন করা হয়েছে!', 'success');
+      loadAdminDashboard();
+    } catch(e) { showToast('❌ অনুমোদন ব্যর্থ', 'error'); }
+  };
+
+  window.rejectProvider = async function(id) {
+    if (!confirm('রিজেক্ট করবেন?')) return;
+    try {
+      await db.collection('providers').doc(id).update({ status: 'rejected' });
+      showToast('❌ প্রোভাইডার রিজেক্ট করা হয়েছে', 'error');
+      loadAdminDashboard();
+    } catch(e) { showToast('❌ রিজেক্ট ব্যর্থ', 'error'); }
   };
 
   window.logoutAdmin = function() {
@@ -630,92 +911,11 @@ if (typeof firebase !== 'undefined') {
     showToast('📄 রিপোর্ট ডাউনলোড (ডেমো)', 'success');
   };
 
-  async function loadAdminDashboard() {
-    try {
-      // ইউজার কাউন্ট
-      const usersSnap = await db.collection('users').get();
-      document.getElementById('adminTotalUsers').textContent = usersSnap.size;
-      
-      // প্রোভাইডার কাউন্ট
-      const providersSnap = await db.collection('providers').get();
-      document.getElementById('adminTotalProviders').textContent = providersSnap.size;
-      
-      // অর্ডার কাউন্ট (bookings)
-      const bookingsSnap = await db.collection('bookings').get();
-      document.getElementById('adminTotalOrders').textContent = bookingsSnap.size;
-      
-      // পেন্ডিং প্রোভাইডার
-      const pendingSnap = await db.collection('providers').where('status', '==', 'pending').get();
-      const container = document.getElementById('adminPendingProviders');
-      
-      if (pendingSnap.empty) {
-        container.innerHTML = '<div style="text-align:center;padding:10px;color:#5e5a4a;"><i class="fas fa-check-circle" style="color:#4CAF50;"></i> কোনো পেন্ডিং প্রোভাইডার নেই</div>';
-      } else {
-        let html = '';
-        pendingSnap.forEach(doc => {
-          const data = doc.data();
-          html += `
-            <div class="admin-user-item">
-              <div class="info">${data.name || 'নাম নেই'} <span style="font-size:0.6rem;color:#5e5a4a;">(${data.work || 'পেশা'})</span></div>
-              <div class="admin-actions">
-                <button onclick="approveProvider('${doc.id}')"><i class="fas fa-check"></i></button>
-                <button class="danger" onclick="rejectProvider('${doc.id}')"><i class="fas fa-times"></i></button>
-              </div>
-            </div>
-          `;
-        });
-        container.innerHTML = html;
-      }
-      
-      // কমিশন রিপোর্ট (ডেমো)
-      document.getElementById('adminTotalCommission').textContent = '২,৫৪০';
-      document.getElementById('adminMonthlyCommission').textContent = '৪৫০';
-      document.getElementById('adminPendingPayment').textContent = '৩২০';
-      document.getElementById('adminTotalRevenue').textContent = '৳ ২৫,৪০০';
-      
-    } catch (error) {
-      console.error('অ্যাডমিন ড্যাশবোর্ড লোড ত্রুটি:', error);
-      showToast('অ্যাডমিন ডাটা লোড করতে সমস্যা হয়েছে', 'error');
-    }
-  }
-
-  // প্রোভাইডার অনুমোদন
-  window.approveProvider = async function(providerId) {
-    try {
-      await db.collection('providers').doc(providerId).update({
-        status: 'approved',
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      showToast('✅ প্রোভাইডার অনুমোদন করা হয়েছে!', 'success');
-      loadAdminDashboard();
-    } catch (error) {
-      console.error('অনুমোদন ত্রুটি:', error);
-      showToast('❌ অনুমোদন করতে সমস্যা হয়েছে', 'error');
-    }
-  };
-
-  window.rejectProvider = async function(providerId) {
-    if (!confirm('আপনি কি এই প্রোভাইডারকে রিজেক্ট করতে চান?')) return;
-    try {
-      await db.collection('providers').doc(providerId).update({
-        status: 'rejected',
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
-      showToast('❌ প্রোভাইডার রিজেক্ট করা হয়েছে', 'error');
-      loadAdminDashboard();
-    } catch (error) {
-      console.error('রিজেক্ট ত্রুটি:', error);
-      showToast('❌ রিজেক্ট করতে সমস্যা হয়েছে', 'error');
-    }
-  };
-
   // ============================================================
-  //  MAP & CATEGORY
+  //  MAP & CATEGORY (ডেমো)
   // ============================================================
-  let userMap = null, providerMap = null;
-  let currentProviders = [], mapMarkers = [];
-  let currentCategory = 'প্লাম্বার', currentFilter = 'all';
-  let userLat = 23.735, userLng = 90.380;
+  let userMap = null, providerMap = null, mapMarkers = [], currentProviders = [];
+  let currentCategory = 'প্লাম্বার', currentFilter = 'all', userLat = 23.735, userLng = 90.380;
 
   function initFreeMap(lat, lng) {
     const container = document.getElementById('mapContainer');
@@ -810,7 +1010,6 @@ if (typeof firebase !== 'undefined') {
     document.getElementById('category-title').textContent = '📍 ' + cat;
     document.getElementById('category-sub').textContent = 'আপনার কাছাকাছি ' + cat + ' প্রোভাইডার';
     
-    // Firestore থেকে প্রোভাইডার লোড
     loadProvidersFromFirebase(cat);
   };
 
@@ -831,13 +1030,11 @@ if (typeof firebase !== 'undefined') {
       
       const colors = ['#f7c948', '#ff9800', '#e91e63', '#2196F3', '#4CAF50', '#9C27B0'];
       currentProviders = [];
-      
       providersSnap.forEach((doc, index) => {
         const data = doc.data();
         const lat = 23.735 + (Math.random() - 0.5) * 0.1;
         const lng = 90.380 + (Math.random() - 0.5) * 0.1;
         const distance = (Math.random() * 5 + 0.2).toFixed(1);
-        
         currentProviders.push({
           id: doc.id,
           name: data.name || 'প্রোভাইডার',
@@ -850,14 +1047,11 @@ if (typeof firebase !== 'undefined') {
           lng: lng
         });
       });
-      
       updateProviderList();
       goToPage('page-user-category');
       setTimeout(() => initFreeMap(userLat, userLng), 500);
-      
-    } catch (error) {
-      console.error('প্রোভাইডার লোড ত্রুটি:', error);
-      showToast('❌ প্রোভাইডার লোড করতে সমস্যা হয়েছে', 'error');
+    } catch(e) {
+      showToast('প্রোভাইডার লোড করতে সমস্যা হয়েছে', 'error');
     }
   }
 
@@ -891,16 +1085,12 @@ if (typeof firebase !== 'undefined') {
 
   window.bookProvider = async function(providerId, category, name) {
     if (!isLoggedIn || currentUserRole !== 'user') {
-      showToast('⚠️ দয়া করে ইউজার হিসেবে লগইন করুন!', 'error');
+      showToast('⚠️ ইউজার লগইন করুন!', 'error');
       return;
     }
-    
     try {
-      // ইউজার ডাটা নিন
       const userDoc = await db.collection('users').doc(currentUserId).get();
       const userData = userDoc.data();
-      
-      // বুকিং তৈরি করুন
       await db.collection('bookings').add({
         userId: currentUserId,
         providerId: providerId,
@@ -910,41 +1100,18 @@ if (typeof firebase !== 'undefined') {
         location: userData.location || 'অজানা',
         date: new Date().toLocaleDateString('bn-BD') + ' · ' + new Date().toLocaleTimeString('bn-BD', {hour:'2-digit', minute:'2-digit'}),
         status: 'pending',
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-      
       showToast('✅ ' + name + ' কে বুকিং করা হয়েছে!', 'success');
-      
-    } catch (error) {
-      console.error('বুকিং ত্রুটি:', error);
-      showToast('❌ বুকিং করতে সমস্যা হয়েছে', 'error');
+    } catch(e) {
+      showToast('❌ বুকিং ব্যর্থ', 'error');
     }
   };
-
-  // ============================================================
-  //  HASH ROUTING (Admin)
-  // ============================================================
-  function handleHash() {
-    if (window.location.hash === '#admin') {
-      goToPage('page-admin-login');
-    } else {
-      // যদি লগইন থাকে তাহলে হোমে যান
-      if (isLoggedIn && currentUserRole === 'user') {
-        goToPage('page-user-home');
-      } else if (isLoggedIn && currentUserRole === 'provider') {
-        goToPage('page-provider-home');
-      } else {
-        goToPage('page-role');
-      }
-    }
-  }
 
   // ============================================================
   //  ONBOARDING & INIT
   // ============================================================
   function startOnboarding() {
-    document.getElementById('appNameDisplay').textContent = 'সেবা বাজার';
     document.getElementById('page-onboarding').classList.add('active');
     setTimeout(() => {
       document.getElementById('page-onboarding').classList.remove('active');
@@ -961,7 +1128,7 @@ if (typeof firebase !== 'undefined') {
     updateTime();
     setInterval(updateTime, 30000);
 
-    // Auth state check
+    // Auth state
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         try {
@@ -977,88 +1144,58 @@ if (typeof firebase !== 'undefined') {
               currentUserRole = 'user';
               updateUserUI(data);
               document.getElementById('bottom-nav-user').classList.add('show');
-              document.getElementById('bottom-nav-provider').classList.remove('show');
               goToPage('page-user-home');
               updateNav('page-user-home');
             } else if (data.role === 'provider') {
-              // প্রোভাইডার চেক
               const providerDoc = await db.collection('providers').doc(user.uid).get();
               if (providerDoc.exists && providerDoc.data().status === 'approved') {
                 currentUserRole = 'provider';
                 updateProviderUI(providerDoc.data());
                 document.getElementById('bottom-nav-provider').classList.add('show');
-                document.getElementById('bottom-nav-user').classList.remove('show');
                 goToPage('page-provider-home');
                 updateNav('page-provider-home');
                 setTimeout(() => initProviderMap(23.735, 90.380), 500);
               } else {
-                showToast('⏳ আপনার অ্যাকাউন্ট অনুমোদনের অপেক্ষায় রয়েছে', 'warning');
+                showToast('⏳ অনুমোদনের অপেক্ষায়', 'warning');
                 goToPage('page-role');
               }
             }
           } else {
-            // ইউজার ডক নেই
             await auth.signOut();
             goToPage('page-role');
           }
-        } catch (error) {
-          console.error('Auth Check Error:', error);
+        } catch(e) {
+          console.error('Auth error:', e);
           goToPage('page-role');
         }
       } else {
-        // লগইন নেই
-        const savedData = localStorage.getItem('user_data');
-        const savedId = localStorage.getItem('user_id');
-        if (savedData && savedId) {
-          try {
-            const data = JSON.parse(savedData);
-            currentUserId = savedId;
-            currentUserData = data;
-            currentUserData.uid = savedId;
-            isLoggedIn = true;
-            if (data.role === 'user') {
-              currentUserRole = 'user';
-              updateUserUI(data);
-              document.getElementById('bottom-nav-user').classList.add('show');
-              goToPage('page-user-home');
-              updateNav('page-user-home');
-            } else if (data.role === 'provider') {
-              currentUserRole = 'provider';
-              updateProviderUI(data);
-              document.getElementById('bottom-nav-provider').classList.add('show');
-              goToPage('page-provider-home');
-              updateNav('page-provider-home');
-              setTimeout(() => initProviderMap(23.735, 90.380), 500);
-            }
-          } catch(e) {
-            startOnboarding();
-          }
-        } else {
-          startOnboarding();
-        }
+        startOnboarding();
       }
     });
 
-    // Handle hash on load
-    setTimeout(handleHash, 500);
+    // Hash routing
+    if (window.location.hash === '#admin') {
+      setTimeout(() => goToPage('page-admin-login'), 300);
+    }
 
-    // Search
-    document.getElementById('userSearchInput')?.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') showToast('🔍 আপনি খুঁজছেন: "' + this.value + '"', 'success');
-    });
     document.getElementById('adminPassword')?.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') window.verifyAdmin();
     });
   });
 
   window.addEventListener('hashchange', function() {
-    handleHash();
+    if (window.location.hash === '#admin') {
+      goToPage('page-admin-login');
+    } else {
+      if (isLoggedIn && currentUserRole === 'user') goToPage('page-user-home');
+      else if (isLoggedIn && currentUserRole === 'provider') goToPage('page-provider-home');
+    }
   });
 
-  console.log('🚀 সেবা বাজার - সম্পূর্ণ Firebase সংযুক্ত!');
+  console.log('🚀 সেবা বাজার সম্পূর্ণ রেডি!');
   console.log('🔐 অ্যাডমিন পাসওয়ার্ড: admin123');
   console.log('📱 ডেমো OTP: যেকোনো ৪ ডিজিট');
-  console.log('📌 অ্যাডমিন প্যানেল: URL এর শেষে #admin যোগ করুন');
+  console.log('📌 অ্যাডমিন: URL এর শেষে #admin যোগ করুন');
 
 } else {
   document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#fef9e7;color:#c62828;font-size:1.2rem;padding:20px;text-align:center;"><div><i class="fas fa-exclamation-triangle" style="font-size:3rem;"></i><p style="margin-top:16px;">❌ Firebase লোড হয়নি!<br>ইন্টারনেট কানেকশন চেক করুন।</p></div></div>';
