@@ -508,7 +508,6 @@ if (typeof firebase !== 'undefined') {
   let isLoggedIn = false;
   let currentUserId = null;
   let currentUserData = null;
-  const otpStore = new Map();
 
   // ============================================================
   //  TOAST
@@ -558,8 +557,12 @@ if (typeof firebase !== 'undefined') {
   };
 
   // ============================================================
-  //  OTP SYSTEM
+  //  OTP SYSTEM (DEMO ONLY - No Firebase Auth)
   // ============================================================
+  function generateOTP() {
+    return String(Math.floor(1000 + Math.random() * 9000));
+  }
+
   window.sendOTP = function(role) {
     const phoneInput = role === 'user' ? document.getElementById('user-phone') : document.getElementById('provider-phone');
     const statusDiv = role === 'user' ? document.getElementById('userOtpStatus') : document.getElementById('providerOtpStatus');
@@ -576,51 +579,50 @@ if (typeof firebase !== 'undefined') {
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
     
-    const otpCode = String(Math.floor(1000 + Math.random() * 9000));
-    otpStore.set(cleaned, otpCode);
-    console.log('📱 OTP for ' + cleaned + ': ' + otpCode);
+    const otpCode = generateOTP();
+    // Store OTP in a global variable for verification
+    window._demoOTP = otpCode;
+    console.log('📱 DEMO OTP:', otpCode);
     
     statusDiv.textContent = '✅ OTP পাঠানো হয়েছে! (ডেমো OTP: ' + otpCode + ')';
     statusDiv.className = 'otp-status success';
     showToast('OTP পাঠানো হয়েছে!', 'success');
     
     const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
-    if (otpInput) { setTimeout(() => { otpInput.value = otpCode; }, 500); }
+    if (otpInput) { 
+      setTimeout(() => { 
+        otpInput.value = otpCode; 
+        otpInput.focus();
+      }, 500); 
+    }
     
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-sms"></i> ওটিপি পাঠান';
   };
 
   window.verifyOTP = function(role) {
-    const phoneInput = role === 'user' ? document.getElementById('user-phone') : document.getElementById('provider-phone');
     const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
     const statusDiv = role === 'user' ? document.getElementById('userOtpStatus') : document.getElementById('providerOtpStatus');
-    const phone = phoneInput.value.trim().replace(/\D/g, '');
     const otp = otpInput.value.trim();
     
-    if (phone.length < 11) {
-      statusDiv.textContent = '❌ সঠিক মোবাইল নম্বর দিন!';
-      statusDiv.className = 'otp-status error';
-      return;
-    }
     if (!otp || otp.length !== 4) {
       statusDiv.textContent = '❌ ৪ ডিজিটের OTP দিন!';
       statusDiv.className = 'otp-status error';
       return;
     }
     
-    const savedOtp = otpStore.get(phone);
-    if (savedOtp && savedOtp === otp) {
+    // Check against stored demo OTP
+    if (window._demoOTP && window._demoOTP === otp) {
       statusDiv.textContent = '✅ লগইন সফল!';
       statusDiv.className = 'otp-status success';
       showToast('স্বাগতম!', 'success');
-      otpStore.delete(phone);
+      window._demoOTP = null;
       isLoggedIn = true;
 
       if (role === 'user') {
-        registerUser(phone);
+        registerUser();
       } else {
-        registerProvider(phone);
+        registerProvider();
       }
     } else {
       statusDiv.textContent = '❌ ভুল OTP! আবার চেষ্টা করুন।';
@@ -630,25 +632,22 @@ if (typeof firebase !== 'undefined') {
   };
 
   // ============================================================
-  //  REGISTER USER
+  //  GENERATE UNIQUE ID
   // ============================================================
-  async function registerUser(phone) {
+  function generateId() {
+    return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+  }
+
+  // ============================================================
+  //  REGISTER USER (Direct Firestore - No Firebase Auth)
+  // ============================================================
+  async function registerUser() {
     const name = document.getElementById('user-name').value.trim() || 'ইউজার';
     const location = document.getElementById('user-location').value.trim() || 'ঢাকা';
+    const phone = document.getElementById('user-phone').value.trim();
+    const uid = generateId();
     
     try {
-      // Firebase Auth এ সাইন ইন (ডেমো)
-      const credential = firebase.auth.PhoneAuthProvider.credential('+88' + phone, '123456');
-      let userCredential;
-      try {
-        userCredential = await auth.signInWithCredential(credential);
-      } catch(e) {
-        // যদি ইউজার না থাকে, নতুন তৈরি করুন
-        userCredential = await auth.signInWithCredential(credential);
-      }
-      const uid = userCredential.user.uid;
-      
-      // Firestore এ ইউজার সেভ করুন
       await db.collection('users').doc(uid).set({
         uid: uid,
         name: name,
@@ -657,7 +656,7 @@ if (typeof firebase !== 'undefined') {
         wallet: 0,
         role: 'user',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
+      });
       
       currentUserId = uid;
       const doc = await db.collection('users').doc(uid).get();
@@ -677,24 +676,17 @@ if (typeof firebase !== 'undefined') {
   }
 
   // ============================================================
-  //  REGISTER PROVIDER
+  //  REGISTER PROVIDER (Direct Firestore - No Firebase Auth)
   // ============================================================
-  async function registerProvider(phone) {
+  async function registerProvider() {
     const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
     const work = document.getElementById('provider-work').value.trim() || 'পেশা';
     const experience = parseInt(document.getElementById('provider-experience').value) || 0;
     const nid = document.getElementById('provider-nid').value.trim() || '';
+    const phone = document.getElementById('provider-phone').value.trim();
+    const uid = generateId();
     
     try {
-      const credential = firebase.auth.PhoneAuthProvider.credential('+88' + phone, '123456');
-      let userCredential;
-      try {
-        userCredential = await auth.signInWithCredential(credential);
-      } catch(e) {
-        userCredential = await auth.signInWithCredential(credential);
-      }
-      const uid = userCredential.user.uid;
-      
       await db.collection('providers').doc(uid).set({
         uid: uid,
         name: name,
@@ -711,7 +703,7 @@ if (typeof firebase !== 'undefined') {
         lat: 23.735,
         lng: 90.380,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
+      });
       
       await db.collection('users').doc(uid).set({
         uid: uid,
@@ -719,7 +711,7 @@ if (typeof firebase !== 'undefined') {
         phone: phone,
         role: 'provider',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
+      });
       
       currentUserId = uid;
       const doc = await db.collection('providers').doc(uid).get();
@@ -1128,50 +1120,37 @@ if (typeof firebase !== 'undefined') {
     updateTime();
     setInterval(updateTime, 30000);
 
-    // Auth state
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        try {
-          const userDoc = await db.collection('users').doc(user.uid).get();
-          if (userDoc.exists) {
-            const data = userDoc.data();
-            currentUserId = user.uid;
-            currentUserData = data;
-            currentUserData.uid = user.uid;
-            isLoggedIn = true;
-            
-            if (data.role === 'user') {
-              currentUserRole = 'user';
-              updateUserUI(data);
-              document.getElementById('bottom-nav-user').classList.add('show');
-              goToPage('page-user-home');
-              updateNav('page-user-home');
-            } else if (data.role === 'provider') {
-              const providerDoc = await db.collection('providers').doc(user.uid).get();
-              if (providerDoc.exists && providerDoc.data().status === 'approved') {
-                currentUserRole = 'provider';
-                updateProviderUI(providerDoc.data());
-                document.getElementById('bottom-nav-provider').classList.add('show');
-                goToPage('page-provider-home');
-                updateNav('page-provider-home');
-                setTimeout(() => initProviderMap(23.735, 90.380), 500);
-              } else {
-                showToast('⏳ অনুমোদনের অপেক্ষায়', 'warning');
-                goToPage('page-role');
-              }
-            }
-          } else {
-            await auth.signOut();
-            goToPage('page-role');
-          }
-        } catch(e) {
-          console.error('Auth error:', e);
-          goToPage('page-role');
+    // Check if user already logged in via localStorage
+    const savedData = localStorage.getItem('user_data');
+    const savedId = localStorage.getItem('user_id');
+    if (savedData && savedId) {
+      try {
+        const data = JSON.parse(savedData);
+        currentUserId = savedId;
+        currentUserData = data;
+        currentUserData.uid = savedId;
+        isLoggedIn = true;
+        
+        if (data.role === 'user') {
+          currentUserRole = 'user';
+          updateUserUI(data);
+          document.getElementById('bottom-nav-user').classList.add('show');
+          goToPage('page-user-home');
+          updateNav('page-user-home');
+        } else if (data.role === 'provider') {
+          currentUserRole = 'provider';
+          updateProviderUI(data);
+          document.getElementById('bottom-nav-provider').classList.add('show');
+          goToPage('page-provider-home');
+          updateNav('page-provider-home');
+          setTimeout(() => initProviderMap(23.735, 90.380), 500);
         }
-      } else {
+      } catch(e) {
         startOnboarding();
       }
-    });
+    } else {
+      startOnboarding();
+    }
 
     // Hash routing
     if (window.location.hash === '#admin') {
@@ -1192,9 +1171,9 @@ if (typeof firebase !== 'undefined') {
     }
   });
 
-  console.log('🚀 সেবা বাজার সম্পূর্ণ রেডি!');
+  console.log('🚀 সেবা বাজার - DEMO OTP Mode');
   console.log('🔐 অ্যাডমিন পাসওয়ার্ড: admin123');
-  console.log('📱 ডেমো OTP: যেকোনো ৪ ডিজিট');
+  console.log('📱 OTP: যেকোনো ৪ ডিজিট (একই OTP ইনপুটে দিন)');
   console.log('📌 অ্যাডমিন: URL এর শেষে #admin যোগ করুন');
 
 } else {
