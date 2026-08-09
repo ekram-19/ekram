@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>সেবা বাজার</title>
+  <title>ঠিক - সার্ভিস প্ল্যাটফর্ম</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link href="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.css" rel="stylesheet" />
@@ -15,29 +15,24 @@
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
   
   <style>
-    /* ===== BASE STYLES ===== */
     *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif}
     html,body{height:100%;background:#1a1a1a;overflow:hidden}
     #app-wrapper{width:100%;height:100vh;height:100dvh;background:#fef9e7;display:flex;flex-direction:column;position:relative}
     
-    /* ===== STATUS BAR ===== */
     #status-bar{background:#1e1e1e;color:#fff;padding:6px 20px;display:flex;justify-content:space-between;font-size:.7rem;font-weight:600;flex-shrink:0;min-height:30px;z-index:100}
     #status-bar .time{font-weight:700}
     #status-bar .icons{display:flex;gap:6px;align-items:center}
     #status-bar .icons i{font-size:.8rem}
     
-    /* ===== APP CONTENT ===== */
     #app-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:12px 16px 8px;background:#fef9e7;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
     #app-content::-webkit-scrollbar{width:3px}
     #app-content::-webkit-scrollbar-track{background:transparent}
     #app-content::-webkit-scrollbar-thumb{background:#f7c948;border-radius:10px}
     
-    /* ===== PAGES ===== */
     .page{display:none;flex-direction:column;gap:14px;padding-bottom:12px;animation:fadeUp .25s ease}
     .page.active{display:flex}
     @keyframes fadeUp{0%{opacity:.6;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
     
-    /* ===== ONBOARDING ===== */
     #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:20px;gap:20px}
     #page-onboarding.active{display:flex}
     #page-onboarding .logo{font-size:4.5rem;background:#f7c948;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 15px 40px rgba(247,201,72,.3)}
@@ -49,7 +44,6 @@
     #page-onboarding .loading-dots span:nth-child(3){animation-delay:.4s}
     @keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
     
-    /* ===== ROLE SELECTION ===== */
     #page-role{justify-content:center;min-height:70vh;gap:20px}
     #page-role .app-header{justify-content:center;text-align:center}
     #page-role .app-header h2{font-size:2rem}
@@ -61,7 +55,6 @@
     .role-btn i{margin-right:12px;color:#dba32b}
     .role-btn span{display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px}
     
-    /* ===== COMMON COMPONENTS ===== */
     .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2px}
     .app-header h2{font-size:1.5rem;font-weight:800;color:#1e1e1e;letter-spacing:-.5px}
     .app-header .badge{background:#f7c948;padding:4px 14px;border-radius:40px;font-size:.7rem;font-weight:700}
@@ -83,14 +76,12 @@
     .loading-spinner i{color:#f7c948;font-size:1.5rem;animation:spin 1s linear infinite}
     @keyframes spin{100%{transform:rotate(360deg)}}
     
-    /* ===== TOAST ===== */
     .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e1e1e;color:#fff;padding:12px 24px;border-radius:40px;font-weight:600;font-size:.9rem;z-index:9999;display:none;max-width:90%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3)}
     .toast.show{display:block;animation:fadeUp .3s ease}
     .toast.success{background:#2e7d32}
     .toast.error{background:#c62828}
     .toast.warning{background:#e65100}
     
-    /* ===== OTP ===== */
     .otp-status{text-align:center;font-weight:600;margin-top:4px;font-size:.9rem}
     .otp-status.success{color:#2e7d32}
     .otp-status.error{color:#c62828}
@@ -98,7 +89,6 @@
     .otp-row input{flex:2;text-align:center;font-size:1.2rem;letter-spacing:4px}
     .otp-row .yellow-btn{flex:1;padding:14px 6px;font-size:.9rem;width:auto}
     
-    /* ===== HOME ===== */
     .offer-banner{background:linear-gradient(145deg,#f7d44a,#f5b342);border-radius:24px;padding:18px 16px;color:#1e1e1e;box-shadow:0 5px 0 #dba32b}
     .offer-banner h3{font-size:1.3rem;font-weight:800}
     .offer-banner p{font-weight:500;opacity:.85;margin-top:2px}
@@ -110,7 +100,6 @@
     .category-item:active{transform:translateY(3px);box-shadow:0 0 0 #e6d19c}
     .category-item i{display:block;font-size:1.4rem;margin-bottom:2px;color:#dba32b}
     
-    /* ===== WALLET ===== */
     .wallet-box{text-align:center;padding:20px;background:linear-gradient(145deg,#f7c948,#f5b342);border-radius:24px;color:#1e1e1e}
     .wallet-box .amount{font-size:2.2rem;font-weight:800}
     .wallet-box .label{font-size:.85rem;opacity:.8}
@@ -120,7 +109,6 @@
     .wallet-transaction .amount.debit{color:#c62828}
     .commission-info{background:#fff9e6;border-radius:16px;padding:10px 14px;border-left:4px solid #f5b342;font-size:.85rem;color:#5e5a4a}
     
-    /* ===== PROVIDER CARD ===== */
     .provider-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
     .provider-card .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0}
     .provider-card .info{flex:1}
@@ -134,7 +122,6 @@
     .btn-phone-call{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;padding:8px 16px;border-radius:40px;border:0;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
     .btn-book{background:#f7c948;color:#1e1e1e;box-shadow:0 3px 0 #dba32b;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
     
-    /* ===== ORDER & BOOKING ===== */
     .order-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;justify-content:space-between;align-items:center}
     .status-badge{padding:4px 12px;border-radius:40px;font-size:.7rem;font-weight:700}
     .status-badge.pending{background:#ffd54f}
@@ -146,7 +133,6 @@
     .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
     .btn-reject{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
     
-    /* ===== MAP ===== */
     #mapContainer{height:180px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
     #providerMapContainer{height:200px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
     .map-loading{display:flex;align-items:center;justify-content:center;height:100%;color:#5e5a4a;background:#fefcf5;font-size:.8rem;gap:8px}
@@ -162,7 +148,6 @@
     .filter-row button.active{background:#f7c948;border-color:#f7c948;box-shadow:0 3px 0 #dba32b}
     .filter-row button:active{transform:translateY(2px)}
     
-    /* ===== ADMIN ===== */
     .admin-lock{text-align:center;padding:10px 0}
     .admin-lock input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:1rem;outline:0;width:100%;text-align:center}
     .admin-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -175,10 +160,6 @@
     .admin-actions{display:flex;gap:6px}
     .admin-actions button{background:#f7c948;border:0;border-radius:40px;padding:4px 10px;font-weight:600;font-size:.65rem;cursor:pointer}
     .admin-actions button.danger{background:#e53935;color:#fff}
-    
-    /* ========================================================== */
-    /* ===== NAVIGATION BARS - FIXED ===== */
-    /* ========================================================== */
     
     #bottom-nav-user, #bottom-nav-provider {
       background: white;
@@ -195,10 +176,7 @@
       bottom: 0;
       z-index: 1000;
     }
-    
-    #bottom-nav-user.show, #bottom-nav-provider.show {
-      display: flex !important;
-    }
+    #bottom-nav-user.show, #bottom-nav-provider.show { display: flex !important; }
 
     .nav-item {
       display: flex;
@@ -224,7 +202,6 @@
     }
     .nav-item:active { transform: scale(0.95); }
     
-    /* ===== LOGOUT & ADMIN LINK ===== */
     .logout-btn {
       background: #e53935;
       color: #fff;
@@ -265,7 +242,7 @@
 <div id="page-onboarding" class="page active">
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:60vh;">
     <div class="logo"><i class="fas fa-handshake"></i></div>
-    <div><div class="app-name">সেবা বাজার</div><div class="app-tagline">পেশাদার সেবা এক ক্লিকে</div></div>
+    <div><div class="app-name">ঠিক</div><div class="app-tagline">পেশাদার সেবা এক ক্লিকে</div></div>
     <div class="loading-dots"><span></span><span></span><span></span></div>
     <div style="font-size:.8rem;color:#b89b4b;margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...</div>
   </div>
@@ -497,16 +474,14 @@
 </div><!-- /app-content -->
 
 <!-- ============================================================ -->
-<!-- NAVIGATION BARS - BOTTOM -->
+<!-- NAVIGATION BARS -->
 <!-- ============================================================ -->
-<!-- User Navigation -->
 <div id="bottom-nav-user">
   <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span>হোম</span></button>
   <button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span>অর্ডার</span></button>
   <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
   <button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
 </div>
-<!-- Provider Navigation -->
 <div id="bottom-nav-provider">
   <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span>ড্যাশবোর্ড</span></button>
   <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span>বুকিং</span></button>
@@ -572,30 +547,19 @@ if (typeof firebase !== 'undefined') {
   }
 
   function updateNav(id) {
-    // User nav
-    document.querySelectorAll('#bottom-nav-user .nav-item').forEach(item => {
-      item.classList.toggle('active', item.dataset.page === id);
-    });
-    // Provider nav
-    document.querySelectorAll('#bottom-nav-provider .nav-item').forEach(item => {
+    document.querySelectorAll('#bottom-nav-user .nav-item, #bottom-nav-provider .nav-item').forEach(item => {
       item.classList.toggle('active', item.dataset.page === id);
     });
   }
 
   function navigateTo(pageId) {
-    if (isLoggedIn && currentUserRole === 'user') {
-      goToPage(pageId);
-    } else {
-      showToast('⚠️ দয়া করে লগইন করুন!', 'error');
-    }
+    if (isLoggedIn && currentUserRole === 'user') goToPage(pageId);
+    else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
   }
 
   function navigateToProvider(pageId) {
-    if (isLoggedIn && currentUserRole === 'provider') {
-      goToPage(pageId);
-    } else {
-      showToast('⚠️ দয়া করে লগইন করুন!', 'error');
-    }
+    if (isLoggedIn && currentUserRole === 'provider') goToPage(pageId);
+    else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
   }
 
   // ============================================================
@@ -687,7 +651,7 @@ if (typeof firebase !== 'undefined') {
   }
 
   // ============================================================
-  //  REGISTER USER (Direct Firestore)
+  //  REGISTER USER
   // ============================================================
   async function registerUser() {
     const name = document.getElementById('user-name').value.trim() || 'ইউজার';
@@ -711,6 +675,10 @@ if (typeof firebase !== 'undefined') {
       currentUserData = doc.data();
       currentUserData.uid = uid;
       
+      // localStorage এ সেভ করুন
+      localStorage.setItem('user_data', JSON.stringify(currentUserData));
+      localStorage.setItem('user_id', uid);
+      
       updateUserUI(currentUserData);
       document.getElementById('bottom-nav-user').classList.add('show');
       document.getElementById('bottom-nav-provider').classList.remove('show');
@@ -724,7 +692,7 @@ if (typeof firebase !== 'undefined') {
   }
 
   // ============================================================
-  //  REGISTER PROVIDER (Direct Firestore)
+  //  REGISTER PROVIDER
   // ============================================================
   async function registerProvider() {
     const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
@@ -765,6 +733,9 @@ if (typeof firebase !== 'undefined') {
       const doc = await db.collection('providers').doc(uid).get();
       currentUserData = doc.data();
       currentUserData.uid = uid;
+      
+      localStorage.setItem('user_data', JSON.stringify(currentUserData));
+      localStorage.setItem('user_id', uid);
       
       updateProviderUI(currentUserData);
       document.getElementById('bottom-nav-provider').classList.add('show');
@@ -829,6 +800,7 @@ if (typeof firebase !== 'undefined') {
       const doc = await db.collection('users').doc(currentUserId).get();
       currentUserData = doc.data();
       currentUserData.uid = currentUserId;
+      localStorage.setItem('user_data', JSON.stringify(currentUserData));
       updateUserUI(currentUserData);
       showToast('✅ ' + amount + ' টাকা রিচার্জ হয়েছে!', 'success');
     } catch (error) {
@@ -858,6 +830,7 @@ if (typeof firebase !== 'undefined') {
       const doc = await db.collection('providers').doc(currentUserId).get();
       currentUserData = doc.data();
       currentUserData.uid = currentUserId;
+      localStorage.setItem('user_data', JSON.stringify(currentUserData));
       updateProviderUI(currentUserData);
       showToast('✅ ' + amount + ' টাকা উইথড্র করা হয়েছে!', 'success');
     } catch (error) {
@@ -874,6 +847,8 @@ if (typeof firebase !== 'undefined') {
       currentUserRole = null;
       currentUserId = null;
       currentUserData = null;
+      localStorage.removeItem('user_data');
+      localStorage.removeItem('user_id');
       document.getElementById('bottom-nav-user').classList.remove('show');
       document.getElementById('bottom-nav-provider').classList.remove('show');
       goToPage('page-role');
@@ -952,7 +927,7 @@ if (typeof firebase !== 'undefined') {
   };
 
   // ============================================================
-  //  MAP & CATEGORY (ডেমো)
+  //  MAP & CATEGORY
   // ============================================================
   let userMap = null, providerMap = null, mapMarkers = [], currentProviders = [];
   let currentCategory = 'প্লাম্বার', currentFilter = 'all', userLat = 23.735, userLng = 90.380;
@@ -1149,6 +1124,50 @@ if (typeof firebase !== 'undefined') {
   };
 
   // ============================================================
+  //  SEARCH FUNCTION
+  // ============================================================
+  document.getElementById('userSearchInput')?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      const query = this.value.trim().toLowerCase();
+      if (!query) {
+        showToast('⚠️ দয়া করে কিছু লিখুন!', 'warning');
+        return;
+      }
+
+      const categories = [
+        { name: 'প্লাম্বার', keywords: ['প্লাম্বার', 'প্লাম্বিং', 'পাইপ', 'লাইন', 'স্যানিটারি'] },
+        { name: 'ইলেকট্রিশিয়ান', keywords: ['ইলেকট্রিশিয়ান', 'ইলেকট্রিক', 'বাইরে', 'ফ্যান', 'লাইট', 'ওয়্যার'] },
+        { name: 'এসি টেকনিশিয়ান', keywords: ['এসি', 'এসি টেকনিশিয়ান', 'এসি সার্ভিস', 'কুলার', 'ফ্রিজ', 'এয়ার কন্ডিশন'] },
+        { name: 'ক্লিনার', keywords: ['ক্লিনার', 'ক্লিনিং', 'পরিচ্ছন্ন', 'মপ', 'ডাস্ট'] },
+        { name: 'কার্পেন্টার', keywords: ['কার্পেন্টার', 'কাঠ', 'ফার্নিচার', 'তক্তা', 'জয়েনার'] },
+        { name: 'মেকানিক', keywords: ['মেকানিক', 'গাড়ি', 'ইঞ্জিন', 'মোটর', 'অটো'] }
+      ];
+
+      let foundCategory = null;
+      for (const cat of categories) {
+        if (cat.name === query || cat.name.toLowerCase() === query) {
+          foundCategory = cat.name;
+          break;
+        }
+        for (const kw of cat.keywords) {
+          if (query.includes(kw) || kw.includes(query)) {
+            foundCategory = cat.name;
+            break;
+          }
+        }
+        if (foundCategory) break;
+      }
+
+      if (foundCategory) {
+        showToast('🔍 "' + foundCategory + '" খুঁজে পেয়েছি!', 'success');
+        openCategory(foundCategory);
+      } else {
+        showToast('❌ "' + this.value + '" এর সাথে মিলে এমন কোনো ক্যাটাগরি নেই!', 'error');
+      }
+    }
+  });
+
+  // ============================================================
   //  ONBOARDING & INIT
   // ============================================================
   function startOnboarding() {
@@ -1219,7 +1238,7 @@ if (typeof firebase !== 'undefined') {
     }
   });
 
-  console.log('🚀 সেবা বাজার - DEMO OTP Mode');
+  console.log('🚀 ঠিক - সম্পূর্ণ রেডি!');
   console.log('🔐 অ্যাডমিন পাসওয়ার্ড: admin123');
   console.log('📱 OTP: যেকোনো ৪ ডিজিট');
   console.log('📌 অ্যাডমিন: URL এর শেষে #admin যোগ করুন');
