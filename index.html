@@ -17,11 +17,24 @@
   <style>
     /* ===== BASE STYLES ===== */
     *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif}
-    body{background:#1a1a1a;width:100%;height:100%;overflow:hidden}
-    #app-wrapper{width:100%;height:100vh;background:#fef9e7;display:flex;flex-direction:column}
+    html,body{height:100%;background:#1a1a1a;overflow:hidden}
+    #app-wrapper{width:100%;height:100vh;height:100dvh;background:#fef9e7;display:flex;flex-direction:column;position:relative}
+    
+    /* ===== STATUS BAR ===== */
     #status-bar{background:#1e1e1e;color:#fff;padding:6px 20px;display:flex;justify-content:space-between;font-size:.7rem;font-weight:600;flex-shrink:0;min-height:30px;z-index:100}
-    #app-content{flex:1;overflow-y:auto;padding:12px 16px;background:#fef9e7}
-    .page{display:none;flex-direction:column;gap:14px;padding-bottom:12px;animation:fadeUp .25s ease}.page.active{display:flex}
+    #status-bar .time{font-weight:700}
+    #status-bar .icons{display:flex;gap:6px;align-items:center}
+    #status-bar .icons i{font-size:.8rem}
+    
+    /* ===== APP CONTENT ===== */
+    #app-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:12px 16px 8px;background:#fef9e7;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+    #app-content::-webkit-scrollbar{width:3px}
+    #app-content::-webkit-scrollbar-track{background:transparent}
+    #app-content::-webkit-scrollbar-thumb{background:#f7c948;border-radius:10px}
+    
+    /* ===== PAGES ===== */
+    .page{display:none;flex-direction:column;gap:14px;padding-bottom:12px;animation:fadeUp .25s ease}
+    .page.active{display:flex}
     @keyframes fadeUp{0%{opacity:.6;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
     
     /* ===== ONBOARDING ===== */
@@ -29,6 +42,7 @@
     #page-onboarding.active{display:flex}
     #page-onboarding .logo{font-size:4.5rem;background:#f7c948;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 15px 40px rgba(247,201,72,.3)}
     #page-onboarding .app-name{font-size:2.2rem;font-weight:800;color:#1e1e1e}
+    #page-onboarding .app-tagline{color:#5e5a4a;font-size:1rem;font-weight:500;opacity:.7}
     #page-onboarding .loading-dots{display:flex;gap:10px;margin-top:10px}
     #page-onboarding .loading-dots span{width:12px;height:12px;background:#f7c948;border-radius:50%;animation:bounce 1.2s ease-in-out infinite}
     #page-onboarding .loading-dots span:nth-child(2){animation-delay:.2s}
@@ -37,30 +51,40 @@
     
     /* ===== ROLE SELECTION ===== */
     #page-role{justify-content:center;min-height:70vh;gap:20px}
-    .role-btn{background:#fff;border:2px solid #f7c948;border-radius:60px;padding:22px 10px;font-size:1.5rem;font-weight:700;color:#1e1e1e;box-shadow:0 6px 0 #e6b13a;transition:.08s linear;cursor:pointer;text-align:center;width:100%;max-width:320px;margin:0 auto}
+    #page-role .app-header{justify-content:center;text-align:center}
+    #page-role .app-header h2{font-size:2rem}
+    #page-role .subhead{text-align:center;border-left:0;background:0 0;padding:0;font-size:1rem}
+    #page-role .role-btn{max-width:320px;margin:0 auto;width:100%}
+    
+    .role-btn{background:#fff;border:2px solid #f7c948;border-radius:60px;padding:22px 10px;font-size:1.5rem;font-weight:700;color:#1e1e1e;box-shadow:0 6px 0 #e6b13a;transition:.08s linear;cursor:pointer;text-align:center;width:100%}
     .role-btn:active{transform:translateY(5px);box-shadow:0 1px 0 #e6b13a}
     .role-btn i{margin-right:12px;color:#dba32b}
     .role-btn span{display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px}
     
     /* ===== COMMON COMPONENTS ===== */
-    .yellow-btn{background:#f7c948;border:none;padding:14px 12px;border-radius:60px;font-weight:700;font-size:1.1rem;color:#1e1e1e;box-shadow:0 5px 0 #dba32b;cursor:pointer;text-align:center;width:100%}
-    .yellow-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #dba32b}
-    .input-group{display:flex;flex-direction:column;gap:4px}
-    .input-group label{font-weight:600;color:#2d2a1e;font-size:.85rem}
-    .input-group input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:1rem;outline:none;width:100%}
-    .input-group input:focus{border-color:#f5b342;box-shadow:0 0 0 4px rgba(245,179,66,.15)}
-    .back-link{color:#b89b4b;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:none;background:transparent;font-size:.95rem;padding:4px 0;width:fit-content}
     .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2px}
-    .app-header h2{font-size:1.5rem;font-weight:800;color:#1e1e1e}
+    .app-header h2{font-size:1.5rem;font-weight:800;color:#1e1e1e;letter-spacing:-.5px}
     .app-header .badge{background:#f7c948;padding:4px 14px;border-radius:40px;font-size:.7rem;font-weight:700}
     .subhead{color:#5e5a4a;font-size:.9rem;border-left:4px solid #f5b342;padding-left:12px;background:#fff9e6;border-radius:0 12px 12px 0;padding:6px 12px;margin-top:-6px}
-    .text-center{text-align:center}.text-muted{color:#7a725a;font-size:.8rem}
+    .yellow-btn{background:#f7c948;border:0;padding:14px 12px;border-radius:60px;font-weight:700;font-size:1.1rem;color:#1e1e1e;box-shadow:0 5px 0 #dba32b;transition:all .08s linear;cursor:pointer;text-align:center;width:100%;letter-spacing:.3px}
+    .yellow-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #dba32b}
+    .yellow-btn:disabled{opacity:.6;transform:translateY(4px);box-shadow:0 1px 0 #dba32b;cursor:not-allowed}
+    .input-group{display:flex;flex-direction:column;gap:4px}
+    .input-group label{font-weight:600;color:#2d2a1e;font-size:.85rem;display:flex;align-items:center;gap:8px}
+    .input-group input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:1rem;outline:0;transition:.2s;width:100%}
+    .input-group input:focus{border-color:#f5b342;box-shadow:0 0 0 4px rgba(245,179,66,.15)}
+    .back-link{color:#b89b4b;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:0;background:0 0;font-size:.95rem;padding:4px 0;width:fit-content}
     .dash-card{background:#fefcf5;border-radius:20px;padding:16px;border:1px solid #f7e3a0;box-shadow:0 4px 0 #efe1b0}
     .dash-stat{display:flex;justify-content:space-between;font-weight:600;padding:5px 0}
     .wallet-badge{background:#f7c948;border-radius:40px;padding:4px 14px;font-weight:700;font-size:.8rem}
+    .text-center{text-align:center}
+    .text-muted{color:#7a725a;font-size:.8rem}
+    .loading-spinner{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px;color:#5e5a4a}
+    .loading-spinner i{color:#f7c948;font-size:1.5rem;animation:spin 1s linear infinite}
+    @keyframes spin{100%{transform:rotate(360deg)}}
     
     /* ===== TOAST ===== */
-    .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e1e1e;color:#fff;padding:12px 24px;border-radius:40px;font-weight:600;font-size:.9rem;z-index:9999;display:none;max-width:90%;text-align:center}
+    .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e1e1e;color:#fff;padding:12px 24px;border-radius:40px;font-weight:600;font-size:.9rem;z-index:9999;display:none;max-width:90%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3)}
     .toast.show{display:block;animation:fadeUp .3s ease}
     .toast.success{background:#2e7d32}
     .toast.error{background:#c62828}
@@ -80,9 +104,10 @@
     .offer-banner p{font-weight:500;opacity:.85;margin-top:2px}
     .search-bar{background:#fefcf5;border:2px solid #f7e3a0;border-radius:60px;padding:10px 18px;display:flex;align-items:center;gap:10px}
     .search-bar i{color:#b89b4b;font-size:1.1rem}
-    .search-bar input{border:none;background:transparent;font-size:1rem;width:100%;outline:none}
+    .search-bar input{border:0;background:0 0;font-size:1rem;width:100%;outline:0}
     .category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .category-item{background:#fefcf5;border:1.5px solid #f7e3a0;border-radius:40px;padding:12px 6px;text-align:center;font-weight:600;color:#2d2a1e;box-shadow:0 3px 0 #e6d19c;cursor:pointer;font-size:.8rem}
+    .category-item{background:#fefcf5;border:1.5px solid #f7e3a0;border-radius:40px;padding:12px 6px;text-align:center;font-weight:600;color:#2d2a1e;box-shadow:0 3px 0 #e6d19c;transition:.08s;cursor:pointer;font-size:.8rem}
+    .category-item:active{transform:translateY(3px);box-shadow:0 0 0 #e6d19c}
     .category-item i{display:block;font-size:1.4rem;margin-bottom:2px;color:#dba32b}
     
     /* ===== WALLET ===== */
@@ -90,6 +115,7 @@
     .wallet-box .amount{font-size:2.2rem;font-weight:800}
     .wallet-box .label{font-size:.85rem;opacity:.8}
     .wallet-transaction{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f7e9b0}
+    .wallet-transaction .amount{font-weight:700}
     .wallet-transaction .amount.credit{color:#2e7d32}
     .wallet-transaction .amount.debit{color:#c62828}
     .commission-info{background:#fff9e6;border-radius:16px;padding:10px 14px;border-left:4px solid #f5b342;font-size:.85rem;color:#5e5a4a}
@@ -102,10 +128,11 @@
     .provider-card .info .detail{font-size:.7rem;color:#5e5a4a;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
     .badge-distance{background:#f0e3c0;padding:2px 10px;border-radius:40px;font-size:.6rem;font-weight:600}
     .contact-buttons{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
-    .contact-buttons a{flex:1;padding:6px 8px;border-radius:40px;text-align:center;text-decoration:none;font-weight:700;font-size:.65rem;display:flex;align-items:center;justify-content:center;gap:4px;min-width:50px}
+    .contact-buttons a{flex:1;padding:6px 8px;border-radius:40px;text-align:center;text-decoration:none;font-weight:700;font-size:.65rem;transition:.2s;display:flex;align-items:center;justify-content:center;gap:4px;min-width:50px}
+    .contact-buttons a:active{transform:scale(.95)}
     .btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 3px 0 #128C7E}
-    .btn-phone-call{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;padding:8px 16px;border-radius:40px;border:none;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
-    .btn-book{background:#f7c948;color:#1e1e1e;box-shadow:0 3px 0 #dba32b;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+    .btn-phone-call{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;padding:8px 16px;border-radius:40px;border:0;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
+    .btn-book{background:#f7c948;color:#1e1e1e;box-shadow:0 3px 0 #dba32b;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
     
     /* ===== ORDER & BOOKING ===== */
     .order-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;justify-content:space-between;align-items:center}
@@ -116,26 +143,28 @@
     .status-badge.cancelled{background:#e57373;color:#fff}
     .booking-request{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;border-left:4px solid #f7c948}
     .booking-actions{display:flex;gap:8px;margin-top:8px}
-    .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
-    .btn-reject{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:none;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+    .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+    .btn-reject{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
     
     /* ===== MAP ===== */
     #mapContainer{height:180px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
     #providerMapContainer{height:200px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
     .map-loading{display:flex;align-items:center;justify-content:center;height:100%;color:#5e5a4a;background:#fefcf5;font-size:.8rem;gap:8px}
     .map-loading i{color:#f7c948;animation:spin 1s linear infinite}
-    @keyframes spin{100%{transform:rotate(360deg)}}
     .location-input-row{display:flex;gap:8px;align-items:center}
-    .location-input-row input{flex:1;padding:10px 16px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:.9rem;outline:none}
-    .location-input-row button{padding:10px 14px;border-radius:40px;border:none;background:#f7c948;font-weight:600;cursor:pointer;box-shadow:0 3px 0 #dba32b;white-space:nowrap;font-size:.8rem}
+    .location-input-row input{flex:1;padding:10px 16px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:.9rem;outline:0}
+    .location-input-row input:focus{border-color:#f5b342;box-shadow:0 0 0 4px rgba(245,179,66,.15)}
+    .location-input-row button{padding:10px 14px;border-radius:40px;border:0;background:#f7c948;font-weight:600;cursor:pointer;box-shadow:0 3px 0 #dba32b;transition:.08s;white-space:nowrap;font-size:.8rem}
+    .location-input-row button:active{transform:translateY(3px);box-shadow:0 0 0 #dba32b}
     .map-location-text{margin-top:4px;text-align:center;font-size:.7rem;color:#5e5a4a}
-    .filter-row{display:flex;gap:6px;overflow-x:auto;padding:4px 0}
-    .filter-row button{padding:6px 14px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-weight:600;font-size:.7rem;cursor:pointer;white-space:nowrap}
+    .filter-row{display:flex;gap:6px;overflow-x:auto;padding:4px 0;-webkit-overflow-scrolling:touch}
+    .filter-row button{padding:6px 14px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-weight:600;font-size:.7rem;cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
     .filter-row button.active{background:#f7c948;border-color:#f7c948;box-shadow:0 3px 0 #dba32b}
+    .filter-row button:active{transform:translateY(2px)}
     
     /* ===== ADMIN ===== */
     .admin-lock{text-align:center;padding:10px 0}
-    .admin-lock input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:1rem;outline:none;width:100%;text-align:center}
+    .admin-lock input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;font-size:1rem;outline:0;width:100%;text-align:center}
     .admin-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .admin-stat-card{background:#fefcf5;border-radius:16px;padding:12px;border:1px solid #f7e3a0;text-align:center}
     .admin-stat-card .number{font-size:1.5rem;font-weight:800;color:#1e1e1e}
@@ -144,10 +173,13 @@
     .admin-user-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f7e9b0}
     .admin-user-item .info{font-weight:600;font-size:.85rem}
     .admin-actions{display:flex;gap:6px}
-    .admin-actions button{background:#f7c948;border:none;border-radius:40px;padding:4px 10px;font-weight:600;font-size:.65rem;cursor:pointer}
+    .admin-actions button{background:#f7c948;border:0;border-radius:40px;padding:4px 10px;font-weight:600;font-size:.65rem;cursor:pointer}
     .admin-actions button.danger{background:#e53935;color:#fff}
     
-    /* ===== NAVIGATION BARS ===== */
+    /* ========================================================== */
+    /* ===== NAVIGATION BARS - FIXED ===== */
+    /* ========================================================== */
+    
     #bottom-nav-user, #bottom-nav-provider {
       background: white;
       border-top: 2px solid #f7e9b0;
@@ -158,8 +190,15 @@
       flex-shrink: 0;
       box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
       margin-top: auto;
+      width: 100%;
+      position: sticky;
+      bottom: 0;
+      z-index: 1000;
     }
-    #bottom-nav-user.show, #bottom-nav-provider.show { display: flex; }
+    
+    #bottom-nav-user.show, #bottom-nav-provider.show {
+      display: flex !important;
+    }
 
     .nav-item {
       display: flex;
@@ -175,6 +214,7 @@
       background: transparent;
       gap: 1px;
       min-width: 50px;
+      transition: 0.2s;
     }
     .nav-item i { font-size: 1.3rem; }
     .nav-item.active {
@@ -182,6 +222,7 @@
       background: #fef6dc;
       padding: 4px 14px;
     }
+    .nav-item:active { transform: scale(0.95); }
     
     /* ===== LOGOUT & ADMIN LINK ===== */
     .logout-btn {
@@ -196,6 +237,7 @@
       width: 100%;
       box-shadow: 0 5px 0 #b71c1c;
       margin-top: 10px;
+      transition: 0.08s;
     }
     .logout-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b71c1c; }
     
@@ -209,9 +251,6 @@
       text-align: center;
       margin-top: 10px;
     }
-    
-    .loading-spinner{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px;color:#5e5a4a}
-    .loading-spinner i{color:#f7c948;font-size:1.5rem;animation:spin 1s linear infinite}
   </style>
 </head>
 <body>
@@ -237,7 +276,7 @@
 <!-- ============================================================ -->
 <div id="page-role" class="page">
   <div class="app-header" style="justify-content:center;text-align:center;"><h2>👋 স্বাগতম</h2></div>
-  <div class="subhead" style="text-align:center;border-left:none;background:transparent;padding:0;">আপনি কি হিসেবে যুক্ত হবেন?</div>
+  <div class="subhead" style="text-align:center;border-left:0;background:0 0;padding:0;">আপনি কি হিসেবে যুক্ত হবেন?</div>
   <div class="role-btn" onclick="selectRole('user')"><i class="fas fa-user"></i> ইউজার <span>সেবা নিতে চাই</span></div>
   <div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-tools"></i> প্রোভাইডার <span>সেবা দিতে চাই</span></div>
   <div class="text-center text-muted" style="margin-top:16px;"><i class="fas fa-shield-alt"></i> নিরাপদ & বিশ্বস্ত</div>
@@ -458,7 +497,7 @@
 </div><!-- /app-content -->
 
 <!-- ============================================================ -->
-<!-- NAVIGATION BARS -->
+<!-- NAVIGATION BARS - BOTTOM -->
 <!-- ============================================================ -->
 <!-- User Navigation -->
 <div id="bottom-nav-user">
@@ -533,19 +572,30 @@ if (typeof firebase !== 'undefined') {
   }
 
   function updateNav(id) {
-    document.querySelectorAll('#bottom-nav-user .nav-item, #bottom-nav-provider .nav-item').forEach(item => {
+    // User nav
+    document.querySelectorAll('#bottom-nav-user .nav-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.page === id);
+    });
+    // Provider nav
+    document.querySelectorAll('#bottom-nav-provider .nav-item').forEach(item => {
       item.classList.toggle('active', item.dataset.page === id);
     });
   }
 
   function navigateTo(pageId) {
-    if (isLoggedIn && currentUserRole === 'user') goToPage(pageId);
-    else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
+    if (isLoggedIn && currentUserRole === 'user') {
+      goToPage(pageId);
+    } else {
+      showToast('⚠️ দয়া করে লগইন করুন!', 'error');
+    }
   }
 
   function navigateToProvider(pageId) {
-    if (isLoggedIn && currentUserRole === 'provider') goToPage(pageId);
-    else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
+    if (isLoggedIn && currentUserRole === 'provider') {
+      goToPage(pageId);
+    } else {
+      showToast('⚠️ দয়া করে লগইন করুন!', 'error');
+    }
   }
 
   // ============================================================
@@ -557,7 +607,7 @@ if (typeof firebase !== 'undefined') {
   };
 
   // ============================================================
-  //  OTP SYSTEM (DEMO ONLY - No Firebase Auth)
+  //  OTP SYSTEM (DEMO)
   // ============================================================
   function generateOTP() {
     return String(Math.floor(1000 + Math.random() * 9000));
@@ -580,7 +630,6 @@ if (typeof firebase !== 'undefined') {
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
     
     const otpCode = generateOTP();
-    // Store OTP in a global variable for verification
     window._demoOTP = otpCode;
     console.log('📱 DEMO OTP:', otpCode);
     
@@ -611,7 +660,6 @@ if (typeof firebase !== 'undefined') {
       return;
     }
     
-    // Check against stored demo OTP
     if (window._demoOTP && window._demoOTP === otp) {
       statusDiv.textContent = '✅ লগইন সফল!';
       statusDiv.className = 'otp-status success';
@@ -639,7 +687,7 @@ if (typeof firebase !== 'undefined') {
   }
 
   // ============================================================
-  //  REGISTER USER (Direct Firestore - No Firebase Auth)
+  //  REGISTER USER (Direct Firestore)
   // ============================================================
   async function registerUser() {
     const name = document.getElementById('user-name').value.trim() || 'ইউজার';
@@ -676,7 +724,7 @@ if (typeof firebase !== 'undefined') {
   }
 
   // ============================================================
-  //  REGISTER PROVIDER (Direct Firestore - No Firebase Auth)
+  //  REGISTER PROVIDER (Direct Firestore)
   // ============================================================
   async function registerProvider() {
     const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
@@ -1173,7 +1221,7 @@ if (typeof firebase !== 'undefined') {
 
   console.log('🚀 সেবা বাজার - DEMO OTP Mode');
   console.log('🔐 অ্যাডমিন পাসওয়ার্ড: admin123');
-  console.log('📱 OTP: যেকোনো ৪ ডিজিট (একই OTP ইনপুটে দিন)');
+  console.log('📱 OTP: যেকোনো ৪ ডিজিট');
   console.log('📌 অ্যাডমিন: URL এর শেষে #admin যোগ করুন');
 
 } else {
