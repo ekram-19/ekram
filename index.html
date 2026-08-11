@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>ঠিক - গ্লোবাল সার্ভিস</title>
+    <title>Akor - Global Service</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.css" rel="stylesheet" />
     <script src="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.js"></script>
@@ -241,6 +241,30 @@
         .phone-row .country-select { flex: 0 0 120px; margin-bottom: 0; }
         .phone-row .input-group { flex: 1; }
         .phone-row .input-group input { border-radius: 40px; }
+        
+        .lang-toggle {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            background: #fefcf5;
+            padding: 6px 12px;
+            border-radius: 40px;
+            border: 1px solid #f7e3a0;
+        }
+        .lang-toggle button {
+            background: transparent;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: #a0967a;
+        }
+        .lang-toggle button.active {
+            background: #f7c948;
+            color: #1e1e1e;
+        }
     </style>
 </head>
 <body>
@@ -249,40 +273,48 @@
 <div id="toast" class="toast"></div>
 <div id="app-content">
 
-<!-- ONBOARDING -->
+<!-- ============================================================ -->
+<!-- PAGE: ONBOARDING -->
+<!-- ============================================================ -->
 <div id="page-onboarding" class="page active">
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:60vh;">
         <div class="logo"><i class="fas fa-handshake"></i></div>
-        <div><div class="app-name">ঠিক</div><div class="app-tagline">গ্লোবাল সার্ভিস প্ল্যাটফর্ম</div></div>
+        <div><div class="app-name" id="appNameDisplay">Akor</div><div class="app-tagline" id="appTagline">Global Service Platform</div></div>
         <div class="loading-dots"><span></span><span></span><span></span></div>
-        <div style="font-size:.8rem;color:#b89b4b;margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...</div>
+        <div style="font-size:.8rem;color:#b89b4b;margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> <span id="loadingText">Loading...</span></div>
     </div>
 </div>
 
-<!-- ROLE SELECTION -->
+<!-- ============================================================ -->
+<!-- PAGE: ROLE SELECTION -->
+<!-- ============================================================ -->
 <div id="page-role" class="page">
-    <div class="app-header" style="justify-content:center;text-align:center;"><h2>👋 স্বাগতম</h2></div>
-    <div class="subhead" style="text-align:center;border-left:0;background:0 0;padding:0;">আপনি কি হিসেবে যুক্ত হবেন?</div>
-    <div class="role-btn" onclick="selectRole('user')"><i class="fas fa-user"></i> ইউজার <span>সেবা নিতে চাই</span></div>
-    <div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-tools"></i> প্রোভাইডার <span>সেবা দিতে চাই</span></div>
-    <div class="text-center text-muted" style="margin-top:16px;"><i class="fas fa-shield-alt"></i> নিরাপদ & বিশ্বস্ত</div>
+    <div class="app-header" style="justify-content:center;text-align:center;"><h2 id="roleTitle">👋 Welcome</h2></div>
+    <div class="subhead" style="text-align:center;border-left:0;background:0 0;padding:0;" id="roleSubhead">How would you like to join?</div>
+    <div class="role-btn" onclick="selectRole('user')"><i class="fas fa-user"></i> <span id="roleUser">User</span> <span id="roleUserSub" style="display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px;">I want to receive service</span></div>
+    <div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-tools"></i> <span id="roleProvider">Provider</span> <span id="roleProviderSub" style="display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px;">I want to provide service</span></div>
+    <div class="text-center text-muted" style="margin-top:16px;"><i class="fas fa-shield-alt"></i> <span id="roleSafety">Safe & Trusted</span></div>
 </div>
 
-<!-- USER FORM -->
+<!-- ============================================================ -->
+<!-- PAGE: USER FORM -->
+<!-- ============================================================ -->
 <div id="page-user-form" class="page">
-    <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> পিছনে</button>
-    <div class="app-header"><h2>📝 আপনার তথ্য</h2></div>
-    <div class="subhead">ইউজার হিসেবে নিবন্ধন</div>
-    <div class="input-group"><label><i class="fas fa-user"></i> আপনার নাম</label><input type="text" id="user-name" placeholder="আপনার নাম"></div>
-    <div class="input-group"><label><i class="fas fa-map-pin"></i> লোকেশন</label><input type="text" id="user-location" placeholder="ঢাকা, মিরপুর"></div>
-    <button class="yellow-btn" onclick="goToPage('page-user-otp')">পরবর্তী <i class="fas fa-arrow-right"></i></button>
+    <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> <span id="userFormBack">Back</span></button>
+    <div class="app-header"><h2 id="userFormTitle">📝 Your Information</h2></div>
+    <div class="subhead" id="userFormSub">Register as User</div>
+    <div class="input-group"><label><i class="fas fa-user"></i> <span id="userFormNameLabel">Your Name</span></label><input type="text" id="user-name" placeholder="Your Name"></div>
+    <div class="input-group"><label><i class="fas fa-map-pin"></i> <span id="userFormLocationLabel">Location</span></label><input type="text" id="user-location" placeholder="Dhaka, Mirpur"></div>
+    <button class="yellow-btn" onclick="goToPage('page-user-otp')"><span id="userFormNext">Next</span> <i class="fas fa-arrow-right"></i></button>
 </div>
 
-<!-- USER OTP (with Country Select) -->
+<!-- ============================================================ -->
+<!-- PAGE: USER OTP (with Country Select) -->
+<!-- ============================================================ -->
 <div id="page-user-otp" class="page">
-    <button class="back-link" onclick="goToPage('page-user-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button>
-    <div class="app-header"><h2>📱 মোবাইল নম্বর</h2></div>
-    <div class="subhead">ওটিপি পাঠাতে নম্বর দিন</div>
+    <button class="back-link" onclick="goToPage('page-user-form')"><i class="fas fa-arrow-left"></i> <span id="userOtpBack">Back to Form</span></button>
+    <div class="app-header"><h2 id="userOtpTitle">📱 Mobile Number</h2></div>
+    <div class="subhead" id="userOtpSub">Enter your number to receive OTP</div>
     
     <div class="phone-row">
         <div class="country-select">
@@ -309,95 +341,109 @@
             </select>
         </div>
         <div class="input-group" style="flex:1;">
-            <input type="tel" id="user-phone" placeholder="১৯১২৩৪৫৬৭৮">
+            <input type="tel" id="user-phone" placeholder="1912345678">
         </div>
     </div>
     
-    <button class="yellow-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
-    <div class="otp-row"><input type="text" id="user-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('user')"><i class="fas fa-check"></i> যাচাই</button></div>
+    <button class="yellow-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-sms"></i> <span id="userOtpSend">Send OTP</span></button>
+    <div class="otp-row"><input type="text" id="user-otp" placeholder="4 Digit" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('user')"><i class="fas fa-check"></i> <span id="userOtpVerify">Verify</span></button></div>
     <div id="userOtpStatus" class="otp-status"></div>
 </div>
 
-<!-- USER HOME -->
+<!-- ============================================================ -->
+<!-- PAGE: USER HOME -->
+<!-- ============================================================ -->
 <div id="page-user-home" class="page">
-    <div class="app-header"><h2>🏠 হোম</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
-    <div class="search-bar"><i class="fas fa-search"></i><input type="text" placeholder="সার্চ করুন (বাংলা/ইংরেজি)" id="userSearchInput"></div>
-    <div class="offer-banner"><h3>🔥 আজকের অফার</h3><p>সকল সার্ভিসে ২০% ডিসকাউন্ট! <span style="background:#1e1e1e;color:#fff;padding:2px 14px;border-radius:40px;font-size:.75rem;">নতুন ইউজার</span></p><div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;"><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">প্লাম্বার</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">ইলেকট্রিশিয়ান</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">এসি টেকনিশিয়ান</span></div></div>
-    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="userWalletBalance">০</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> রিচার্জ</button></div>
+    <div class="app-header"><h2 id="userHomeTitle">🏠 Home</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+    <div class="search-bar"><i class="fas fa-search"></i><input type="text" placeholder="Search (Bengali/English)" id="userSearchInput"></div>
+    <div class="offer-banner"><h3 id="offerTitle">🔥 Today's Offer</h3><p id="offerDesc">20% discount on all services! <span style="background:#1e1e1e;color:#fff;padding:2px 14px;border-radius:40px;font-size:.75rem;">New User</span></p><div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;"><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">Plumber</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">Electrician</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">AC Technician</span></div></div>
+    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;" id="walletLabel">Wallet Balance</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="userWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> <span id="rechargeBtn">Recharge</span></button></div>
     <div class="category-grid">
-        <div class="category-item" onclick="openCategory('প্লাম্বার')"><i class="fas fa-wrench"></i> প্লাম্বার</div>
-        <div class="category-item" onclick="openCategory('ইলেকট্রিশিয়ান')"><i class="fas fa-bolt"></i> ইলেকট্রিশিয়ান</div>
-        <div class="category-item" onclick="openCategory('এসি টেকনিশিয়ান')"><i class="fas fa-snowflake"></i> এসি</div>
-        <div class="category-item" onclick="openCategory('ক্লিনার')"><i class="fas fa-broom"></i> ক্লিনার</div>
-        <div class="category-item" onclick="openCategory('কার্পেন্টার')"><i class="fas fa-hammer"></i> কার্পেন্টার</div>
-        <div class="category-item" onclick="openCategory('মেকানিক')"><i class="fas fa-car"></i> মেকানিক</div>
+        <div class="category-item" onclick="openCategory('Plumber')"><i class="fas fa-wrench"></i> <span id="catPlumber">Plumber</span></div>
+        <div class="category-item" onclick="openCategory('Electrician')"><i class="fas fa-bolt"></i> <span id="catElectrician">Electrician</span></div>
+        <div class="category-item" onclick="openCategory('AC Technician')"><i class="fas fa-snowflake"></i> <span id="catAC">AC</span></div>
+        <div class="category-item" onclick="openCategory('Cleaner')"><i class="fas fa-broom"></i> <span id="catCleaner">Cleaner</span></div>
+        <div class="category-item" onclick="openCategory('Carpenter')"><i class="fas fa-hammer"></i> <span id="catCarpenter">Carpenter</span></div>
+        <div class="category-item" onclick="openCategory('Mechanic')"><i class="fas fa-car"></i> <span id="catMechanic">Mechanic</span></div>
     </div>
 </div>
 
-<!-- USER CATEGORY -->
+<!-- ============================================================ -->
+<!-- PAGE: USER CATEGORY -->
+<!-- ============================================================ -->
 <div id="page-user-category" class="page">
-    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> ক্যাটাগরিতে</button>
-    <div class="app-header"><h2 id="category-title">📍 প্লাম্বার</h2></div>
-    <div class="subhead" id="category-sub">আপনার কাছাকাছি প্রোভাইডার</div>
-    <div class="location-input-row"><input type="text" id="userLocationInput" placeholder="আপনার লোকেশন দিন"><button onclick="searchLocation()"><i class="fas fa-search"></i> খুঁজুন</button></div>
-    <div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)">সব</button><button onclick="filterDistance('1',event)">১ কিমি</button><button onclick="filterDistance('3',event)">৩ কিমি</button><button onclick="filterDistance('5',event)">৫ কিমি</button><button onclick="filterDistance('10',event)">১০ কিমি</button></div>
-    <div id="mapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div>
-    <div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="mapLocationText">ঢাকা, বাংলাদেশ</span></div>
+    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span id="catBack">Back to Categories</span></button>
+    <div class="app-header"><h2 id="category-title">📍 Plumber</h2></div>
+    <div class="subhead" id="category-sub">Providers near you</div>
+    <div class="location-input-row"><input type="text" id="userLocationInput" placeholder="Enter your location"><button onclick="searchLocation()"><i class="fas fa-search"></i> <span id="catSearchBtn">Search</span></button></div>
+    <div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)"><span id="filterAll">All</span></button><button onclick="filterDistance('1',event)">1 km</button><button onclick="filterDistance('3',event)">3 km</button><button onclick="filterDistance('5',event)">5 km</button><button onclick="filterDistance('10',event)">10 km</button></div>
+    <div id="mapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span id="mapLoading">Map loading...</span></div></div>
+    <div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="mapLocationText">Dhaka, Bangladesh</span></div>
     <div id="provider-list"></div>
 </div>
 
-<!-- USER ORDERS -->
+<!-- ============================================================ -->
+<!-- PAGE: USER ORDERS -->
+<!-- ============================================================ -->
 <div id="page-user-orders" class="page">
-    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
-    <div class="app-header"><h2>📋 আমার অর্ডার</h2></div>
-    <div class="subhead">আপনার করা সকল অর্ডার</div>
-    <div id="userOrderList"><div class="loading-spinner"><i class="fas fa-spinner"></i> অর্ডার লোড হচ্ছে...</div></div>
+    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span id="ordersBack">Back to Home</span></button>
+    <div class="app-header"><h2 id="ordersTitle">📋 My Orders</h2></div>
+    <div class="subhead" id="ordersSub">All your orders</div>
+    <div id="userOrderList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="ordersLoading">Loading orders...</span></div></div>
 </div>
 
-<!-- USER WALLET -->
+<!-- ============================================================ -->
+<!-- PAGE: USER WALLET -->
+<!-- ============================================================ -->
 <div id="page-user-wallet" class="page">
-    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
-    <div class="app-header"><h2>💳 ওয়ালেট</h2></div>
-    <div class="subhead">আপনার ট্রানজেকশন হিস্টোরি</div>
-    <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="walletBalanceDisplay">০</span></div></div>
-    <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="rechargeAmount" placeholder="যেমন: ৫০০"></div>
-    <button class="yellow-btn" onclick="rechargeWallet()"><i class="fas fa-plus"></i> রিচার্জ করুন</button>
-    <div class="commission-info"><i class="fas fa-info-circle"></i> <strong>বিঃদ্রঃ</strong> প্রতি বুকিংয়ে <strong>১০%</strong> কমিশন কেটে নেওয়া হবে।</div>
-    <div id="userTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> ট্রানজেকশন লোড হচ্ছে...</div></div>
+    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span id="walletBack">Back to Home</span></button>
+    <div class="app-header"><h2 id="walletTitle">💳 Wallet</h2></div>
+    <div class="subhead" id="walletSub">Your transaction history</div>
+    <div class="wallet-box"><div class="label" id="walletBalanceLabel">Current Balance</div><div class="amount">৳ <span id="walletBalanceDisplay">0</span></div></div>
+    <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> <span id="walletAmountLabel">Enter amount</span></label><input type="number" id="rechargeAmount" placeholder="e.g. 500"></div>
+    <button class="yellow-btn" onclick="rechargeWallet()"><i class="fas fa-plus"></i> <span id="walletRechargeBtn">Recharge</span></button>
+    <div class="commission-info"><i class="fas fa-info-circle"></i> <strong id="commissionNote">Note:</strong> <span id="commissionText">10% commission will be deducted per booking.</span></div>
+    <div id="userTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="transactionLoading">Loading transactions...</span></div></div>
 </div>
 
-<!-- USER PROFILE -->
+<!-- ============================================================ -->
+<!-- PAGE: USER PROFILE -->
+<!-- ============================================================ -->
 <div id="page-user-profile" class="page">
-    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
-    <div class="app-header"><h2>👤 প্রোফাইল</h2></div>
+    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span id="profileBack">Back to Home</span></button>
+    <div class="app-header"><h2 id="profileTitle">👤 Profile</h2></div>
     <div class="dash-card">
         <p><i class="fas fa-user"></i> <strong id="profileName">-</strong></p>
         <p><i class="fas fa-map-pin"></i> <span id="profileLocation">-</span></p>
         <p><i class="fas fa-phone-alt"></i> <span id="profilePhone">-</span></p>
-        <p><i class="fas fa-wallet"></i> ব্যালেন্স: ৳ <span id="profileWallet">০</span></p>
-        <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> রেটিং: ৪.৮ (২৩টি রিভিউ)</p>
+        <p><i class="fas fa-wallet"></i> <span id="profileBalanceLabel">Balance:</span> ৳ <span id="profileWallet">0</span></p>
+        <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> <span id="profileRating">Rating: 4.8 (23 reviews)</span></p>
     </div>
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
-    <span class="admin-link" onclick="window.location.hash='admin'">🔐 অ্যাডমিন প্যানেল</span>
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span id="logoutBtn">Logout</span></button>
+    <span class="admin-link" onclick="window.location.hash='admin'">🔐 <span id="adminLink">Admin Panel</span></span>
 </div>
 
-<!-- PROVIDER FORM -->
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER FORM -->
+<!-- ============================================================ -->
 <div id="page-provider-form" class="page">
-    <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> রোল নির্বাচন</button>
-    <div class="app-header"><h2>🛠️ প্রোভাইডার তথ্য</h2></div>
-    <div class="subhead">আপনার পেশাগত তথ্য দিন</div>
-    <div class="input-group"><label><i class="fas fa-user"></i> নাম</label><input type="text" id="provider-name" placeholder="করিম মিয়া"></div>
-    <div class="input-group"><label><i class="fas fa-briefcase"></i> কাজ/পেশা</label><input type="text" id="provider-work" placeholder="প্লাম্বার, ইলেকট্রিশিয়ান"></div>
-    <div class="input-group"><label><i class="fas fa-clock"></i> অভিজ্ঞতা (বছর)</label><input type="number" id="provider-experience" placeholder="৫"></div>
-    <div class="input-group"><label><i class="fas fa-id-card"></i> এনআইডি নম্বর</label><input type="text" id="provider-nid" placeholder="এনআইডি"></div>
-    <button class="yellow-btn" onclick="goToPage('page-provider-otp')">পরবর্তী <i class="fas fa-arrow-right"></i></button>
+    <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> <span id="providerFormBack">Back to Role</span></button>
+    <div class="app-header"><h2 id="providerFormTitle">🛠️ Provider Info</h2></div>
+    <div class="subhead" id="providerFormSub">Enter your professional details</div>
+    <div class="input-group"><label><i class="fas fa-user"></i> <span id="providerNameLabel">Name</span></label><input type="text" id="provider-name" placeholder="Karim Mia"></div>
+    <div class="input-group"><label><i class="fas fa-briefcase"></i> <span id="providerWorkLabel">Profession</span></label><input type="text" id="provider-work" placeholder="Plumber, Electrician"></div>
+    <div class="input-group"><label><i class="fas fa-clock"></i> <span id="providerExpLabel">Experience (Years)</span></label><input type="number" id="provider-experience" placeholder="5"></div>
+    <div class="input-group"><label><i class="fas fa-id-card"></i> <span id="providerNidLabel">NID Number</span></label><input type="text" id="provider-nid" placeholder="NID"></div>
+    <button class="yellow-btn" onclick="goToPage('page-provider-otp')"><span id="providerFormNext">Next</span> <i class="fas fa-arrow-right"></i></button>
 </div>
 
-<!-- PROVIDER OTP (with Country Select) -->
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER OTP -->
+<!-- ============================================================ -->
 <div id="page-provider-otp" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button>
-    <div class="app-header"><h2>📱 প্রোভাইডার নম্বর</h2></div>
-    <div class="subhead">ওটিপি যাচাই</div>
+    <button class="back-link" onclick="goToPage('page-provider-form')"><i class="fas fa-arrow-left"></i> <span id="providerOtpBack">Back to Form</span></button>
+    <div class="app-header"><h2 id="providerOtpTitle">📱 Provider Number</h2></div>
+    <div class="subhead" id="providerOtpSub">Verify your OTP</div>
     
     <div class="phone-row">
         <div class="country-select">
@@ -424,104 +470,118 @@
             </select>
         </div>
         <div class="input-group" style="flex:1;">
-            <input type="tel" id="provider-phone" placeholder="১৯১২৩৪৫৬৭৮">
+            <input type="tel" id="provider-phone" placeholder="1912345678">
         </div>
     </div>
     
-    <button class="yellow-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
-    <div class="otp-row"><input type="text" id="provider-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> যাচাই</button></div>
+    <button class="yellow-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> <span id="providerOtpSend">Send OTP</span></button>
+    <div class="otp-row"><input type="text" id="provider-otp" placeholder="4 Digit" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> <span id="providerOtpVerify">Verify</span></button></div>
     <div id="providerOtpStatus" class="otp-status"></div>
 </div>
 
-<!-- PROVIDER HOME -->
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER HOME -->
+<!-- ============================================================ -->
 <div id="page-provider-home" class="page">
-    <div class="app-header"><h2>📊 ড্যাশবোর্ড</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
-    <div class="subhead">স্বাগতম, <span id="providerNameDisplay">-</span></div>
-    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="providerWalletBalance">০</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> তুলুন</button></div>
+    <div class="app-header"><h2 id="providerHomeTitle">📊 Dashboard</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+    <div class="subhead"><span id="providerHomeWelcome">Welcome,</span> <span id="providerNameDisplay">-</span></div>
+    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;" id="providerWalletLabel">Wallet Balance</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="providerWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> <span id="providerWithdrawBtn">Withdraw</span></button></div>
     <div class="dash-card">
-        <div class="dash-stat"><span>📌 কাজের ক্যাটাগরি</span> <span class="wallet-badge" id="providerCategory">-</span></div>
-        <div class="dash-stat"><span>⭐ রেটিং</span> <span>৪.৯ (৪২ রিভিউ)</span></div>
-        <div class="dash-stat"><span>📦 সম্পূর্ণ অর্ডার</span> <span id="providerTotalOrders">০টি</span></div>
-        <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">০</span></span></div>
+        <div class="dash-stat"><span id="providerCategoryLabel">📌 Category</span> <span class="wallet-badge" id="providerCategory">-</span></div>
+        <div class="dash-stat"><span id="providerRatingLabel">⭐ Rating</span> <span>4.9 (42 reviews)</span></div>
+        <div class="dash-stat"><span id="providerOrdersLabel">📦 Total Orders</span> <span id="providerTotalOrders">0</span></div>
+        <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> <span id="providerWalletStatLabel">Wallet</span></span> <span>৳ <span id="providerWalletStat">0</span></span></div>
     </div>
-    <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#2d2a1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
+    <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#2d2a1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> <span id="providerServiceArea">Your Service Area</span></div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span id="providerMapLoading">Map loading...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">Dhaka, Bangladesh</span></div></div>
 </div>
 
-<!-- PROVIDER ORDERS -->
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER ORDERS -->
+<!-- ============================================================ -->
 <div id="page-provider-orders" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    <div class="app-header"><h2>📋 বুকিং রিকোয়েস্ট</h2></div>
-    <div class="subhead">আপনার কাছে আসা বুকিং অনুরোধ</div>
-    <div id="providerBookingList"><div class="loading-spinner"><i class="fas fa-spinner"></i> বুকিং লোড হচ্ছে...</div></div>
+    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span id="providerOrdersBack">Back to Dashboard</span></button>
+    <div class="app-header"><h2 id="providerOrdersTitle">📋 Booking Requests</h2></div>
+    <div class="subhead" id="providerOrdersSub">Booking requests for you</div>
+    <div id="providerBookingList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="providerOrdersLoading">Loading bookings...</span></div></div>
 </div>
 
-<!-- PROVIDER WALLET -->
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER WALLET -->
+<!-- ============================================================ -->
 <div id="page-provider-wallet" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    <div class="app-header"><h2>💳 ওয়ালেট</h2></div>
-    <div class="subhead">আপনার আয়-ব্যয়ের হিস্টোরি</div>
-    <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="providerWalletDisplay">০</span></div></div>
-    <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="withdrawAmount" placeholder="যেমন: ৫০০"></div>
-    <button class="yellow-btn" onclick="withdrawMoney()"><i class="fas fa-arrow-up"></i> টাকা তুলুন</button>
-    <div id="providerTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> ট্রানজেকশন লোড হচ্ছে...</div></div>
+    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span id="providerWalletBack">Back to Dashboard</span></button>
+    <div class="app-header"><h2 id="providerWalletTitle">💳 Wallet</h2></div>
+    <div class="subhead" id="providerWalletSub">Your income & expense history</div>
+    <div class="wallet-box"><div class="label" id="providerWalletBalanceLabel">Current Balance</div><div class="amount">৳ <span id="providerWalletDisplay">0</span></div></div>
+    <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> <span id="providerWithdrawAmountLabel">Enter amount</span></label><input type="number" id="withdrawAmount" placeholder="e.g. 500"></div>
+    <button class="yellow-btn" onclick="withdrawMoney()"><i class="fas fa-arrow-up"></i> <span id="providerWithdrawBtn2">Withdraw</span></button>
+    <div id="providerTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="providerTransactionLoading">Loading transactions...</span></div></div>
 </div>
 
-<!-- PROVIDER PROFILE -->
+<!-- ============================================================ -->
+<!-- PAGE: PROVIDER PROFILE -->
+<!-- ============================================================ -->
 <div id="page-provider-profile" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    <div class="app-header"><h2>👨‍🔧 প্রোফাইল</h2></div>
+    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span id="providerProfileBack">Back to Dashboard</span></button>
+    <div class="app-header"><h2 id="providerProfileTitle">👨‍🔧 Profile</h2></div>
     <div class="dash-card">
         <p><i class="fas fa-user"></i> <strong id="providerProfileName">-</strong></p>
-        <p><i class="fas fa-briefcase"></i> <span id="providerProfileWork">-</span> (<span id="providerProfileExp">-</span> বছর)</p>
-        <p><i class="fas fa-id-card"></i> এনআইডি: <span id="providerProfileNid">-</span></p>
+        <p><i class="fas fa-briefcase"></i> <span id="providerProfileWork">-</span> (<span id="providerProfileExp">-</span> years)</p>
+        <p><i class="fas fa-id-card"></i> NID: <span id="providerProfileNid">-</span></p>
         <p><i class="fas fa-phone-alt"></i> <span id="providerProfilePhone">-</span></p>
-        <p><i class="fas fa-wallet"></i> ব্যালেন্স: ৳ <span id="providerProfileWallet">০</span></p>
-        <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> রেটিং: ৪.৯ (৪২টি রিভিউ)</p>
-        <p><i class="fas fa-check-circle" style="color:#4CAF50;"></i> মোট অর্ডার: <span id="providerProfileOrders">০</span>টি</p>
+        <p><i class="fas fa-wallet"></i> <span id="providerProfileBalanceLabel">Balance:</span> ৳ <span id="providerProfileWallet">0</span></p>
+        <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> <span id="providerProfileRating">Rating: 4.9 (42 reviews)</span></p>
+        <p><i class="fas fa-check-circle" style="color:#4CAF50;"></i> <span id="providerProfileOrdersLabel">Total Orders:</span> <span id="providerProfileOrders">0</span></p>
     </div>
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট</button>
-    <span class="admin-link" onclick="window.location.hash='admin'">🔐 অ্যাডমিন প্যানেল</span>
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span id="providerLogoutBtn">Logout</span></button>
+    <span class="admin-link" onclick="window.location.hash='admin'">🔐 <span id="providerAdminLink">Admin Panel</span></span>
 </div>
 
-<!-- ADMIN LOGIN -->
+<!-- ============================================================ -->
+<!-- PAGE: ADMIN LOGIN -->
+<!-- ============================================================ -->
 <div id="page-admin-login" class="page">
-    <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
-    <div class="app-header"><h2>🔐 অ্যাডমিন অ্যাক্সেস</h2></div>
-    <div class="subhead">শুধুমাত্র অ্যাপ ওনারের জন্য</div>
-    <div class="admin-lock"><input type="password" id="adminPassword" placeholder="সিক্রেট পাসওয়ার্ড দিন" /><button class="yellow-btn" onclick="verifyAdmin()">প্রবেশ করুন <i class="fas fa-arrow-right"></i></button><div style="margin-top:8px;font-size:.8rem;color:#e53935;" id="adminError"></div></div>
+    <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> <span id="adminLoginBack">Back</span></button>
+    <div class="app-header"><h2 id="adminLoginTitle">🔐 Admin Access</h2></div>
+    <div class="subhead" id="adminLoginSub">Only for app owner</div>
+    <div class="admin-lock"><input type="password" id="adminPassword" placeholder="Enter secret password" /><button class="yellow-btn" onclick="verifyAdmin()"><span id="adminLoginBtn">Login</span> <i class="fas fa-arrow-right"></i></button><div style="margin-top:8px;font-size:.8rem;color:#e53935;" id="adminError"></div></div>
 </div>
 
-<!-- ADMIN DASHBOARD -->
+<!-- ============================================================ -->
+<!-- PAGE: ADMIN DASHBOARD -->
+<!-- ============================================================ -->
 <div id="page-admin-dashboard" class="page">
-    <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
-    <div class="app-header"><h2>📊 অ্যাডমিন</h2></div>
-    <div class="subhead">আপনার অ্যাপের সারাংশ</div>
+    <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> <span id="adminDashBack">Back</span></button>
+    <div class="app-header"><h2 id="adminDashTitle">📊 Admin</h2></div>
+    <div class="subhead" id="adminDashSub">Your app summary</div>
     <div class="admin-stats-grid">
-        <div class="admin-stat-card"><i class="fas fa-users"></i><div class="number" id="adminTotalUsers">০</div><div class="label">মোট ইউজার</div></div>
-        <div class="admin-stat-card"><i class="fas fa-tools"></i><div class="number" id="adminTotalProviders">০</div><div class="label">মোট প্রোভাইডার</div></div>
-        <div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">০</div><div class="label">মোট অর্ডার</div></div>
-        <div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ ০</div><div class="label">মোট আয়</div></div>
+        <div class="admin-stat-card"><i class="fas fa-users"></i><div class="number" id="adminTotalUsers">0</div><div class="label" id="adminUsersLabel">Total Users</div></div>
+        <div class="admin-stat-card"><i class="fas fa-tools"></i><div class="number" id="adminTotalProviders">0</div><div class="label" id="adminProvidersLabel">Total Providers</div></div>
+        <div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">0</div><div class="label" id="adminOrdersLabel">Total Orders</div></div>
+        <div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ 0</div><div class="label" id="adminRevenueLabel">Total Revenue</div></div>
     </div>
-    <div class="dash-card"><h3 style="font-size:.9rem;">📌 পেন্ডিং প্রোভাইডার</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div>
-    <div class="dash-card"><h3 style="font-size:.9rem;">💰 কমিশন রিপোর্ট</h3><div class="dash-stat"><span>মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">০</span></span></div><div class="dash-stat"><span>এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">০</span></span></div><div class="dash-stat"><span>পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">০</span></span></div></div>
-    <button class="yellow-btn" onclick="downloadReport()"><i class="fas fa-download"></i> রিপোর্ট ডাউনলোড</button>
-    <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> অ্যাডমিন লগআউট</button>
+    <div class="dash-card"><h3 style="font-size:.9rem;" id="adminPendingLabel">📌 Pending Providers</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="adminPendingLoading">Loading...</span></div></div></div>
+    <div class="dash-card"><h3 style="font-size:.9rem;" id="adminCommissionLabel">💰 Commission Report</h3><div class="dash-stat"><span id="adminTotalCommLabel">Total Commission</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span id="adminMonthlyCommLabel">This Month</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span id="adminPendingPayLabel">Pending Payment</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
+    <button class="yellow-btn" onclick="downloadReport()"><i class="fas fa-download"></i> <span id="adminDownloadBtn">Download Report</span></button>
+    <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> <span id="adminLogoutBtn">Admin Logout</span></button>
 </div>
 
 </div><!-- /app-content -->
 
+<!-- ============================================================ -->
 <!-- NAVIGATION BARS -->
+<!-- ============================================================ -->
 <div id="bottom-nav-user">
-    <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span>হোম</span></button>
-    <button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span>অর্ডার</span></button>
-    <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
-    <button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
+    <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span id="navHome">Home</span></button>
+    <button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span id="navOrders">Orders</span></button>
+    <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span id="navWallet">Wallet</span></button>
+    <button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span id="navProfile">Profile</span></button>
 </div>
 <div id="bottom-nav-provider">
-    <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span>ড্যাশবোর্ড</span></button>
-    <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span>বুকিং</span></button>
-    <button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
-    <button class="nav-item" data-page="page-provider-profile" onclick="navigateToProvider('page-provider-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
+    <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span id="navProviderHome">Dashboard</span></button>
+    <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span id="navProviderOrders">Bookings</span></button>
+    <button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span id="navProviderWallet">Wallet</span></button>
+    <button class="nav-item" data-page="page-provider-profile" onclick="navigateToProvider('page-provider-profile')"><i class="fas fa-user"></i><span id="navProviderProfile">Profile</span></button>
 </div>
 
 </div><!-- /app-wrapper -->
@@ -548,6 +608,45 @@ if (typeof firebase !== 'undefined') {
     const db = firebase.firestore();
     db.settings({ merge: true });
     console.log('✅ Firebase initialized!');
+
+    // ============================================================
+    //  MULTI-LANGUAGE SYSTEM
+    // ============================================================
+    const translations = {
+        'en': {
+            appName: 'Akor',
+            tagline: 'Global Service Platform',
+            // ... সব ইংরেজি টেক্সট
+        },
+        'bn': {
+            appName: 'আকর',
+            tagline: 'গ্লোবাল সার্ভিস প্ল্যাটফর্ম',
+            // ... সব বাংলা টেক্সট
+        },
+        'hi': {
+            appName: 'आकोर',
+            tagline: 'ग्लोबल सर्विस प्लेटफॉर्म',
+        },
+        'fr': {
+            appName: 'Akor',
+            tagline: 'Plateforme de services mondiale',
+        }
+    };
+
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        const t = translations[lang] || translations['en'];
+        // আপডেট সব টেক্সট
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) el.textContent = t[key];
+        });
+        // HTML lang পরিবর্তন
+        document.documentElement.lang = lang;
+        localStorage.setItem('app_lang', lang);
+    }
 
     // ============================================================
     //  APP STATE
@@ -589,12 +688,12 @@ if (typeof firebase !== 'undefined') {
 
     function navigateTo(pageId) {
         if (isLoggedIn && currentUserRole === 'user') goToPage(pageId);
-        else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
+        else showToast('⚠️ Please login!', 'error');
     }
 
     function navigateToProvider(pageId) {
         if (isLoggedIn && currentUserRole === 'provider') goToPage(pageId);
-        else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
+        else showToast('⚠️ Please login!', 'error');
     }
 
     // ============================================================
@@ -610,9 +709,39 @@ if (typeof firebase !== 'undefined') {
     // ============================================================
     document.getElementById('user-country-code')?.addEventListener('change', function() {
         selectedCountryCode = this.value;
+        // ভাষা পরিবর্তন
+        const langMap = {
+            '+880': 'bn',
+            '+91': 'hi',
+            '+1': 'en',
+            '+44': 'en',
+            '+33': 'fr',
+            '+49': 'de',
+            '+39': 'it',
+            '+86': 'zh',
+            '+81': 'ja',
+            '+82': 'ko'
+        };
+        const lang = langMap[this.value] || 'en';
+        setLanguage(lang);
     });
+
     document.getElementById('provider-country-code')?.addEventListener('change', function() {
         selectedCountryCode = this.value;
+        const langMap = {
+            '+880': 'bn',
+            '+91': 'hi',
+            '+1': 'en',
+            '+44': 'en',
+            '+33': 'fr',
+            '+49': 'de',
+            '+39': 'it',
+            '+86': 'zh',
+            '+81': 'ja',
+            '+82': 'ko'
+        };
+        const lang = langMap[this.value] || 'en';
+        setLanguage(lang);
     });
 
     function getCountryCode(role) {
@@ -638,7 +767,7 @@ if (typeof firebase !== 'undefined') {
         const phone = phoneInput.value.trim().replace(/\D/g, '');
         
         if (phone.length < 4 || phone.length > 15) {
-            statusDiv.textContent = '❌ সঠিক ফোন নম্বর দিন!';
+            statusDiv.textContent = '❌ Enter a valid phone number!';
             statusDiv.className = 'otp-status error';
             return;
         }
@@ -647,15 +776,15 @@ if (typeof firebase !== 'undefined') {
         console.log('📱 Full number:', fullNumber);
         
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> পাঠানো হচ্ছে...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         
         const otpCode = generateOTP();
         window._demoOTP = otpCode;
         console.log('📱 DEMO OTP:', otpCode);
         
-        statusDiv.textContent = '✅ OTP পাঠানো হয়েছে! (ডেমো OTP: ' + otpCode + ')';
+        statusDiv.textContent = '✅ OTP sent! (Demo OTP: ' + otpCode + ')';
         statusDiv.className = 'otp-status success';
-        showToast('OTP পাঠানো হয়েছে!', 'success');
+        showToast('OTP sent successfully!', 'success');
         
         const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
         if (otpInput) { 
@@ -666,7 +795,7 @@ if (typeof firebase !== 'undefined') {
         }
         
         btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-sms"></i> ওটিপি পাঠান';
+        btn.innerHTML = '<i class="fas fa-sms"></i> Send OTP';
     };
 
     window.verifyOTP = function(role) {
@@ -675,15 +804,15 @@ if (typeof firebase !== 'undefined') {
         const otp = otpInput.value.trim();
         
         if (!otp || otp.length !== 4) {
-            statusDiv.textContent = '❌ ৪ ডিজিটের OTP দিন!';
+            statusDiv.textContent = '❌ Enter 4 digit OTP!';
             statusDiv.className = 'otp-status error';
             return;
         }
         
         if (window._demoOTP && window._demoOTP === otp) {
-            statusDiv.textContent = '✅ লগইন সফল!';
+            statusDiv.textContent = '✅ Login successful!';
             statusDiv.className = 'otp-status success';
-            showToast('স্বাগতম!', 'success');
+            showToast('Welcome!', 'success');
             window._demoOTP = null;
             isLoggedIn = true;
 
@@ -693,9 +822,9 @@ if (typeof firebase !== 'undefined') {
                 registerProvider();
             }
         } else {
-            statusDiv.textContent = '❌ ভুল OTP! আবার চেষ্টা করুন।';
+            statusDiv.textContent = '❌ Invalid OTP! Try again.';
             statusDiv.className = 'otp-status error';
-            showToast('❌ ভুল OTP!', 'error');
+            showToast('❌ Invalid OTP!', 'error');
         }
     };
 
@@ -710,8 +839,8 @@ if (typeof firebase !== 'undefined') {
     //  REGISTER USER
     // ============================================================
     async function registerUser() {
-        const name = document.getElementById('user-name').value.trim() || 'ইউজার';
-        const location = document.getElementById('user-location').value.trim() || 'ঢাকা';
+        const name = document.getElementById('user-name').value.trim() || 'User';
+        const location = document.getElementById('user-location').value.trim() || 'Dhaka';
         const countryCode = getCountryCode('user');
         const phone = document.getElementById('user-phone').value.trim().replace(/\D/g, '');
         const fullPhone = countryCode + phone;
@@ -742,10 +871,10 @@ if (typeof firebase !== 'undefined') {
             document.getElementById('bottom-nav-provider').classList.remove('show');
             goToPage('page-user-home');
             updateNav('page-user-home');
-            showToast('রেজিস্ট্রেশন সফল!', 'success');
+            showToast('Registration successful!', 'success');
         } catch (error) {
-            console.error('রেজিস্ট্রেশন ত্রুটি:', error);
-            showToast('রেজিস্ট্রেশন ব্যর্থ: ' + error.message, 'error');
+            console.error('Registration error:', error);
+            showToast('Registration failed: ' + error.message, 'error');
         }
     }
 
@@ -753,8 +882,8 @@ if (typeof firebase !== 'undefined') {
     //  REGISTER PROVIDER
     // ============================================================
     async function registerProvider() {
-        const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
-        const work = document.getElementById('provider-work').value.trim() || 'পেশা';
+        const name = document.getElementById('provider-name').value.trim() || 'Provider';
+        const work = document.getElementById('provider-work').value.trim() || 'Profession';
         const experience = parseInt(document.getElementById('provider-experience').value) || 0;
         const nid = document.getElementById('provider-nid').value.trim() || '';
         const countryCode = getCountryCode('provider');
@@ -776,7 +905,7 @@ if (typeof firebase !== 'undefined') {
                 status: 'pending',
                 rating: 0,
                 totalOrders: 0,
-                location: 'ঢাকা, মিরপুর',
+                location: 'Dhaka, Mirpur',
                 lat: 23.735,
                 lng: 90.380,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -805,10 +934,10 @@ if (typeof firebase !== 'undefined') {
             goToPage('page-provider-home');
             updateNav('page-provider-home');
             setTimeout(() => initProviderMap(23.735, 90.380), 500);
-            showToast('প্রোভাইডার রেজিস্ট্রেশন সফল! অনুমোদনের অপেক্ষায়', 'success');
+            showToast('Provider registration successful! Waiting for approval.', 'success');
         } catch (error) {
-            console.error('প্রোভাইডার রেজিস্ট্রেশন ত্রুটি:', error);
-            showToast('রেজিস্ট্রেশন ব্যর্থ: ' + error.message, 'error');
+            console.error('Provider registration error:', error);
+            showToast('Registration failed: ' + error.message, 'error');
         }
     }
 
@@ -816,8 +945,8 @@ if (typeof firebase !== 'undefined') {
     //  UI UPDATE
     // ============================================================
     function updateUserUI(data) {
-        document.getElementById('profileName').textContent = data.name || 'ইউজার';
-        document.getElementById('profileLocation').textContent = data.location || 'অজানা';
+        document.getElementById('profileName').textContent = data.name || 'User';
+        document.getElementById('profileLocation').textContent = data.location || 'Unknown';
         document.getElementById('profilePhone').textContent = data.phone || '';
         document.getElementById('userWalletBalance').textContent = (data.wallet || 0).toLocaleString();
         document.getElementById('walletBalanceDisplay').textContent = (data.wallet || 0).toLocaleString();
@@ -825,14 +954,14 @@ if (typeof firebase !== 'undefined') {
     }
 
     function updateProviderUI(data) {
-        document.getElementById('providerNameDisplay').textContent = data.name || 'প্রোভাইডার';
+        document.getElementById('providerNameDisplay').textContent = data.name || 'Provider';
         document.getElementById('providerProfileName').textContent = data.name || '';
         document.getElementById('providerProfileWork').textContent = data.work || '';
         document.getElementById('providerProfileExp').textContent = data.experience || 0;
         document.getElementById('providerProfileNid').textContent = data.nid || '';
         document.getElementById('providerProfilePhone').textContent = data.phone || '';
         document.getElementById('providerProfileWallet').textContent = (data.wallet || 0).toLocaleString();
-        document.getElementById('providerCategory').textContent = data.work || 'পেশা';
+        document.getElementById('providerCategory').textContent = data.work || 'Profession';
         document.getElementById('providerWalletBalance').textContent = (data.wallet || 0).toLocaleString();
         document.getElementById('providerWalletDisplay').textContent = (data.wallet || 0).toLocaleString();
         document.getElementById('providerWalletStat').textContent = (data.wallet || 0).toLocaleString();
@@ -843,12 +972,12 @@ if (typeof firebase !== 'undefined') {
     // ============================================================
     window.rechargeWallet = async function() {
         if (!isLoggedIn || currentUserRole !== 'user') {
-            showToast('⚠️ ইউজার হিসেবে লগইন করুন!', 'error');
+            showToast('⚠️ Please login as user!', 'error');
             return;
         }
         const amount = parseInt(document.getElementById('rechargeAmount').value);
         if (!amount || amount <= 0) {
-            showToast('দয়া করে সঠিক টাকা লিখুন!', 'error');
+            showToast('Please enter a valid amount!', 'error');
             return;
         }
         
@@ -864,20 +993,20 @@ if (typeof firebase !== 'undefined') {
             currentUserData.uid = currentUserId;
             localStorage.setItem('user_data', JSON.stringify(currentUserData));
             updateUserUI(currentUserData);
-            showToast('✅ ' + amount + ' টাকা রিচার্জ হয়েছে!', 'success');
+            showToast('✅ ' + amount + ' Tk recharged successfully!', 'success');
         } catch (error) {
-            showToast('❌ রিচার্জ ব্যর্থ', 'error');
+            showToast('❌ Recharge failed', 'error');
         }
     };
 
     window.withdrawMoney = async function() {
         if (!isLoggedIn || currentUserRole !== 'provider') {
-            showToast('⚠️ প্রোভাইডার হিসেবে লগইন করুন!', 'error');
+            showToast('⚠️ Please login as provider!', 'error');
             return;
         }
         const amount = parseInt(document.getElementById('withdrawAmount').value);
         if (!amount || amount <= 0) {
-            showToast('দয়া করে সঠিক টাকা লিখুন!', 'error');
+            showToast('Please enter a valid amount!', 'error');
             return;
         }
         
@@ -886,7 +1015,7 @@ if (typeof firebase !== 'undefined') {
             await db.runTransaction(async (transaction) => {
                 const doc = await transaction.get(providerRef);
                 const currentWallet = doc.data().wallet || 0;
-                if (amount > currentWallet) throw new Error('পর্যাপ্ত টাকা নেই!');
+                if (amount > currentWallet) throw new Error('Insufficient balance!');
                 transaction.update(providerRef, { wallet: currentWallet - amount });
             });
             const doc = await db.collection('providers').doc(currentUserId).get();
@@ -894,9 +1023,9 @@ if (typeof firebase !== 'undefined') {
             currentUserData.uid = currentUserId;
             localStorage.setItem('user_data', JSON.stringify(currentUserData));
             updateProviderUI(currentUserData);
-            showToast('✅ ' + amount + ' টাকা উইথড্র করা হয়েছে!', 'success');
+            showToast('✅ ' + amount + ' Tk withdrawn successfully!', 'success');
         } catch (error) {
-            showToast('❌ উইথড্র ব্যর্থ: ' + error.message, 'error');
+            showToast('❌ Withdraw failed: ' + error.message, 'error');
         }
     };
 
@@ -904,7 +1033,7 @@ if (typeof firebase !== 'undefined') {
     //  LOGOUT
     // ============================================================
     window.logout = function() {
-        if (confirm('আপনি কি লগআউট করতে চান?')) {
+        if (confirm('Are you sure you want to logout?')) {
             isLoggedIn = false;
             currentUserRole = null;
             currentUserId = null;
@@ -914,7 +1043,7 @@ if (typeof firebase !== 'undefined') {
             document.getElementById('bottom-nav-user').classList.remove('show');
             document.getElementById('bottom-nav-provider').classList.remove('show');
             goToPage('page-role');
-            showToast('✅ লগআউট সফল!', 'success');
+            showToast('✅ Logged out successfully!', 'success');
         }
     };
 
@@ -928,7 +1057,7 @@ if (typeof firebase !== 'undefined') {
             document.getElementById('adminError').textContent = '';
             loadAdminDashboard();
         } else {
-            document.getElementById('adminError').textContent = '❌ ভুল পাসওয়ার্ড!';
+            document.getElementById('adminError').textContent = '❌ Wrong password!';
         }
     };
 
@@ -946,12 +1075,12 @@ if (typeof firebase !== 'undefined') {
             const pendingSnap = await db.collection('providers').where('status', '==', 'pending').get();
             const container = document.getElementById('adminPendingProviders');
             if (pendingSnap.empty) {
-                container.innerHTML = '<div style="text-align:center;padding:10px;color:#5e5a4a;"><i class="fas fa-check-circle" style="color:#4CAF50;"></i> কোনো পেন্ডিং প্রোভাইডার নেই</div>';
+                container.innerHTML = '<div style="text-align:center;padding:10px;color:#5e5a4a;"><i class="fas fa-check-circle" style="color:#4CAF50;"></i> No pending providers</div>';
             } else {
                 let html = '';
                 pendingSnap.forEach(doc => {
                     const data = doc.data();
-                    html += `<div class="admin-user-item"><div class="info">${data.name || 'নাম নেই'} <span style="font-size:0.6rem;color:#5e5a4a;">(${data.work || 'পেশা'})</span></div><div class="admin-actions"><button onclick="approveProvider('${doc.id}')"><i class="fas fa-check"></i></button><button class="danger" onclick="rejectProvider('${doc.id}')"><i class="fas fa-times"></i></button></div></div>`;
+                    html += `<div class="admin-user-item"><div class="info">${data.name || 'Unknown'} <span style="font-size:0.6rem;color:#5e5a4a;">(${data.work || 'Profession'})</span></div><div class="admin-actions"><button onclick="approveProvider('${doc.id}')"><i class="fas fa-check"></i></button><button class="danger" onclick="rejectProvider('${doc.id}')"><i class="fas fa-times"></i></button></div></div>`;
                 });
                 container.innerHTML = html;
             }
@@ -963,43 +1092,43 @@ if (typeof firebase !== 'undefined') {
     window.approveProvider = async function(id) {
         try {
             await db.collection('providers').doc(id).update({ status: 'approved' });
-            showToast('✅ প্রোভাইডার অনুমোদন করা হয়েছে!', 'success');
+            showToast('✅ Provider approved!', 'success');
             loadAdminDashboard();
-        } catch(e) { showToast('❌ অনুমোদন ব্যর্থ', 'error'); }
+        } catch(e) { showToast('❌ Approval failed', 'error'); }
     };
 
     window.rejectProvider = async function(id) {
-        if (!confirm('রিজেক্ট করবেন?')) return;
+        if (!confirm('Reject this provider?')) return;
         try {
             await db.collection('providers').doc(id).update({ status: 'rejected' });
-            showToast('❌ প্রোভাইডার রিজেক্ট করা হয়েছে', 'error');
+            showToast('❌ Provider rejected', 'error');
             loadAdminDashboard();
-        } catch(e) { showToast('❌ রিজেক্ট ব্যর্থ', 'error'); }
+        } catch(e) { showToast('❌ Rejection failed', 'error'); }
     };
 
     window.logoutAdmin = function() {
         document.getElementById('adminPassword').value = '';
         window.location.hash = '';
         goToPage('page-role');
-        showToast('অ্যাডমিন লগআউট সফল', 'success');
+        showToast('Admin logout successful', 'success');
     };
 
     window.downloadReport = function() {
-        showToast('📄 রিপোর্ট ডাউনলোড (ডেমো)', 'success');
+        showToast('📄 Report downloading (Demo)', 'success');
     };
 
     // ============================================================
     //  MAP & CATEGORY
     // ============================================================
     let userMap = null, providerMap = null, mapMarkers = [], currentProviders = [];
-    let currentCategory = 'প্লাম্বার', currentFilter = 'all', userLat = 23.735, userLng = 90.380;
+    let currentCategory = 'Plumber', currentFilter = 'all', userLat = 23.735, userLng = 90.380;
 
     function initFreeMap(lat, lng) {
         const container = document.getElementById('mapContainer');
         if (!container) return;
         if (userMap) { userMap.remove(); userMap = null; }
         try {
-            container.innerHTML = '<div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div>';
+            container.innerHTML = '<div class="map-loading"><i class="fas fa-spinner"></i><span>Map loading...</span></div>';
             userMap = new maplibregl.Map({
                 container: 'mapContainer',
                 style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -1008,12 +1137,12 @@ if (typeof firebase !== 'undefined') {
                 attributionControl: false
             });
             userMap.on('load', function() {
-                document.getElementById('mapLocationText').textContent = 'আপনার অবস্থান: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
+                document.getElementById('mapLocationText').textContent = 'Your location: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
                 new maplibregl.Marker({ color: '#dba32b', scale: 1.2 }).setLngLat([lng, lat]).addTo(userMap);
                 addProviderMarkers();
             });
         } catch(e) {
-            container.innerHTML = '<div style="padding:20px;text-align:center;color:#e53935;">ম্যাপ লোড করা যায়নি</div>';
+            container.innerHTML = '<div style="padding:20px;text-align:center;color:#e53935;">Map failed to load</div>';
         }
     }
 
@@ -1029,7 +1158,7 @@ if (typeof firebase !== 'undefined') {
         filtered.forEach(p => {
             const marker = new maplibregl.Marker({ color: '#e53935', scale: 0.8 })
                 .setLngLat([p.lng, p.lat])
-                .setPopup(new maplibregl.Popup({ offset: 25 }).setHTML('<strong>' + p.name + '</strong><br>⭐ ' + p.rating + ' · ' + p.distance + ' কিমি'))
+                .setPopup(new maplibregl.Popup({ offset: 25 }).setHTML('<strong>' + p.name + '</strong><br>⭐ ' + p.rating + ' · ' + p.distance + ' km'))
                 .addTo(userMap);
             mapMarkers.push(marker);
         });
@@ -1040,7 +1169,7 @@ if (typeof firebase !== 'undefined') {
         if (!container) return;
         if (providerMap) { providerMap.remove(); providerMap = null; }
         try {
-            container.innerHTML = '<div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div>';
+            container.innerHTML = '<div class="map-loading"><i class="fas fa-spinner"></i><span>Map loading...</span></div>';
             providerMap = new maplibregl.Map({
                 container: 'providerMapContainer',
                 style: 'https://tiles.openfreemap.org/styles/liberty',
@@ -1049,11 +1178,11 @@ if (typeof firebase !== 'undefined') {
                 attributionControl: false
             });
             providerMap.on('load', function() {
-                document.getElementById('providerMapLocationText').textContent = 'আপনার অবস্থান: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
+                document.getElementById('providerMapLocationText').textContent = 'Your location: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
                 new maplibregl.Marker({ color: '#dba32b', scale: 1.2 }).setLngLat([lng, lat]).addTo(providerMap);
             });
         } catch(e) {
-            container.innerHTML = '<div style="padding:20px;text-align:center;color:#e53935;">ম্যাপ লোড করা যায়নি</div>';
+            container.innerHTML = '<div style="padding:20px;text-align:center;color:#e53935;">Map failed to load</div>';
         }
     }
 
@@ -1067,8 +1196,8 @@ if (typeof firebase !== 'undefined') {
 
     window.searchLocation = function() {
         const input = document.getElementById('userLocationInput').value;
-        if (!input) { showToast('দয়া করে একটি লোকেশন দিন!', 'error'); return; }
-        const locs = { 'মিরপুর': {lat:23.806,lng:90.368}, 'উত্তরা': {lat:23.875,lng:90.379}, 'মোহাম্মদপুর': {lat:23.757,lng:90.375}, 'বসুন্ধরা': {lat:23.813,lng:90.425}, 'গাজীপুর': {lat:23.999,lng:90.420}, 'নারায়ণগঞ্জ': {lat:23.617,lng:90.500} };
+        if (!input) { showToast('Please enter a location!', 'error'); return; }
+        const locs = { 'Mirpur': {lat:23.806,lng:90.368}, 'Uttara': {lat:23.875,lng:90.379}, 'Mohammadpur': {lat:23.757,lng:90.375}, 'Bashundhara': {lat:23.813,lng:90.425}, 'Gazipur': {lat:23.999,lng:90.420}, 'Narayanganj': {lat:23.617,lng:90.500} };
         let found = false;
         for (const [key, loc] of Object.entries(locs)) {
             if (input.includes(key)) { userLat = loc.lat; userLng = loc.lng; found = true; break; }
@@ -1079,13 +1208,13 @@ if (typeof firebase !== 'undefined') {
     };
 
     window.openCategory = function(cat) {
-        if (!isLoggedIn) { showToast('⚠️ লগইন করুন!', 'error'); return; }
+        if (!isLoggedIn) { showToast('⚠️ Please login!', 'error'); return; }
         currentCategory = cat;
         currentFilter = 'all';
         document.querySelectorAll('#distanceFilter button').forEach(b => b.classList.remove('active'));
         document.querySelector('#distanceFilter button:first-child')?.classList.add('active');
         document.getElementById('category-title').textContent = '📍 ' + cat;
-        document.getElementById('category-sub').textContent = 'আপনার কাছাকাছি ' + cat + ' প্রোভাইডার';
+        document.getElementById('category-sub').textContent = 'Providers near you';
         
         loadProvidersFromFirebase(cat);
     };
@@ -1114,7 +1243,7 @@ if (typeof firebase !== 'undefined') {
                 const distance = (Math.random() * 5 + 0.2).toFixed(1);
                 currentProviders.push({
                     id: doc.id,
-                    name: data.name || 'প্রোভাইডার',
+                    name: data.name || 'Provider',
                     rating: (4 + Math.random()).toFixed(1),
                     distance: parseFloat(distance),
                     experience: data.experience || Math.floor(Math.random() * 10) + 1,
@@ -1128,7 +1257,7 @@ if (typeof firebase !== 'undefined') {
             goToPage('page-user-category');
             setTimeout(() => initFreeMap(userLat, userLng), 500);
         } catch(e) {
-            showToast('প্রোভাইডার লোড করতে সমস্যা হয়েছে', 'error');
+            showToast('Failed to load providers', 'error');
         }
     }
 
@@ -1141,13 +1270,13 @@ if (typeof firebase !== 'undefined') {
         }
         filtered.sort((a,b) => a.distance - b.distance);
         if (filtered.length === 0) {
-            container.innerHTML = '<div style="text-align:center;padding:20px;color:#5e5a4a;"><i class="fas fa-search" style="font-size:1.3rem;color:#f7c948;"></i><p style="margin-top:4px;font-size:.85rem;">' + (currentFilter === 'all' ? 'এই ক্যাটাগরিতে কোনো প্রোভাইডার নেই' : 'এই দূরত্বে কোনো প্রোভাইডার পাওয়া যায়নি') + '</p></div>';
+            container.innerHTML = '<div style="text-align:center;padding:20px;color:#5e5a4a;"><i class="fas fa-search" style="font-size:1.3rem;color:#f7c948;"></i><p style="margin-top:4px;font-size:.85rem;">' + (currentFilter === 'all' ? 'No providers in this category' : 'No providers within this distance') + '</p></div>';
             return;
         }
         let html = '';
         filtered.forEach(p => {
-            const whatsappLink = 'https://wa.me/' + p.phone + '?text=হ্যালো,%20আমার%20একটি%20' + currentCategory + '%20সার্ভিস%20দরকার';
-            html += '<div class="provider-card"><div class="avatar" style="background:' + p.color + ';"><i class="fas fa-user"></i></div><div class="info"><div class="name">' + p.name + '</div><div class="detail"><span>⭐ ' + p.rating + '</span><span class="badge-distance">' + p.distance + ' কিমি</span><span>' + p.experience + ' বছর</span></div><div class="contact-buttons"><a href="' + whatsappLink + '" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a><button class="btn-phone-call" onclick="makeCall(\'' + p.phone + '\')"><i class="fas fa-phone"></i> ফোন</button></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;"><button class="btn-book" onclick="bookProvider(\'' + p.id + '\', \'' + currentCategory + '\', \'' + p.name + '\')">বুক করুন</button></div></div>';
+            const whatsappLink = 'https://wa.me/' + p.phone + '?text=Hello,%20I%20need%20a%20' + currentCategory + '%20service';
+            html += '<div class="provider-card"><div class="avatar" style="background:' + p.color + ';"><i class="fas fa-user"></i></div><div class="info"><div class="name">' + p.name + '</div><div class="detail"><span>⭐ ' + p.rating + '</span><span class="badge-distance">' + p.distance + ' km</span><span>' + p.experience + ' years</span></div><div class="contact-buttons"><a href="' + whatsappLink + '" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a><button class="btn-phone-call" onclick="makeCall(\'' + p.phone + '\')"><i class="fas fa-phone"></i> Call</button></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;"><button class="btn-book" onclick="bookProvider(\'' + p.id + '\', \'' + currentCategory + '\', \'' + p.name + '\')">Book</button></div></div>';
         });
         container.innerHTML = html;
     }
@@ -1162,7 +1291,7 @@ if (typeof firebase !== 'undefined') {
 
     window.bookProvider = async function(providerId, category, name) {
         if (!isLoggedIn || currentUserRole !== 'user') {
-            showToast('⚠️ ইউজার লগইন করুন!', 'error');
+            showToast('⚠️ Please login as user!', 'error');
             return;
         }
         try {
@@ -1171,75 +1300,50 @@ if (typeof firebase !== 'undefined') {
             await db.collection('bookings').add({
                 userId: currentUserId,
                 providerId: providerId,
-                userName: userData.name || 'ইউজার',
+                userName: userData.name || 'User',
                 userPhone: userData.phone || '',
                 service: category,
-                location: userData.location || 'অজানা',
-                date: new Date().toLocaleDateString('bn-BD') + ' · ' + new Date().toLocaleTimeString('bn-BD', {hour:'2-digit', minute:'2-digit'}),
+                location: userData.location || 'Unknown',
+                date: new Date().toLocaleDateString('en-US') + ' · ' + new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'}),
                 status: 'pending',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-            showToast('✅ ' + name + ' কে বুকিং করা হয়েছে!', 'success');
+            showToast('✅ Booking successful for ' + name + '!', 'success');
         } catch(e) {
-            showToast('❌ বুকিং ব্যর্থ', 'error');
+            showToast('❌ Booking failed', 'error');
         }
     };
 
     // ============================================================
-    //  SEARCH FUNCTION (বাংলা + ইংরেজি)
+    //  SEARCH FUNCTION (Bengali + English)
     // ============================================================
     document.getElementById('userSearchInput')?.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             const query = this.value.trim().toLowerCase();
             if (!query) {
-                showToast('⚠️ দয়া করে কিছু লিখুন!', 'warning');
+                showToast('⚠️ Please enter something!', 'warning');
                 return;
             }
 
             const categories = [
-                { 
-                    name: 'প্লাম্বার', 
-                    bn: ['প্লাম্বার', 'প্লাম্বিং', 'পাইপ', 'লাইন', 'স্যানিটারি', 'নল', 'কল', 'প্লাম্ব'],
-                    en: ['plumber', 'plumbing', 'pipe', 'line', 'sanitary', 'tap', 'water', 'plumb'] 
-                },
-                { 
-                    name: 'ইলেকট্রিশিয়ান', 
-                    bn: ['ইলেকট্রিশিয়ান', 'ইলেকট্রিক', 'বাইরে', 'ফ্যান', 'লাইট', 'ওয়্যার', 'তারের', 'বাল্ব', 'সুইচ'],
-                    en: ['electrician', 'electric', 'wire', 'fan', 'light', 'cable', 'switch', 'bulb', 'wiring'] 
-                },
-                { 
-                    name: 'এসি টেকনিশিয়ান', 
-                    bn: ['এসি', 'এসি টেকনিশিয়ান', 'এসি সার্ভিস', 'কুলার', 'ফ্রিজ', 'এয়ার কন্ডিশন', 'ঠান্ডা', 'কম্প্রেসার'],
-                    en: ['ac', 'air conditioner', 'cooler', 'fridge', 'refrigerator', 'cooling', 'ac service', 'compressor'] 
-                },
-                { 
-                    name: 'ক্লিনার', 
-                    bn: ['ক্লিনার', 'ক্লিনিং', 'পরিচ্ছন্ন', 'মপ', 'ডাস্ট', 'ঝাড়ু', 'পরিষ্কার'],
-                    en: ['cleaner', 'cleaning', 'mop', 'dust', 'broom', 'janitor', 'clean'] 
-                },
-                { 
-                    name: 'কার্পেন্টার', 
-                    bn: ['কার্পেন্টার', 'কাঠ', 'ফার্নিচার', 'তক্তা', 'জয়েনার', 'বাক্স', 'ছুতার'],
-                    en: ['carpenter', 'wood', 'furniture', 'joinery', 'cabinet', 'plywood', 'carpentry'] 
-                },
-                { 
-                    name: 'মেকানিক', 
-                    bn: ['মেকানিক', 'গাড়ি', 'ইঞ্জিন', 'মোটর', 'অটো', 'রিপেয়ার', 'গ্যারেজ', 'মেকান'],
-                    en: ['mechanic', 'car', 'engine', 'motor', 'auto', 'repair', 'garage', 'mechanical'] 
-                }
+                { name: 'Plumber', bn: ['প্লাম্বার', 'প্লাম্বিং', 'পাইপ', 'লাইন', 'স্যানিটারি', 'নল', 'কল'], en: ['plumber', 'plumbing', 'pipe', 'line', 'sanitary', 'tap', 'water'] },
+                { name: 'Electrician', bn: ['ইলেকট্রিশিয়ান', 'ইলেকট্রিক', 'বাইরে', 'ফ্যান', 'লাইট', 'ওয়্যার', 'তারের', 'বাল্ব', 'সুইচ'], en: ['electrician', 'electric', 'wire', 'fan', 'light', 'cable', 'switch', 'bulb'] },
+                { name: 'AC Technician', bn: ['এসি', 'এসি টেকনিশিয়ান', 'এসি সার্ভিস', 'কুলার', 'ফ্রিজ', 'এয়ার কন্ডিশন', 'ঠান্ডা'], en: ['ac', 'air conditioner', 'cooler', 'fridge', 'refrigerator', 'cooling', 'ac service'] },
+                { name: 'Cleaner', bn: ['ক্লিনার', 'ক্লিনিং', 'পরিচ্ছন্ন', 'মপ', 'ডাস্ট', 'ঝাড়ু', 'পরিষ্কার'], en: ['cleaner', 'cleaning', 'mop', 'dust', 'broom', 'janitor', 'clean'] },
+                { name: 'Carpenter', bn: ['কার্পেন্টার', 'কাঠ', 'ফার্নিচার', 'তক্তা', 'জয়েনার', 'বাক্স', 'ছুতার'], en: ['carpenter', 'wood', 'furniture', 'joinery', 'cabinet', 'plywood', 'carpentry'] },
+                { name: 'Mechanic', bn: ['মেকানিক', 'গাড়ি', 'ইঞ্জিন', 'মোটর', 'অটো', 'রিপেয়ার', 'গ্যারেজ'], en: ['mechanic', 'car', 'engine', 'motor', 'auto', 'repair', 'garage'] }
             ];
 
             let foundCategory = null;
             let matchedKeyword = '';
 
             for (const cat of categories) {
-                // Direct name match (Bengali or English transliteration)
-                if (cat.name === query || cat.name.toLowerCase() === query) {
+                // Direct name match
+                if (cat.name.toLowerCase() === query || cat.name === query) {
                     foundCategory = cat.name;
                     matchedKeyword = cat.name;
                     break;
                 }
-                
                 // Bengali keyword match
                 for (const kw of cat.bn) {
                     if (query.includes(kw) || kw.includes(query)) {
@@ -1249,7 +1353,6 @@ if (typeof firebase !== 'undefined') {
                     }
                 }
                 if (foundCategory) break;
-                
                 // English keyword match
                 for (const kw of cat.en) {
                     if (query.includes(kw) || kw.includes(query)) {
@@ -1262,10 +1365,10 @@ if (typeof firebase !== 'undefined') {
             }
 
             if (foundCategory) {
-                showToast('🔍 "' + foundCategory + '" খুঁজে পেয়েছি! (মিল: ' + matchedKeyword + ')', 'success');
+                showToast('🔍 Found "' + foundCategory + '"! (Match: ' + matchedKeyword + ')', 'success');
                 openCategory(foundCategory);
             } else {
-                showToast('❌ "' + this.value + '" এর সাথে মিলে এমন কোনো ক্যাটাগরি নেই!', 'error');
+                showToast('❌ No category found for "' + this.value + '"', 'error');
             }
         }
     });
@@ -1288,6 +1391,10 @@ if (typeof firebase !== 'undefined') {
         }
         updateTime();
         setInterval(updateTime, 30000);
+
+        // Load saved language
+        const savedLang = localStorage.getItem('app_lang') || 'en';
+        setLanguage(savedLang);
 
         const savedData = localStorage.getItem('user_data');
         const savedId = localStorage.getItem('user_id');
@@ -1338,14 +1445,13 @@ if (typeof firebase !== 'undefined') {
         }
     });
 
-    console.log('🚀 ঠিক - গ্লোবাল সংস্করণ রেডি!');
-    console.log('🔐 অ্যাডমিন পাসওয়ার্ড: admin123');
-    console.log('📱 OTP: যেকোনো ৪ ডিজিট');
-    console.log('🌍 কান্ট্রি কোড সাপোর্ট সহ');
-    console.log('🔍 বাংলা + ইংরেজি সার্চ সাপোর্ট');
+    console.log('🚀 Akor - Global Version Ready!');
+    console.log('🔐 Admin Password: admin123');
+    console.log('📱 OTP: Any 4 digits');
+    console.log('🌍 Multi-language + Country Code Support');
 
 } else {
-    document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#fef9e7;color:#c62828;font-size:1.2rem;padding:20px;text-align:center;"><div><i class="fas fa-exclamation-triangle" style="font-size:3rem;"></i><p style="margin-top:16px;">❌ Firebase লোড হয়নি!<br>ইন্টারনেট কানেকশন চেক করুন।</p></div></div>';
+    document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#fef9e7;color:#c62828;font-size:1.2rem;padding:20px;text-align:center;"><div><i class="fas fa-exclamation-triangle" style="font-size:3rem;"></i><p style="margin-top:16px;">❌ Firebase not loaded!<br>Please check your internet connection.</p></div></div>';
 }
 </script>
 </body>
