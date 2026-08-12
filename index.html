@@ -277,9 +277,9 @@
 <div id="page-onboarding" class="page active">
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;min-height:60vh;">
         <div class="logo"><i class="fas fa-handshake"></i></div>
-        <div><div class="app-name" id="appNameDisplay">Akor</div><div class="app-tagline" id="appTagline">Global Service Platform</div></div>
+        <div><div class="app-name" data-i18n="appName">Akor</div><div class="app-tagline" data-i18n="tagline">Global Service Platform</div></div>
         <div class="loading-dots"><span></span><span></span><span></span></div>
-        <div style="font-size:.8rem;color:#b89b4b;margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> <span id="loadingText">Loading...</span></div>
+        <div style="font-size:.8rem;color:#b89b4b;margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> <span data-i18n="loadingText">Loading...</span></div>
     </div>
 </div>
 
@@ -287,32 +287,32 @@
 <!-- PAGE: ROLE SELECTION -->
 <!-- ============================================================ -->
 <div id="page-role" class="page">
-    <div class="app-header" style="justify-content:center;text-align:center;"><h2 id="roleTitle">👋 Welcome</h2></div>
-    <div class="subhead" style="text-align:center;border-left:0;background:0 0;padding:0;" id="roleSubhead">How would you like to join?</div>
-    <div class="role-btn" onclick="selectRole('user')"><i class="fas fa-user"></i> <span id="roleUser">User</span> <span id="roleUserSub" style="display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px;">I want to receive service</span></div>
-    <div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-tools"></i> <span id="roleProvider">Provider</span> <span id="roleProviderSub" style="display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px;">I want to provide service</span></div>
-    <div class="text-center text-muted" style="margin-top:16px;"><i class="fas fa-shield-alt"></i> <span id="roleSafety">Safe & Trusted</span></div>
+    <div class="app-header" style="justify-content:center;text-align:center;"><h2 data-i18n="roleTitle">👋 Welcome</h2></div>
+    <div class="subhead" style="text-align:center;border-left:0;background:0 0;padding:0;" data-i18n="roleSubhead">How would you like to join?</div>
+    <div class="role-btn" onclick="selectRole('user')"><i class="fas fa-user"></i> <span data-i18n="roleUser">User</span> <span data-i18n="roleUserSub" style="display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px;">I want to receive service</span></div>
+    <div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-tools"></i> <span data-i18n="roleProvider">Provider</span> <span data-i18n="roleProviderSub" style="display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px;">I want to provide service</span></div>
+    <div class="text-center text-muted" style="margin-top:16px;"><i class="fas fa-shield-alt"></i> <span data-i18n="roleSafety">Safe & Trusted</span></div>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: USER FORM -->
 <!-- ============================================================ -->
 <div id="page-user-form" class="page">
-    <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> <span id="userFormBack">Back</span></button>
-    <div class="app-header"><h2 id="userFormTitle">📝 Your Information</h2></div>
-    <div class="subhead" id="userFormSub">Register as User</div>
-    <div class="input-group"><label><i class="fas fa-user"></i> <span id="userFormNameLabel">Your Name</span></label><input type="text" id="user-name" placeholder="Your Name"></div>
-    <div class="input-group"><label><i class="fas fa-map-pin"></i> <span id="userFormLocationLabel">Location</span></label><input type="text" id="user-location" placeholder="Dhaka, Mirpur"></div>
-    <button class="yellow-btn" onclick="goToPage('page-user-otp')"><span id="userFormNext">Next</span> <i class="fas fa-arrow-right"></i></button>
+    <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> <span data-i18n="userFormBack">Back</span></button>
+    <div class="app-header"><h2 data-i18n="userFormTitle">📝 Your Information</h2></div>
+    <div class="subhead" data-i18n="userFormSub">Register as User</div>
+    <div class="input-group"><label><i class="fas fa-user"></i> <span data-i18n="userFormNameLabel">Your Name</span></label><input type="text" id="user-name" placeholder="Your Name"></div>
+    <div class="input-group"><label><i class="fas fa-map-pin"></i> <span data-i18n="userFormLocationLabel">Location</span></label><input type="text" id="user-location" placeholder="Dhaka, Mirpur"></div>
+    <button class="yellow-btn" onclick="goToPage('page-user-otp')"><span data-i18n="userFormNext">Next</span> <i class="fas fa-arrow-right"></i></button>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: USER OTP -->
 <!-- ============================================================ -->
 <div id="page-user-otp" class="page">
-    <button class="back-link" onclick="goToPage('page-user-form')"><i class="fas fa-arrow-left"></i> <span id="userOtpBack">Back to Form</span></button>
-    <div class="app-header"><h2 id="userOtpTitle">📱 Mobile Number</h2></div>
-    <div class="subhead" id="userOtpSub">Enter your number to receive OTP</div>
+    <button class="back-link" onclick="goToPage('page-user-form')"><i class="fas fa-arrow-left"></i> <span data-i18n="userOtpBack">Back to Form</span></button>
+    <div class="app-header"><h2 data-i18n="userOtpTitle">📱 Mobile Number</h2></div>
+    <div class="subhead" data-i18n="userOtpSub">Enter your number to receive OTP</div>
     
     <div class="phone-row">
         <div class="country-select">
@@ -343,8 +343,8 @@
         </div>
     </div>
     
-    <button class="yellow-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-sms"></i> <span id="userOtpSend">Send OTP</span></button>
-    <div class="otp-row"><input type="text" id="user-otp" placeholder="4 Digit" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('user')"><i class="fas fa-check"></i> <span id="userOtpVerify">Verify</span></button></div>
+    <button class="yellow-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-sms"></i> <span data-i18n="userOtpSend">Send OTP</span></button>
+    <div class="otp-row"><input type="text" id="user-otp" placeholder="4 Digit" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('user')"><i class="fas fa-check"></i> <span data-i18n="userOtpVerify">Verify</span></button></div>
     <div id="userOtpStatus" class="otp-status"></div>
 </div>
 
@@ -352,17 +352,17 @@
 <!-- PAGE: USER HOME -->
 <!-- ============================================================ -->
 <div id="page-user-home" class="page">
-    <div class="app-header"><h2 id="userHomeTitle">🏠 Home</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+    <div class="app-header"><h2 data-i18n="userHomeTitle">🏠 Home</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
     <div class="search-bar"><i class="fas fa-search"></i><input type="text" placeholder="Search (Bengali/English)" id="userSearchInput"></div>
-    <div class="offer-banner"><h3 id="offerTitle">🔥 Today's Offer</h3><p id="offerDesc">20% discount on all services! <span style="background:#1e1e1e;color:#fff;padding:2px 14px;border-radius:40px;font-size:.75rem;">New User</span></p><div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;"><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">Plumber</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">Electrician</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">AC Technician</span></div></div>
-    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;" id="walletLabel">Wallet Balance</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="userWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> <span id="rechargeBtn">Recharge</span></button></div>
+    <div class="offer-banner"><h3 data-i18n="offerTitle">🔥 Today's Offer</h3><p data-i18n="offerDesc">20% discount on all services! <span style="background:#1e1e1e;color:#fff;padding:2px 14px;border-radius:40px;font-size:.75rem;">New User</span></p><div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;"><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">Plumber</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">Electrician</span><span style="background:#ffffff80;padding:2px 12px;border-radius:40px;font-size:.7rem;">AC Technician</span></div></div>
+    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;" data-i18n="walletLabel">Wallet Balance</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="userWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> <span data-i18n="rechargeBtn">Recharge</span></button></div>
     <div class="category-grid">
-        <div class="category-item" onclick="openCategory('Plumber')"><i class="fas fa-wrench"></i> <span id="catPlumber">Plumber</span></div>
-        <div class="category-item" onclick="openCategory('Electrician')"><i class="fas fa-bolt"></i> <span id="catElectrician">Electrician</span></div>
-        <div class="category-item" onclick="openCategory('AC Technician')"><i class="fas fa-snowflake"></i> <span id="catAC">AC</span></div>
-        <div class="category-item" onclick="openCategory('Cleaner')"><i class="fas fa-broom"></i> <span id="catCleaner">Cleaner</span></div>
-        <div class="category-item" onclick="openCategory('Carpenter')"><i class="fas fa-hammer"></i> <span id="catCarpenter">Carpenter</span></div>
-        <div class="category-item" onclick="openCategory('Mechanic')"><i class="fas fa-car"></i> <span id="catMechanic">Mechanic</span></div>
+        <div class="category-item" onclick="openCategory('Plumber')"><i class="fas fa-wrench"></i> <span data-i18n="catPlumber">Plumber</span></div>
+        <div class="category-item" onclick="openCategory('Electrician')"><i class="fas fa-bolt"></i> <span data-i18n="catElectrician">Electrician</span></div>
+        <div class="category-item" onclick="openCategory('AC Technician')"><i class="fas fa-snowflake"></i> <span data-i18n="catAC">AC</span></div>
+        <div class="category-item" onclick="openCategory('Cleaner')"><i class="fas fa-broom"></i> <span data-i18n="catCleaner">Cleaner</span></div>
+        <div class="category-item" onclick="openCategory('Carpenter')"><i class="fas fa-hammer"></i> <span data-i18n="catCarpenter">Carpenter</span></div>
+        <div class="category-item" onclick="openCategory('Mechanic')"><i class="fas fa-car"></i> <span data-i18n="catMechanic">Mechanic</span></div>
     </div>
 </div>
 
@@ -370,12 +370,12 @@
 <!-- PAGE: USER CATEGORY -->
 <!-- ============================================================ -->
 <div id="page-user-category" class="page">
-    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span id="catBack">Back to Categories</span></button>
+    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span data-i18n="catBack">Back to Categories</span></button>
     <div class="app-header"><h2 id="category-title">📍 Plumber</h2></div>
-    <div class="subhead" id="category-sub">Providers near you</div>
-    <div class="location-input-row"><input type="text" id="userLocationInput" placeholder="Enter your location"><button onclick="searchLocation()"><i class="fas fa-search"></i> <span id="catSearchBtn">Search</span></button></div>
-    <div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)"><span id="filterAll">All</span></button><button onclick="filterDistance('1',event)">1 km</button><button onclick="filterDistance('3',event)">3 km</button><button onclick="filterDistance('5',event)">5 km</button><button onclick="filterDistance('10',event)">10 km</button></div>
-    <div id="mapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span id="mapLoading">Map loading...</span></div></div>
+    <div class="subhead" id="category-sub" data-i18n="categorySub">Providers near you</div>
+    <div class="location-input-row"><input type="text" id="userLocationInput" placeholder="Enter your location"><button onclick="searchLocation()"><i class="fas fa-search"></i> <span data-i18n="catSearchBtn">Search</span></button></div>
+    <div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)"><span data-i18n="filterAll">All</span></button><button onclick="filterDistance('1',event)">1 km</button><button onclick="filterDistance('3',event)">3 km</button><button onclick="filterDistance('5',event)">5 km</button><button onclick="filterDistance('10',event)">10 km</button></div>
+    <div id="mapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span data-i18n="mapLoading">Map loading...</span></div></div>
     <div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="mapLocationText">Dhaka, Bangladesh</span></div>
     <div id="provider-list"></div>
 </div>
@@ -384,43 +384,43 @@
 <!-- PAGE: USER ORDERS -->
 <!-- ============================================================ -->
 <div id="page-user-orders" class="page">
-    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span id="ordersBack">Back to Home</span></button>
-    <div class="app-header"><h2 id="ordersTitle">📋 My Orders</h2></div>
-    <div class="subhead" id="ordersSub">All your orders</div>
-    <div id="userOrderList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="ordersLoading">Loading orders...</span></div></div>
+    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span data-i18n="ordersBack">Back to Home</span></button>
+    <div class="app-header"><h2 data-i18n="ordersTitle">📋 My Orders</h2></div>
+    <div class="subhead" data-i18n="ordersSub">All your orders</div>
+    <div id="userOrderList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span data-i18n="ordersLoading">Loading orders...</span></div></div>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: USER WALLET -->
 <!-- ============================================================ -->
 <div id="page-user-wallet" class="page">
-    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span id="walletBack">Back to Home</span></button>
-    <div class="app-header"><h2 id="walletTitle">💳 Wallet</h2></div>
-    <div class="subhead" id="walletSub">Your transaction history</div>
-    <div class="wallet-box"><div class="label" id="walletBalanceLabel">Current Balance</div><div class="amount">৳ <span id="walletBalanceDisplay">0</span></div></div>
-    <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> <span id="walletAmountLabel">Enter amount</span></label><input type="number" id="rechargeAmount" placeholder="e.g. 500"></div>
-    <button class="yellow-btn" onclick="rechargeWallet()"><i class="fas fa-plus"></i> <span id="walletRechargeBtn">Recharge</span></button>
-    <div class="commission-info"><i class="fas fa-info-circle"></i> <strong id="commissionNote">Note:</strong> <span id="commissionText">10% commission will be deducted per booking.</span></div>
-    <div id="userTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="transactionLoading">Loading transactions...</span></div></div>
+    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span data-i18n="walletBack">Back to Home</span></button>
+    <div class="app-header"><h2 data-i18n="walletTitle">💳 Wallet</h2></div>
+    <div class="subhead" data-i18n="walletSub">Your transaction history</div>
+    <div class="wallet-box"><div class="label" data-i18n="walletBalanceLabel">Current Balance</div><div class="amount">৳ <span id="walletBalanceDisplay">0</span></div></div>
+    <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> <span data-i18n="walletAmountLabel">Enter amount</span></label><input type="number" id="rechargeAmount" placeholder="e.g. 500"></div>
+    <button class="yellow-btn" onclick="rechargeWallet()"><i class="fas fa-plus"></i> <span data-i18n="walletRechargeBtn">Recharge</span></button>
+    <div class="commission-info"><i class="fas fa-info-circle"></i> <strong data-i18n="commissionNote">Note:</strong> <span data-i18n="commissionText">10% commission will be deducted per booking.</span></div>
+    <div id="userTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span data-i18n="transactionLoading">Loading transactions...</span></div></div>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: USER PROFILE -->
 <!-- ============================================================ -->
 <div id="page-user-profile" class="page">
-    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span id="profileBack">Back to Home</span></button>
-    <div class="app-header"><h2 id="profileTitle">👤 Profile</h2></div>
+    <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> <span data-i18n="profileBack">Back to Home</span></button>
+    <div class="app-header"><h2 data-i18n="profileTitle">👤 Profile</h2></div>
     <div class="dash-card">
         <p><i class="fas fa-user"></i> <strong id="profileName">-</strong></p>
         <p><i class="fas fa-map-pin"></i> <span id="profileLocation">-</span></p>
         <p><i class="fas fa-phone-alt"></i> <span id="profilePhone">-</span></p>
-        <p><i class="fas fa-wallet"></i> <span id="profileBalanceLabel">Balance:</span> ৳ <span id="profileWallet">0</span></p>
-        <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> <span id="profileRating">Rating: 4.8 (23 reviews)</span></p>
+        <p><i class="fas fa-wallet"></i> <span data-i18n="profileBalanceLabel">Balance:</span> ৳ <span id="profileWallet">0</span></p>
+        <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> <span data-i18n="profileRating">Rating: 4.8 (23 reviews)</span></p>
     </div>
     
     <!-- Language Switcher in Profile -->
     <div class="dash-card" style="margin-top:4px;">
-        <label class="lang-label"><i class="fas fa-globe"></i> <span id="profileLangLabel">Select Language</span></label>
+        <label class="lang-label"><i class="fas fa-globe"></i> <span data-i18n="profileLangLabel">Select Language</span></label>
         <select id="profileLanguageSwitcher" class="lang-selector" onchange="changeLanguage(this.value)">
             <option value="en">English</option>
             <option value="bn">বাংলা</option>
@@ -439,31 +439,31 @@
         </select>
     </div>
     
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span id="logoutBtn">Logout</span></button>
-    <span class="admin-link" onclick="window.location.hash='admin'">🔐 <span id="adminLink">Admin Panel</span></span>
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span data-i18n="logoutBtn">Logout</span></button>
+    <span class="admin-link" onclick="window.location.hash='admin'">🔐 <span data-i18n="adminLink">Admin Panel</span></span>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: PROVIDER FORM -->
 <!-- ============================================================ -->
 <div id="page-provider-form" class="page">
-    <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> <span id="providerFormBack">Back to Role</span></button>
-    <div class="app-header"><h2 id="providerFormTitle">🛠️ Provider Info</h2></div>
-    <div class="subhead" id="providerFormSub">Enter your professional details</div>
-    <div class="input-group"><label><i class="fas fa-user"></i> <span id="providerNameLabel">Name</span></label><input type="text" id="provider-name" placeholder="Karim Mia"></div>
-    <div class="input-group"><label><i class="fas fa-briefcase"></i> <span id="providerWorkLabel">Profession</span></label><input type="text" id="provider-work" placeholder="Plumber, Electrician"></div>
-    <div class="input-group"><label><i class="fas fa-clock"></i> <span id="providerExpLabel">Experience (Years)</span></label><input type="number" id="provider-experience" placeholder="5"></div>
-    <div class="input-group"><label><i class="fas fa-id-card"></i> <span id="providerNidLabel">NID Number</span></label><input type="text" id="provider-nid" placeholder="NID"></div>
-    <button class="yellow-btn" onclick="goToPage('page-provider-otp')"><span id="providerFormNext">Next</span> <i class="fas fa-arrow-right"></i></button>
+    <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> <span data-i18n="providerFormBack">Back to Role</span></button>
+    <div class="app-header"><h2 data-i18n="providerFormTitle">🛠️ Provider Info</h2></div>
+    <div class="subhead" data-i18n="providerFormSub">Enter your professional details</div>
+    <div class="input-group"><label><i class="fas fa-user"></i> <span data-i18n="providerNameLabel">Name</span></label><input type="text" id="provider-name" placeholder="Karim Mia"></div>
+    <div class="input-group"><label><i class="fas fa-briefcase"></i> <span data-i18n="providerWorkLabel">Profession</span></label><input type="text" id="provider-work" placeholder="Plumber, Electrician"></div>
+    <div class="input-group"><label><i class="fas fa-clock"></i> <span data-i18n="providerExpLabel">Experience (Years)</span></label><input type="number" id="provider-experience" placeholder="5"></div>
+    <div class="input-group"><label><i class="fas fa-id-card"></i> <span data-i18n="providerNidLabel">NID Number</span></label><input type="text" id="provider-nid" placeholder="NID"></div>
+    <button class="yellow-btn" onclick="goToPage('page-provider-otp')"><span data-i18n="providerFormNext">Next</span> <i class="fas fa-arrow-right"></i></button>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: PROVIDER OTP -->
 <!-- ============================================================ -->
 <div id="page-provider-otp" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-form')"><i class="fas fa-arrow-left"></i> <span id="providerOtpBack">Back to Form</span></button>
-    <div class="app-header"><h2 id="providerOtpTitle">📱 Provider Number</h2></div>
-    <div class="subhead" id="providerOtpSub">Verify your OTP</div>
+    <button class="back-link" onclick="goToPage('page-provider-form')"><i class="fas fa-arrow-left"></i> <span data-i18n="providerOtpBack">Back to Form</span></button>
+    <div class="app-header"><h2 data-i18n="providerOtpTitle">📱 Provider Number</h2></div>
+    <div class="subhead" data-i18n="providerOtpSub">Verify your OTP</div>
     
     <div class="phone-row">
         <div class="country-select">
@@ -494,8 +494,8 @@
         </div>
     </div>
     
-    <button class="yellow-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> <span id="providerOtpSend">Send OTP</span></button>
-    <div class="otp-row"><input type="text" id="provider-otp" placeholder="4 Digit" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> <span id="providerOtpVerify">Verify</span></button></div>
+    <button class="yellow-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> <span data-i18n="providerOtpSend">Send OTP</span></button>
+    <div class="otp-row"><input type="text" id="provider-otp" placeholder="4 Digit" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> <span data-i18n="providerOtpVerify">Verify</span></button></div>
     <div id="providerOtpStatus" class="otp-status"></div>
 </div>
 
@@ -503,60 +503,60 @@
 <!-- PAGE: PROVIDER HOME -->
 <!-- ============================================================ -->
 <div id="page-provider-home" class="page">
-    <div class="app-header"><h2 id="providerHomeTitle">📊 Dashboard</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
-    <div class="subhead"><span id="providerHomeWelcome">Welcome,</span> <span id="providerNameDisplay">-</span></div>
-    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;" id="providerWalletLabel">Wallet Balance</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="providerWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> <span id="providerWithdrawBtn">Withdraw</span></button></div>
+    <div class="app-header"><h2 data-i18n="providerHomeTitle">📊 Dashboard</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+    <div class="subhead"><span data-i18n="providerHomeWelcome">Welcome,</span> <span id="providerNameDisplay">-</span></div>
+    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;" data-i18n="providerWalletLabel">Wallet Balance</div><div style="font-size:1.4rem;font-weight:800;">৳ <span id="providerWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> <span data-i18n="providerWithdrawBtn">Withdraw</span></button></div>
     <div class="dash-card">
-        <div class="dash-stat"><span id="providerCategoryLabel">📌 Category</span> <span class="wallet-badge" id="providerCategory">-</span></div>
-        <div class="dash-stat"><span id="providerRatingLabel">⭐ Rating</span> <span>4.9 (42 reviews)</span></div>
-        <div class="dash-stat"><span id="providerOrdersLabel">📦 Total Orders</span> <span id="providerTotalOrders">0</span></div>
-        <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> <span id="providerWalletStatLabel">Wallet</span></span> <span>৳ <span id="providerWalletStat">0</span></span></div>
+        <div class="dash-stat"><span data-i18n="providerCategoryLabel">📌 Category</span> <span class="wallet-badge" id="providerCategory">-</span></div>
+        <div class="dash-stat"><span data-i18n="providerRatingLabel">⭐ Rating</span> <span>4.9 (42 reviews)</span></div>
+        <div class="dash-stat"><span data-i18n="providerOrdersLabel">📦 Total Orders</span> <span id="providerTotalOrders">0</span></div>
+        <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> <span data-i18n="providerWalletStatLabel">Wallet</span></span> <span>৳ <span id="providerWalletStat">0</span></span></div>
     </div>
-    <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#2d2a1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> <span id="providerServiceArea">Your Service Area</span></div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span id="providerMapLoading">Map loading...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">Dhaka, Bangladesh</span></div></div>
+    <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#2d2a1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> <span data-i18n="providerServiceArea">Your Service Area</span></div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span data-i18n="providerMapLoading">Map loading...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">Dhaka, Bangladesh</span></div></div>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: PROVIDER ORDERS -->
 <!-- ============================================================ -->
 <div id="page-provider-orders" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span id="providerOrdersBack">Back to Dashboard</span></button>
-    <div class="app-header"><h2 id="providerOrdersTitle">📋 Booking Requests</h2></div>
-    <div class="subhead" id="providerOrdersSub">Booking requests for you</div>
-    <div id="providerBookingList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="providerOrdersLoading">Loading bookings...</span></div></div>
+    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span data-i18n="providerOrdersBack">Back to Dashboard</span></button>
+    <div class="app-header"><h2 data-i18n="providerOrdersTitle">📋 Booking Requests</h2></div>
+    <div class="subhead" data-i18n="providerOrdersSub">Booking requests for you</div>
+    <div id="providerBookingList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span data-i18n="providerOrdersLoading">Loading bookings...</span></div></div>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: PROVIDER WALLET -->
 <!-- ============================================================ -->
 <div id="page-provider-wallet" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span id="providerWalletBack">Back to Dashboard</span></button>
-    <div class="app-header"><h2 id="providerWalletTitle">💳 Wallet</h2></div>
-    <div class="subhead" id="providerWalletSub">Your income & expense history</div>
-    <div class="wallet-box"><div class="label" id="providerWalletBalanceLabel">Current Balance</div><div class="amount">৳ <span id="providerWalletDisplay">0</span></div></div>
-    <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> <span id="providerWithdrawAmountLabel">Enter amount</span></label><input type="number" id="withdrawAmount" placeholder="e.g. 500"></div>
-    <button class="yellow-btn" onclick="withdrawMoney()"><i class="fas fa-arrow-up"></i> <span id="providerWithdrawBtn2">Withdraw</span></button>
-    <div id="providerTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="providerTransactionLoading">Loading transactions...</span></div></div>
+    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span data-i18n="providerWalletBack">Back to Dashboard</span></button>
+    <div class="app-header"><h2 data-i18n="providerWalletTitle">💳 Wallet</h2></div>
+    <div class="subhead" data-i18n="providerWalletSub">Your income & expense history</div>
+    <div class="wallet-box"><div class="label" data-i18n="providerWalletBalanceLabel">Current Balance</div><div class="amount">৳ <span id="providerWalletDisplay">0</span></div></div>
+    <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> <span data-i18n="providerWithdrawAmountLabel">Enter amount</span></label><input type="number" id="withdrawAmount" placeholder="e.g. 500"></div>
+    <button class="yellow-btn" onclick="withdrawMoney()"><i class="fas fa-arrow-up"></i> <span data-i18n="providerWithdrawBtn2">Withdraw</span></button>
+    <div id="providerTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span data-i18n="providerTransactionLoading">Loading transactions...</span></div></div>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: PROVIDER PROFILE -->
 <!-- ============================================================ -->
 <div id="page-provider-profile" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span id="providerProfileBack">Back to Dashboard</span></button>
-    <div class="app-header"><h2 id="providerProfileTitle">👨‍🔧 Profile</h2></div>
+    <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> <span data-i18n="providerProfileBack">Back to Dashboard</span></button>
+    <div class="app-header"><h2 data-i18n="providerProfileTitle">👨‍🔧 Profile</h2></div>
     <div class="dash-card">
         <p><i class="fas fa-user"></i> <strong id="providerProfileName">-</strong></p>
         <p><i class="fas fa-briefcase"></i> <span id="providerProfileWork">-</span> (<span id="providerProfileExp">-</span> years)</p>
         <p><i class="fas fa-id-card"></i> NID: <span id="providerProfileNid">-</span></p>
         <p><i class="fas fa-phone-alt"></i> <span id="providerProfilePhone">-</span></p>
-        <p><i class="fas fa-wallet"></i> <span id="providerProfileBalanceLabel">Balance:</span> ৳ <span id="providerProfileWallet">0</span></p>
-        <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> <span id="providerProfileRating">Rating: 4.9 (42 reviews)</span></p>
-        <p><i class="fas fa-check-circle" style="color:#4CAF50;"></i> <span id="providerProfileOrdersLabel">Total Orders:</span> <span id="providerProfileOrders">0</span></p>
+        <p><i class="fas fa-wallet"></i> <span data-i18n="providerProfileBalanceLabel">Balance:</span> ৳ <span id="providerProfileWallet">0</span></p>
+        <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> <span data-i18n="providerProfileRating">Rating: 4.9 (42 reviews)</span></p>
+        <p><i class="fas fa-check-circle" style="color:#4CAF50;"></i> <span data-i18n="providerProfileOrdersLabel">Total Orders:</span> <span id="providerProfileOrders">0</span></p>
     </div>
     
     <!-- Language Switcher in Provider Profile -->
     <div class="dash-card" style="margin-top:4px;">
-        <label class="lang-label"><i class="fas fa-globe"></i> <span id="providerLangLabel">Select Language</span></label>
+        <label class="lang-label"><i class="fas fa-globe"></i> <span data-i18n="providerLangLabel">Select Language</span></label>
         <select id="providerLanguageSwitcher" class="lang-selector" onchange="changeLanguage(this.value)">
             <option value="en">English</option>
             <option value="bn">বাংলা</option>
@@ -575,37 +575,37 @@
         </select>
     </div>
     
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span id="providerLogoutBtn">Logout</span></button>
-    <span class="admin-link" onclick="window.location.hash='admin'">🔐 <span id="providerAdminLink">Admin Panel</span></span>
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span data-i18n="providerLogoutBtn">Logout</span></button>
+    <span class="admin-link" onclick="window.location.hash='admin'">🔐 <span data-i18n="providerAdminLink">Admin Panel</span></span>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: ADMIN LOGIN -->
 <!-- ============================================================ -->
 <div id="page-admin-login" class="page">
-    <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> <span id="adminLoginBack">Back</span></button>
-    <div class="app-header"><h2 id="adminLoginTitle">🔐 Admin Access</h2></div>
-    <div class="subhead" id="adminLoginSub">Only for app owner</div>
-    <div class="admin-lock"><input type="password" id="adminPassword" placeholder="Enter secret password" /><button class="yellow-btn" onclick="verifyAdmin()"><span id="adminLoginBtn">Login</span> <i class="fas fa-arrow-right"></i></button><div style="margin-top:8px;font-size:.8rem;color:#e53935;" id="adminError"></div></div>
+    <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> <span data-i18n="adminLoginBack">Back</span></button>
+    <div class="app-header"><h2 data-i18n="adminLoginTitle">🔐 Admin Access</h2></div>
+    <div class="subhead" data-i18n="adminLoginSub">Only for app owner</div>
+    <div class="admin-lock"><input type="password" id="adminPassword" placeholder="Enter secret password" /><button class="yellow-btn" onclick="verifyAdmin()"><span data-i18n="adminLoginBtn">Login</span> <i class="fas fa-arrow-right"></i></button><div style="margin-top:8px;font-size:.8rem;color:#e53935;" id="adminError"></div></div>
 </div>
 
 <!-- ============================================================ -->
 <!-- PAGE: ADMIN DASHBOARD -->
 <!-- ============================================================ -->
 <div id="page-admin-dashboard" class="page">
-    <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> <span id="adminDashBack">Back</span></button>
-    <div class="app-header"><h2 id="adminDashTitle">📊 Admin</h2></div>
-    <div class="subhead" id="adminDashSub">Your app summary</div>
+    <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> <span data-i18n="adminDashBack">Back</span></button>
+    <div class="app-header"><h2 data-i18n="adminDashTitle">📊 Admin</h2></div>
+    <div class="subhead" data-i18n="adminDashSub">Your app summary</div>
     <div class="admin-stats-grid">
-        <div class="admin-stat-card"><i class="fas fa-users"></i><div class="number" id="adminTotalUsers">0</div><div class="label" id="adminUsersLabel">Total Users</div></div>
-        <div class="admin-stat-card"><i class="fas fa-tools"></i><div class="number" id="adminTotalProviders">0</div><div class="label" id="adminProvidersLabel">Total Providers</div></div>
-        <div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">0</div><div class="label" id="adminOrdersLabel">Total Orders</div></div>
-        <div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ 0</div><div class="label" id="adminRevenueLabel">Total Revenue</div></div>
+        <div class="admin-stat-card"><i class="fas fa-users"></i><div class="number" id="adminTotalUsers">0</div><div class="label" data-i18n="adminUsersLabel">Total Users</div></div>
+        <div class="admin-stat-card"><i class="fas fa-tools"></i><div class="number" id="adminTotalProviders">0</div><div class="label" data-i18n="adminProvidersLabel">Total Providers</div></div>
+        <div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">0</div><div class="label" data-i18n="adminOrdersLabel">Total Orders</div></div>
+        <div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ 0</div><div class="label" data-i18n="adminRevenueLabel">Total Revenue</div></div>
     </div>
-    <div class="dash-card"><h3 style="font-size:.9rem;" id="adminPendingLabel">📌 Pending Providers</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span id="adminPendingLoading">Loading...</span></div></div></div>
-    <div class="dash-card"><h3 style="font-size:.9rem;" id="adminCommissionLabel">💰 Commission Report</h3><div class="dash-stat"><span id="adminTotalCommLabel">Total Commission</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span id="adminMonthlyCommLabel">This Month</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span id="adminPendingPayLabel">Pending Payment</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
-    <button class="yellow-btn" onclick="downloadReport()"><i class="fas fa-download"></i> <span id="adminDownloadBtn">Download Report</span></button>
-    <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> <span id="adminLogoutBtn">Admin Logout</span></button>
+    <div class="dash-card"><h3 style="font-size:.9rem;" data-i18n="adminPendingLabel">📌 Pending Providers</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> <span data-i18n="adminPendingLoading">Loading...</span></div></div></div>
+    <div class="dash-card"><h3 style="font-size:.9rem;" data-i18n="adminCommissionLabel">💰 Commission Report</h3><div class="dash-stat"><span data-i18n="adminTotalCommLabel">Total Commission</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span data-i18n="adminMonthlyCommLabel">This Month</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span data-i18n="adminPendingPayLabel">Pending Payment</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
+    <button class="yellow-btn" onclick="downloadReport()"><i class="fas fa-download"></i> <span data-i18n="adminDownloadBtn">Download Report</span></button>
+    <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> <span data-i18n="adminLogoutBtn">Admin Logout</span></button>
 </div>
 
 </div><!-- /app-content -->
@@ -614,16 +614,16 @@
 <!-- NAVIGATION BARS -->
 <!-- ============================================================ -->
 <div id="bottom-nav-user">
-    <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span id="navHome">Home</span></button>
-    <button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span id="navOrders">Orders</span></button>
-    <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span id="navWallet">Wallet</span></button>
-    <button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span id="navProfile">Profile</span></button>
+    <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span data-i18n="navHome">Home</span></button>
+    <button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span data-i18n="navOrders">Orders</span></button>
+    <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span data-i18n="navWallet">Wallet</span></button>
+    <button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span data-i18n="navProfile">Profile</span></button>
 </div>
 <div id="bottom-nav-provider">
-    <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span id="navProviderHome">Dashboard</span></button>
-    <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span id="navProviderOrders">Bookings</span></button>
-    <button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span id="navProviderWallet">Wallet</span></button>
-    <button class="nav-item" data-page="page-provider-profile" onclick="navigateToProvider('page-provider-profile')"><i class="fas fa-user"></i><span id="navProviderProfile">Profile</span></button>
+    <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span data-i18n="navProviderHome">Dashboard</span></button>
+    <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span data-i18n="navProviderOrders">Bookings</span></button>
+    <button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span data-i18n="navProviderWallet">Wallet</span></button>
+    <button class="nav-item" data-page="page-provider-profile" onclick="navigateToProvider('page-provider-profile')"><i class="fas fa-user"></i><span data-i18n="navProviderProfile">Profile</span></button>
 </div>
 
 </div><!-- /app-wrapper -->
@@ -662,6 +662,7 @@ const translations = {
         catCleaner: 'Cleaner', catCarpenter: 'Carpenter', catMechanic: 'Mechanic',
         catBack: 'Back to Categories', catSearchBtn: 'Search',
         filterAll: 'All', mapLoading: 'Map loading...',
+        categorySub: 'Providers near you',
         ordersBack: 'Back to Home', ordersTitle: '📋 My Orders',
         ordersSub: 'All your orders', ordersLoading: 'Loading orders...',
         walletBack: 'Back to Home', walletTitle: '💳 Wallet',
@@ -726,6 +727,7 @@ const translations = {
         catCleaner: 'ক্লিনার', catCarpenter: 'কার্পেন্টার', catMechanic: 'মেকানিক',
         catBack: 'ক্যাটাগরিতে', catSearchBtn: 'খুঁজুন',
         filterAll: 'সব', mapLoading: 'ম্যাপ লোড হচ্ছে...',
+        categorySub: 'আপনার কাছাকাছি প্রোভাইডার',
         ordersBack: 'হোমে', ordersTitle: '📋 আমার অর্ডার',
         ordersSub: 'আপনার করা সকল অর্ডার', ordersLoading: 'অর্ডার লোড হচ্ছে...',
         walletBack: 'হোমে', walletTitle: '💳 ওয়ালেট',
@@ -784,13 +786,15 @@ function changeLanguage(lang) {
     // Update all text elements with data-i18n attribute
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (t[key] !== undefined) el.textContent = t[key];
+        if (t[key] !== undefined) {
+            el.textContent = t[key];
+        }
     });
     
-    // Update app name and tagline
-    document.getElementById('appNameDisplay').textContent = t.appName || 'Akor';
-    document.getElementById('appTagline').textContent = t.tagline || 'Global Service Platform';
-    document.getElementById('loadingText').textContent = t.loadingText || 'Loading...';
+    // Update app name and tagline (they don't have data-i18n)
+    document.querySelector('[data-i18n="appName"]').textContent = t.appName || 'Akor';
+    document.querySelector('[data-i18n="tagline"]').textContent = t.tagline || 'Global Service Platform';
+    document.querySelector('[data-i18n="loadingText"]').textContent = t.loadingText || 'Loading...';
     
     // Update profile language switchers
     const profileSwitcher = document.getElementById('profileLanguageSwitcher');
