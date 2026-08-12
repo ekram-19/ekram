@@ -12,6 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <style>
+        /* ===== BASE STYLES ===== */
         *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif}
         html,body{height:100%;background:#1a1a1a;overflow:hidden}
         #app-wrapper{width:100%;height:100vh;height:100dvh;background:#fef9e7;display:flex;flex-direction:column;position:relative}
@@ -27,30 +28,7 @@
         .page.active{display:flex}
         @keyframes fadeUp{0%{opacity:.6;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
         
-        /* Language Switcher */
-        .lang-switcher {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #fefcf5;
-            padding: 4px 10px 4px 14px;
-            border-radius: 40px;
-            border: 1px solid #f7e3a0;
-            margin-left: auto;
-        }
-        .lang-switcher select {
-            border: none;
-            background: transparent;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #2d2a1e;
-            outline: none;
-            cursor: pointer;
-            padding: 4px 0;
-        }
-        .lang-switcher i { color: #b89b4b; font-size: 0.9rem; }
-        
-        /* Onboarding */
+        /* ===== ONBOARDING ===== */
         #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:20px;gap:20px}
         #page-onboarding.active{display:flex}
         #page-onboarding .logo{font-size:4.5rem;background:#f7c948;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 15px 40px rgba(247,201,72,.3)}
@@ -62,7 +40,7 @@
         #page-onboarding .loading-dots span:nth-child(3){animation-delay:.4s}
         @keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
         
-        /* Role */
+        /* ===== ROLE ===== */
         #page-role{justify-content:center;min-height:70vh;gap:20px}
         #page-role .app-header{justify-content:center;text-align:center}
         #page-role .app-header h2{font-size:2rem}
@@ -73,7 +51,7 @@
         .role-btn i{margin-right:12px;color:#dba32b}
         .role-btn span{display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px}
         
-        /* Common */
+        /* ===== COMMON ===== */
         .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2px}
         .app-header h2{font-size:1.5rem;font-weight:800;color:#1e1e1e;letter-spacing:-.5px}
         .app-header .badge{background:#f7c948;padding:4px 14px;border-radius:40px;font-size:.7rem;font-weight:700}
@@ -264,38 +242,32 @@
         .phone-row .country-select { flex: 0 0 120px; margin-bottom: 0; }
         .phone-row .input-group { flex: 1; }
         .phone-row .input-group input { border-radius: 40px; }
+        
+        .lang-selector {
+            padding: 10px 16px;
+            border-radius: 40px;
+            border: 1.5px solid #f0e3c0;
+            background: #fefcf5;
+            font-size: .95rem;
+            outline: 0;
+            width: 100%;
+            cursor: pointer;
+        }
+        .lang-selector:focus { border-color: #f5b342; box-shadow: 0 0 0 4px rgba(245,179,66,.15); }
+        .lang-label {
+            font-weight: 600;
+            color: #2d2a1e;
+            font-size: .85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
     </style>
 </head>
 <body>
 <div id="app-wrapper">
-<div id="status-bar">
-    <span class="time" id="statusTime">9:41</span>
-    <span class="icons">
-        <i class="fas fa-signal"></i>
-        <i class="fas fa-wifi"></i>
-        <i class="fas fa-battery-three-quarters"></i>
-        <!-- Language Switcher -->
-        <div class="lang-switcher">
-            <i class="fas fa-globe"></i>
-            <select id="languageSwitcher" onchange="changeLanguage(this.value)">
-                <option value="en">English</option>
-                <option value="bn">বাংলা</option>
-                <option value="hi">हिन्दी</option>
-                <option value="ur">اردو</option>
-                <option value="es">Español</option>
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-                <option value="it">Italiano</option>
-                <option value="pt">Português</option>
-                <option value="ru">Русский</option>
-                <option value="zh">中文</option>
-                <option value="ja">日本語</option>
-                <option value="ko">한국어</option>
-                <option value="ar">العربية</option>
-            </select>
-        </div>
-    </span>
-</div>
+<div id="status-bar"><span class="time" id="statusTime">9:41</span><span class="icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span></div>
 <div id="toast" class="toast"></div>
 <div id="app-content">
 
@@ -445,6 +417,28 @@
         <p><i class="fas fa-wallet"></i> <span id="profileBalanceLabel">Balance:</span> ৳ <span id="profileWallet">0</span></p>
         <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> <span id="profileRating">Rating: 4.8 (23 reviews)</span></p>
     </div>
+    
+    <!-- Language Switcher in Profile -->
+    <div class="dash-card" style="margin-top:4px;">
+        <label class="lang-label"><i class="fas fa-globe"></i> <span id="profileLangLabel">Select Language</span></label>
+        <select id="profileLanguageSwitcher" class="lang-selector" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="bn">বাংলা</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ur">اردو</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="zh">中文</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="ar">العربية</option>
+        </select>
+    </div>
+    
     <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span id="logoutBtn">Logout</span></button>
     <span class="admin-link" onclick="window.location.hash='admin'">🔐 <span id="adminLink">Admin Panel</span></span>
 </div>
@@ -559,6 +553,28 @@
         <hr><p><i class="fas fa-star" style="color:#f5b342;"></i> <span id="providerProfileRating">Rating: 4.9 (42 reviews)</span></p>
         <p><i class="fas fa-check-circle" style="color:#4CAF50;"></i> <span id="providerProfileOrdersLabel">Total Orders:</span> <span id="providerProfileOrders">0</span></p>
     </div>
+    
+    <!-- Language Switcher in Provider Profile -->
+    <div class="dash-card" style="margin-top:4px;">
+        <label class="lang-label"><i class="fas fa-globe"></i> <span id="providerLangLabel">Select Language</span></label>
+        <select id="providerLanguageSwitcher" class="lang-selector" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="bn">বাংলা</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ur">اردو</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="zh">中文</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="ar">العربية</option>
+        </select>
+    </div>
+    
     <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> <span id="providerLogoutBtn">Logout</span></button>
     <span class="admin-link" onclick="window.location.hash='admin'">🔐 <span id="providerAdminLink">Admin Panel</span></span>
 </div>
@@ -655,6 +671,7 @@ const translations = {
         transactionLoading: 'Loading transactions...',
         profileBack: 'Back to Home', profileTitle: '👤 Profile',
         profileBalanceLabel: 'Balance:', profileRating: 'Rating: 4.8 (23 reviews)',
+        profileLangLabel: 'Select Language',
         logoutBtn: 'Logout', adminLink: 'Admin Panel',
         providerFormBack: 'Back to Role', providerFormTitle: '🛠️ Provider Info',
         providerFormSub: 'Enter your professional details', providerNameLabel: 'Name',
@@ -676,8 +693,8 @@ const translations = {
         providerTransactionLoading: 'Loading transactions...',
         providerProfileBack: 'Back to Dashboard', providerProfileTitle: '👨‍🔧 Profile',
         providerProfileBalanceLabel: 'Balance:', providerProfileRating: 'Rating: 4.9 (42 reviews)',
-        providerProfileOrdersLabel: 'Total Orders:', providerLogoutBtn: 'Logout',
-        providerAdminLink: 'Admin Panel',
+        providerProfileOrdersLabel: 'Total Orders:', providerLangLabel: 'Select Language',
+        providerLogoutBtn: 'Logout', providerAdminLink: 'Admin Panel',
         adminLoginBack: 'Back', adminLoginTitle: '🔐 Admin Access',
         adminLoginSub: 'Only for app owner', adminLoginBtn: 'Login',
         adminDashBack: 'Back', adminDashTitle: '📊 Admin',
@@ -718,6 +735,7 @@ const translations = {
         transactionLoading: 'ট্রানজেকশন লোড হচ্ছে...',
         profileBack: 'হোমে', profileTitle: '👤 প্রোফাইল',
         profileBalanceLabel: 'ব্যালেন্স:', profileRating: 'রেটিং: ৪.৮ (২৩টি রিভিউ)',
+        profileLangLabel: 'ভাষা নির্বাচন করুন',
         logoutBtn: 'লগআউট', adminLink: 'অ্যাডমিন প্যানেল',
         providerFormBack: 'রোল নির্বাচন', providerFormTitle: '🛠️ প্রোভাইডার তথ্য',
         providerFormSub: 'আপনার পেশাগত তথ্য দিন', providerNameLabel: 'নাম',
@@ -739,8 +757,8 @@ const translations = {
         providerTransactionLoading: 'ট্রানজেকশন লোড হচ্ছে...',
         providerProfileBack: 'ড্যাশবোর্ড', providerProfileTitle: '👨‍🔧 প্রোফাইল',
         providerProfileBalanceLabel: 'ব্যালেন্স:', providerProfileRating: 'রেটিং: ৪.৯ (৪২টি রিভিউ)',
-        providerProfileOrdersLabel: 'মোট অর্ডার:', providerLogoutBtn: 'লগআউট',
-        providerAdminLink: 'অ্যাডমিন প্যানেল',
+        providerProfileOrdersLabel: 'মোট অর্ডার:', providerLangLabel: 'ভাষা নির্বাচন করুন',
+        providerLogoutBtn: 'লগআউট', providerAdminLink: 'অ্যাডমিন প্যানেল',
         adminLoginBack: 'ফিরে যান', adminLoginTitle: '🔐 অ্যাডমিন অ্যাক্সেস',
         adminLoginSub: 'শুধুমাত্র অ্যাপ ওনারের জন্য', adminLoginBtn: 'প্রবেশ করুন',
         adminDashBack: 'ফিরে যান', adminDashTitle: '📊 অ্যাডমিন',
@@ -755,7 +773,6 @@ const translations = {
         navProviderHome: 'ড্যাশবোর্ড', navProviderOrders: 'বুকিং',
         navProviderWallet: 'ওয়ালেট', navProviderProfile: 'প্রোফাইল'
     }
-    // অন্যান্য ভাষার জন্য একই স্ট্রাকচার যোগ করতে পারেন
 };
 
 let currentLang = 'en';
@@ -764,797 +781,836 @@ function changeLanguage(lang) {
     currentLang = lang;
     const t = translations[lang] || translations['en'];
     
-    // সব টেক্সট আপডেট করুন
+    // Update all text elements with data-i18n attribute
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (t[key] !== undefined) el.textContent = t[key];
     });
     
-    // App নাম এবং ট্যাগলাইন আপডেট
+    // Update app name and tagline
     document.getElementById('appNameDisplay').textContent = t.appName || 'Akor';
     document.getElementById('appTagline').textContent = t.tagline || 'Global Service Platform';
     document.getElementById('loadingText').textContent = t.loadingText || 'Loading...';
     
-    // HTML lang পরিবর্তন
+    // Update profile language switchers
+    const profileSwitcher = document.getElementById('profileLanguageSwitcher');
+    if (profileSwitcher) profileSwitcher.value = lang;
+    
+    const providerSwitcher = document.getElementById('providerLanguageSwitcher');
+    if (providerSwitcher) providerSwitcher.value = lang;
+    
+    // Update HTML lang attribute
     document.documentElement.lang = lang;
     localStorage.setItem('app_lang', lang);
-    
-    // ভাষা সিলেক্টর আপডেট
-    document.getElementById('languageSwitcher').value = lang;
     
     console.log('🌍 Language changed to:', lang);
 }
 
 // ============================================================
-//  APP STATE
+//  LANGUAGE PROMPT ON LOGIN
 // ============================================================
-let currentUserRole = null;
-let isLoggedIn = false;
-let currentUserId = null;
-let currentUserData = null;
-let selectedCountryCode = '+880';
-
-// ============================================================
-//  TOAST
-// ============================================================
-function showToast(msg, type = 'success') {
-    const t = document.getElementById('toast');
-    if (!t) return;
-    t.textContent = msg;
-    t.className = 'toast show ' + type;
-    clearTimeout(t._timeout);
-    t._timeout = setTimeout(() => t.classList.remove('show'), 3000);
+function askLanguageOnLogin() {
+    if (localStorage.getItem('app_lang')) return;
+    
+    const langChoice = confirm(
+        '🌍 Welcome to Akor!\n\nSelect your language:\n\n' +
+        'Click "OK" for English\n' +
+        'Click "Cancel" for বাংলা\n\n' +
+        'আকর-এ স্বাগতম!\n\n' +
+        'আপনার ভাষা নির্বাচন করুন:\n\n' +
+        '"OK" ক্লিক করুন ইংরেজির জন্য\n' +
+        '"Cancel" ক্লিক করুন বাংলার জন্য'
+    );
+    
+    const lang = langChoice ? 'en' : 'bn';
+    changeLanguage(lang);
 }
 
 // ============================================================
-//  NAVIGATION
+//  FIREBASE INIT
 // ============================================================
-function goToPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const el = document.getElementById(id);
-    if (el) el.classList.add('active');
-    document.getElementById('app-content').scrollTop = 0;
-    updateNav(id);
-}
+if (typeof firebase !== 'undefined') {
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    db.settings({ merge: true });
+    console.log('✅ Firebase initialized!');
 
-function updateNav(id) {
-    document.querySelectorAll('#bottom-nav-user .nav-item, #bottom-nav-provider .nav-item').forEach(item => {
-        item.classList.toggle('active', item.dataset.page === id);
+    // ============================================================
+    //  APP STATE
+    // ============================================================
+    let currentUserRole = null;
+    let isLoggedIn = false;
+    let currentUserId = null;
+    let currentUserData = null;
+    let selectedCountryCode = '+880';
+
+    // ============================================================
+    //  TOAST
+    // ============================================================
+    function showToast(msg, type = 'success') {
+        const t = document.getElementById('toast');
+        if (!t) return;
+        t.textContent = msg;
+        t.className = 'toast show ' + type;
+        clearTimeout(t._timeout);
+        t._timeout = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ============================================================
+    //  NAVIGATION
+    // ============================================================
+    function goToPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const el = document.getElementById(id);
+        if (el) el.classList.add('active');
+        document.getElementById('app-content').scrollTop = 0;
+        updateNav(id);
+    }
+
+    function updateNav(id) {
+        document.querySelectorAll('#bottom-nav-user .nav-item, #bottom-nav-provider .nav-item').forEach(item => {
+            item.classList.toggle('active', item.dataset.page === id);
+        });
+    }
+
+    function navigateTo(pageId) {
+        if (isLoggedIn && currentUserRole === 'user') goToPage(pageId);
+        else showToast('⚠️ Please login!', 'error');
+    }
+
+    function navigateToProvider(pageId) {
+        if (isLoggedIn && currentUserRole === 'provider') goToPage(pageId);
+        else showToast('⚠️ Please login!', 'error');
+    }
+
+    // ============================================================
+    //  ROLE SELECTION
+    // ============================================================
+    window.selectRole = function(role) {
+        currentUserRole = role;
+        // Ask language on first login
+        askLanguageOnLogin();
+        goToPage(role === 'user' ? 'page-user-form' : 'page-provider-form');
+    };
+
+    // ============================================================
+    //  COUNTRY CODE HANDLERS
+    // ============================================================
+    document.getElementById('user-country-code')?.addEventListener('change', function() {
+        selectedCountryCode = this.value;
     });
-}
 
-function navigateTo(pageId) {
-    if (isLoggedIn && currentUserRole === 'user') goToPage(pageId);
-    else showToast('⚠️ Please login!', 'error');
-}
+    document.getElementById('provider-country-code')?.addEventListener('change', function() {
+        selectedCountryCode = this.value;
+    });
 
-function navigateToProvider(pageId) {
-    if (isLoggedIn && currentUserRole === 'provider') goToPage(pageId);
-    else showToast('⚠️ Please login!', 'error');
-}
-
-// ============================================================
-//  ROLE SELECTION
-// ============================================================
-window.selectRole = function(role) {
-    currentUserRole = role;
-    goToPage(role === 'user' ? 'page-user-form' : 'page-provider-form');
-};
-
-// ============================================================
-//  COUNTRY CODE HANDLERS
-// ============================================================
-document.getElementById('user-country-code')?.addEventListener('change', function() {
-    selectedCountryCode = this.value;
-});
-
-document.getElementById('provider-country-code')?.addEventListener('change', function() {
-    selectedCountryCode = this.value;
-});
-
-function getCountryCode(role) {
-    if (role === 'user') {
-        return document.getElementById('user-country-code').value;
-    } else {
-        return document.getElementById('provider-country-code').value;
-    }
-}
-
-// ============================================================
-//  OTP SYSTEM (DEMO)
-// ============================================================
-function generateOTP() {
-    return String(Math.floor(1000 + Math.random() * 9000));
-}
-
-window.sendOTP = function(role) {
-    const phoneInput = role === 'user' ? document.getElementById('user-phone') : document.getElementById('provider-phone');
-    const statusDiv = role === 'user' ? document.getElementById('userOtpStatus') : document.getElementById('providerOtpStatus');
-    const btn = document.getElementById(role === 'user' ? 'userSendOtpBtn' : 'providerSendOtpBtn');
-    const countryCode = getCountryCode(role);
-    const phone = phoneInput.value.trim().replace(/\D/g, '');
-    
-    if (phone.length < 4 || phone.length > 15) {
-        statusDiv.textContent = '❌ Enter a valid phone number!';
-        statusDiv.className = 'otp-status error';
-        return;
-    }
-    
-    const fullNumber = countryCode + phone;
-    console.log('📱 Full number:', fullNumber);
-    
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    
-    const otpCode = generateOTP();
-    window._demoOTP = otpCode;
-    console.log('📱 DEMO OTP:', otpCode);
-    
-    statusDiv.textContent = '✅ OTP sent! (Demo OTP: ' + otpCode + ')';
-    statusDiv.className = 'otp-status success';
-    showToast('OTP sent successfully!', 'success');
-    
-    const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
-    if (otpInput) { 
-        setTimeout(() => { 
-            otpInput.value = otpCode; 
-            otpInput.focus();
-        }, 500); 
-    }
-    
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-sms"></i> Send OTP';
-};
-
-window.verifyOTP = function(role) {
-    const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
-    const statusDiv = role === 'user' ? document.getElementById('userOtpStatus') : document.getElementById('providerOtpStatus');
-    const otp = otpInput.value.trim();
-    
-    if (!otp || otp.length !== 4) {
-        statusDiv.textContent = '❌ Enter 4 digit OTP!';
-        statusDiv.className = 'otp-status error';
-        return;
-    }
-    
-    if (window._demoOTP && window._demoOTP === otp) {
-        statusDiv.textContent = '✅ Login successful!';
-        statusDiv.className = 'otp-status success';
-        showToast('Welcome!', 'success');
-        window._demoOTP = null;
-        isLoggedIn = true;
-
+    function getCountryCode(role) {
         if (role === 'user') {
-            registerUser();
+            return document.getElementById('user-country-code').value;
         } else {
-            registerProvider();
+            return document.getElementById('provider-country-code').value;
         }
-    } else {
-        statusDiv.textContent = '❌ Invalid OTP! Try again.';
-        statusDiv.className = 'otp-status error';
-        showToast('❌ Invalid OTP!', 'error');
     }
-};
 
-// ============================================================
-//  GENERATE UNIQUE ID
-// ============================================================
-function generateId() {
-    return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
-}
+    // ============================================================
+    //  OTP SYSTEM (DEMO)
+    // ============================================================
+    function generateOTP() {
+        return String(Math.floor(1000 + Math.random() * 9000));
+    }
 
-// ============================================================
-//  REGISTER USER
-// ============================================================
-async function registerUser() {
-    const name = document.getElementById('user-name').value.trim() || 'User';
-    const location = document.getElementById('user-location').value.trim() || 'Dhaka';
-    const countryCode = getCountryCode('user');
-    const phone = document.getElementById('user-phone').value.trim().replace(/\D/g, '');
-    const fullPhone = countryCode + phone;
-    const uid = generateId();
-    
-    try {
-        await db.collection('users').doc(uid).set({
-            uid: uid,
-            name: name,
-            location: location,
-            phone: fullPhone,
-            countryCode: countryCode,
-            wallet: 0,
-            role: 'user',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+    window.sendOTP = function(role) {
+        const phoneInput = role === 'user' ? document.getElementById('user-phone') : document.getElementById('provider-phone');
+        const statusDiv = role === 'user' ? document.getElementById('userOtpStatus') : document.getElementById('providerOtpStatus');
+        const btn = document.getElementById(role === 'user' ? 'userSendOtpBtn' : 'providerSendOtpBtn');
+        const countryCode = getCountryCode(role);
+        const phone = phoneInput.value.trim().replace(/\D/g, '');
         
-        currentUserId = uid;
-        const doc = await db.collection('users').doc(uid).get();
-        currentUserData = doc.data();
-        currentUserData.uid = uid;
+        if (phone.length < 4 || phone.length > 15) {
+            statusDiv.textContent = '❌ Enter a valid phone number!';
+            statusDiv.className = 'otp-status error';
+            return;
+        }
         
-        localStorage.setItem('user_data', JSON.stringify(currentUserData));
-        localStorage.setItem('user_id', uid);
+        const fullNumber = countryCode + phone;
+        console.log('📱 Full number:', fullNumber);
         
-        updateUserUI(currentUserData);
-        document.getElementById('bottom-nav-user').classList.add('show');
-        document.getElementById('bottom-nav-provider').classList.remove('show');
-        goToPage('page-user-home');
-        updateNav('page-user-home');
-        showToast('Registration successful!', 'success');
-    } catch (error) {
-        console.error('Registration error:', error);
-        showToast('Registration failed: ' + error.message, 'error');
-    }
-}
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        
+        const otpCode = generateOTP();
+        window._demoOTP = otpCode;
+        console.log('📱 DEMO OTP:', otpCode);
+        
+        statusDiv.textContent = '✅ OTP sent! (Demo OTP: ' + otpCode + ')';
+        statusDiv.className = 'otp-status success';
+        showToast('OTP sent successfully!', 'success');
+        
+        const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
+        if (otpInput) { 
+            setTimeout(() => { 
+                otpInput.value = otpCode; 
+                otpInput.focus();
+            }, 500); 
+        }
+        
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-sms"></i> Send OTP';
+    };
 
-// ============================================================
-//  REGISTER PROVIDER
-// ============================================================
-async function registerProvider() {
-    const name = document.getElementById('provider-name').value.trim() || 'Provider';
-    const work = document.getElementById('provider-work').value.trim() || 'Profession';
-    const experience = parseInt(document.getElementById('provider-experience').value) || 0;
-    const nid = document.getElementById('provider-nid').value.trim() || '';
-    const countryCode = getCountryCode('provider');
-    const phone = document.getElementById('provider-phone').value.trim().replace(/\D/g, '');
-    const fullPhone = countryCode + phone;
-    const uid = generateId();
-    
-    try {
-        await db.collection('providers').doc(uid).set({
-            uid: uid,
-            name: name,
-            work: work,
-            experience: experience,
-            nid: nid,
-            phone: fullPhone,
-            countryCode: countryCode,
-            wallet: 0,
-            role: 'provider',
-            status: 'pending',
-            rating: 0,
-            totalOrders: 0,
-            location: 'Dhaka, Mirpur',
-            lat: 23.735,
-            lng: 90.380,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+    window.verifyOTP = function(role) {
+        const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
+        const statusDiv = role === 'user' ? document.getElementById('userOtpStatus') : document.getElementById('providerOtpStatus');
+        const otp = otpInput.value.trim();
         
-        await db.collection('users').doc(uid).set({
-            uid: uid,
-            name: name,
-            phone: fullPhone,
-            countryCode: countryCode,
-            role: 'provider',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+        if (!otp || otp.length !== 4) {
+            statusDiv.textContent = '❌ Enter 4 digit OTP!';
+            statusDiv.className = 'otp-status error';
+            return;
+        }
         
-        currentUserId = uid;
-        const doc = await db.collection('providers').doc(uid).get();
-        currentUserData = doc.data();
-        currentUserData.uid = uid;
-        
-        localStorage.setItem('user_data', JSON.stringify(currentUserData));
-        localStorage.setItem('user_id', uid);
-        
-        updateProviderUI(currentUserData);
-        document.getElementById('bottom-nav-provider').classList.add('show');
-        document.getElementById('bottom-nav-user').classList.remove('show');
-        goToPage('page-provider-home');
-        updateNav('page-provider-home');
-        setTimeout(() => initProviderMap(23.735, 90.380), 500);
-        showToast('Provider registration successful! Waiting for approval.', 'success');
-    } catch (error) {
-        console.error('Provider registration error:', error);
-        showToast('Registration failed: ' + error.message, 'error');
-    }
-}
+        if (window._demoOTP && window._demoOTP === otp) {
+            statusDiv.textContent = '✅ Login successful!';
+            statusDiv.className = 'otp-status success';
+            showToast('Welcome!', 'success');
+            window._demoOTP = null;
+            isLoggedIn = true;
 
-// ============================================================
-//  UI UPDATE
-// ============================================================
-function updateUserUI(data) {
-    document.getElementById('profileName').textContent = data.name || 'User';
-    document.getElementById('profileLocation').textContent = data.location || 'Unknown';
-    document.getElementById('profilePhone').textContent = data.phone || '';
-    document.getElementById('userWalletBalance').textContent = (data.wallet || 0).toLocaleString();
-    document.getElementById('walletBalanceDisplay').textContent = (data.wallet || 0).toLocaleString();
-    document.getElementById('profileWallet').textContent = (data.wallet || 0).toLocaleString();
-}
-
-function updateProviderUI(data) {
-    document.getElementById('providerNameDisplay').textContent = data.name || 'Provider';
-    document.getElementById('providerProfileName').textContent = data.name || '';
-    document.getElementById('providerProfileWork').textContent = data.work || '';
-    document.getElementById('providerProfileExp').textContent = data.experience || 0;
-    document.getElementById('providerProfileNid').textContent = data.nid || '';
-    document.getElementById('providerProfilePhone').textContent = data.phone || '';
-    document.getElementById('providerProfileWallet').textContent = (data.wallet || 0).toLocaleString();
-    document.getElementById('providerCategory').textContent = data.work || 'Profession';
-    document.getElementById('providerWalletBalance').textContent = (data.wallet || 0).toLocaleString();
-    document.getElementById('providerWalletDisplay').textContent = (data.wallet || 0).toLocaleString();
-    document.getElementById('providerWalletStat').textContent = (data.wallet || 0).toLocaleString();
-}
-
-// ============================================================
-//  WALLET
-// ============================================================
-window.rechargeWallet = async function() {
-    if (!isLoggedIn || currentUserRole !== 'user') {
-        showToast('⚠️ Please login as user!', 'error');
-        return;
-    }
-    const amount = parseInt(document.getElementById('rechargeAmount').value);
-    if (!amount || amount <= 0) {
-        showToast('Please enter a valid amount!', 'error');
-        return;
-    }
-    
-    try {
-        const userRef = db.collection('users').doc(currentUserId);
-        await db.runTransaction(async (transaction) => {
-            const doc = await transaction.get(userRef);
-            const currentWallet = doc.data().wallet || 0;
-            transaction.update(userRef, { wallet: currentWallet + amount });
-        });
-        const doc = await db.collection('users').doc(currentUserId).get();
-        currentUserData = doc.data();
-        currentUserData.uid = currentUserId;
-        localStorage.setItem('user_data', JSON.stringify(currentUserData));
-        updateUserUI(currentUserData);
-        showToast('✅ ' + amount + ' Tk recharged successfully!', 'success');
-    } catch (error) {
-        showToast('❌ Recharge failed', 'error');
-    }
-};
-
-window.withdrawMoney = async function() {
-    if (!isLoggedIn || currentUserRole !== 'provider') {
-        showToast('⚠️ Please login as provider!', 'error');
-        return;
-    }
-    const amount = parseInt(document.getElementById('withdrawAmount').value);
-    if (!amount || amount <= 0) {
-        showToast('Please enter a valid amount!', 'error');
-        return;
-    }
-    
-    try {
-        const providerRef = db.collection('providers').doc(currentUserId);
-        await db.runTransaction(async (transaction) => {
-            const doc = await transaction.get(providerRef);
-            const currentWallet = doc.data().wallet || 0;
-            if (amount > currentWallet) throw new Error('Insufficient balance!');
-            transaction.update(providerRef, { wallet: currentWallet - amount });
-        });
-        const doc = await db.collection('providers').doc(currentUserId).get();
-        currentUserData = doc.data();
-        currentUserData.uid = currentUserId;
-        localStorage.setItem('user_data', JSON.stringify(currentUserData));
-        updateProviderUI(currentUserData);
-        showToast('✅ ' + amount + ' Tk withdrawn successfully!', 'success');
-    } catch (error) {
-        showToast('❌ Withdraw failed: ' + error.message, 'error');
-    }
-};
-
-// ============================================================
-//  LOGOUT
-// ============================================================
-window.logout = function() {
-    if (confirm('Are you sure you want to logout?')) {
-        isLoggedIn = false;
-        currentUserRole = null;
-        currentUserId = null;
-        currentUserData = null;
-        localStorage.removeItem('user_data');
-        localStorage.removeItem('user_id');
-        document.getElementById('bottom-nav-user').classList.remove('show');
-        document.getElementById('bottom-nav-provider').classList.remove('show');
-        goToPage('page-role');
-        showToast('✅ Logged out successfully!', 'success');
-    }
-};
-
-// ============================================================
-//  ADMIN
-// ============================================================
-window.verifyAdmin = function() {
-    const password = document.getElementById('adminPassword').value;
-    if (password === 'admin123') {
-        goToPage('page-admin-dashboard');
-        document.getElementById('adminError').textContent = '';
-        loadAdminDashboard();
-    } else {
-        document.getElementById('adminError').textContent = '❌ Wrong password!';
-    }
-};
-
-async function loadAdminDashboard() {
-    try {
-        const usersSnap = await db.collection('users').get();
-        document.getElementById('adminTotalUsers').textContent = usersSnap.size;
-        
-        const providersSnap = await db.collection('providers').get();
-        document.getElementById('adminTotalProviders').textContent = providersSnap.size;
-        
-        const bookingsSnap = await db.collection('bookings').get();
-        document.getElementById('adminTotalOrders').textContent = bookingsSnap.size;
-        
-        const pendingSnap = await db.collection('providers').where('status', '==', 'pending').get();
-        const container = document.getElementById('adminPendingProviders');
-        if (pendingSnap.empty) {
-            container.innerHTML = '<div style="text-align:center;padding:10px;color:#5e5a4a;"><i class="fas fa-check-circle" style="color:#4CAF50;"></i> No pending providers</div>';
+            if (role === 'user') {
+                registerUser();
+            } else {
+                registerProvider();
+            }
         } else {
-            let html = '';
-            pendingSnap.forEach(doc => {
-                const data = doc.data();
-                html += `<div class="admin-user-item"><div class="info">${data.name || 'Unknown'} <span style="font-size:0.6rem;color:#5e5a4a;">(${data.work || 'Profession'})</span></div><div class="admin-actions"><button onclick="approveProvider('${doc.id}')"><i class="fas fa-check"></i></button><button class="danger" onclick="rejectProvider('${doc.id}')"><i class="fas fa-times"></i></button></div></div>`;
+            statusDiv.textContent = '❌ Invalid OTP! Try again.';
+            statusDiv.className = 'otp-status error';
+            showToast('❌ Invalid OTP!', 'error');
+        }
+    };
+
+    // ============================================================
+    //  GENERATE UNIQUE ID
+    // ============================================================
+    function generateId() {
+        return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+    }
+
+    // ============================================================
+    //  REGISTER USER
+    // ============================================================
+    async function registerUser() {
+        const name = document.getElementById('user-name').value.trim() || 'User';
+        const location = document.getElementById('user-location').value.trim() || 'Dhaka';
+        const countryCode = getCountryCode('user');
+        const phone = document.getElementById('user-phone').value.trim().replace(/\D/g, '');
+        const fullPhone = countryCode + phone;
+        const uid = generateId();
+        
+        try {
+            await db.collection('users').doc(uid).set({
+                uid: uid,
+                name: name,
+                location: location,
+                phone: fullPhone,
+                countryCode: countryCode,
+                wallet: 0,
+                role: 'user',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-            container.innerHTML = html;
+            
+            currentUserId = uid;
+            const doc = await db.collection('users').doc(uid).get();
+            currentUserData = doc.data();
+            currentUserData.uid = uid;
+            
+            localStorage.setItem('user_data', JSON.stringify(currentUserData));
+            localStorage.setItem('user_id', uid);
+            
+            updateUserUI(currentUserData);
+            document.getElementById('bottom-nav-user').classList.add('show');
+            document.getElementById('bottom-nav-provider').classList.remove('show');
+            goToPage('page-user-home');
+            updateNav('page-user-home');
+            showToast('Registration successful!', 'success');
+        } catch (error) {
+            console.error('Registration error:', error);
+            showToast('Registration failed: ' + error.message, 'error');
         }
-    } catch(e) {
-        console.error('Admin load error:', e);
     }
-}
 
-window.approveProvider = async function(id) {
-    try {
-        await db.collection('providers').doc(id).update({ status: 'approved' });
-        showToast('✅ Provider approved!', 'success');
-        loadAdminDashboard();
-    } catch(e) { showToast('❌ Approval failed', 'error'); }
-};
-
-window.rejectProvider = async function(id) {
-    if (!confirm('Reject this provider?')) return;
-    try {
-        await db.collection('providers').doc(id).update({ status: 'rejected' });
-        showToast('❌ Provider rejected', 'error');
-        loadAdminDashboard();
-    } catch(e) { showToast('❌ Rejection failed', 'error'); }
-};
-
-window.logoutAdmin = function() {
-    document.getElementById('adminPassword').value = '';
-    window.location.hash = '';
-    goToPage('page-role');
-    showToast('Admin logout successful', 'success');
-};
-
-window.downloadReport = function() {
-    showToast('📄 Report downloading (Demo)', 'success');
-};
-
-// ============================================================
-//  MAP & CATEGORY
-// ============================================================
-let userMap = null, providerMap = null, mapMarkers = [], currentProviders = [];
-let currentCategory = 'Plumber', currentFilter = 'all', userLat = 23.735, userLng = 90.380;
-
-function initFreeMap(lat, lng) {
-    const container = document.getElementById('mapContainer');
-    if (!container) return;
-    if (userMap) { userMap.remove(); userMap = null; }
-    try {
-        container.innerHTML = '<div class="map-loading"><i class="fas fa-spinner"></i><span>Map loading...</span></div>';
-        userMap = new maplibregl.Map({
-            container: 'mapContainer',
-            style: 'https://tiles.openfreemap.org/styles/liberty',
-            center: [lng, lat],
-            zoom: 13,
-            attributionControl: false
-        });
-        userMap.on('load', function() {
-            document.getElementById('mapLocationText').textContent = 'Your location: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
-            new maplibregl.Marker({ color: '#dba32b', scale: 1.2 }).setLngLat([lng, lat]).addTo(userMap);
-            addProviderMarkers();
-        });
-    } catch(e) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#e53935;">Map failed to load</div>';
-    }
-}
-
-function addProviderMarkers() {
-    if (!userMap) return;
-    mapMarkers.forEach(m => m.remove());
-    mapMarkers = [];
-    let filtered = [...currentProviders];
-    if (currentFilter !== 'all') {
-        const maxDist = parseFloat(currentFilter);
-        filtered = filtered.filter(p => p.distance <= maxDist);
-    }
-    filtered.forEach(p => {
-        const marker = new maplibregl.Marker({ color: '#e53935', scale: 0.8 })
-            .setLngLat([p.lng, p.lat])
-            .setPopup(new maplibregl.Popup({ offset: 25 }).setHTML('<strong>' + p.name + '</strong><br>⭐ ' + p.rating + ' · ' + p.distance + ' km'))
-            .addTo(userMap);
-        mapMarkers.push(marker);
-    });
-}
-
-function initProviderMap(lat, lng) {
-    const container = document.getElementById('providerMapContainer');
-    if (!container) return;
-    if (providerMap) { providerMap.remove(); providerMap = null; }
-    try {
-        container.innerHTML = '<div class="map-loading"><i class="fas fa-spinner"></i><span>Map loading...</span></div>';
-        providerMap = new maplibregl.Map({
-            container: 'providerMapContainer',
-            style: 'https://tiles.openfreemap.org/styles/liberty',
-            center: [lng, lat],
-            zoom: 13,
-            attributionControl: false
-        });
-        providerMap.on('load', function() {
-            document.getElementById('providerMapLocationText').textContent = 'Your location: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
-            new maplibregl.Marker({ color: '#dba32b', scale: 1.2 }).setLngLat([lng, lat]).addTo(providerMap);
-        });
-    } catch(e) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#e53935;">Map failed to load</div>';
-    }
-}
-
-window.filterDistance = function(dist, e) {
-    currentFilter = dist;
-    document.querySelectorAll('#distanceFilter button').forEach(b => b.classList.remove('active'));
-    if (e) e.target.classList.add('active');
-    updateProviderList();
-    addProviderMarkers();
-};
-
-window.searchLocation = function() {
-    const input = document.getElementById('userLocationInput').value;
-    if (!input) { showToast('Please enter a location!', 'error'); return; }
-    const locs = { 'Mirpur': {lat:23.806,lng:90.368}, 'Uttara': {lat:23.875,lng:90.379}, 'Mohammadpur': {lat:23.757,lng:90.375}, 'Bashundhara': {lat:23.813,lng:90.425}, 'Gazipur': {lat:23.999,lng:90.420}, 'Narayanganj': {lat:23.617,lng:90.500} };
-    let found = false;
-    for (const [key, loc] of Object.entries(locs)) {
-        if (input.includes(key)) { userLat = loc.lat; userLng = loc.lng; found = true; break; }
-    }
-    if (!found) { userLat = 23.735; userLng = 90.380; }
-    initFreeMap(userLat, userLng);
-    updateProviderList();
-};
-
-window.openCategory = function(cat) {
-    if (!isLoggedIn) { showToast('⚠️ Please login!', 'error'); return; }
-    currentCategory = cat;
-    currentFilter = 'all';
-    document.querySelectorAll('#distanceFilter button').forEach(b => b.classList.remove('active'));
-    document.querySelector('#distanceFilter button:first-child')?.classList.add('active');
-    document.getElementById('category-title').textContent = '📍 ' + cat;
-    document.getElementById('category-sub').textContent = 'Providers near you';
-    
-    loadProvidersFromFirebase(cat);
-};
-
-async function loadProvidersFromFirebase(category) {
-    try {
-        const providersSnap = await db.collection('providers')
-            .where('work', '==', category)
-            .where('status', '==', 'approved')
-            .get();
+    // ============================================================
+    //  REGISTER PROVIDER
+    // ============================================================
+    async function registerProvider() {
+        const name = document.getElementById('provider-name').value.trim() || 'Provider';
+        const work = document.getElementById('provider-work').value.trim() || 'Profession';
+        const experience = parseInt(document.getElementById('provider-experience').value) || 0;
+        const nid = document.getElementById('provider-nid').value.trim() || '';
+        const countryCode = getCountryCode('provider');
+        const phone = document.getElementById('provider-phone').value.trim().replace(/\D/g, '');
+        const fullPhone = countryCode + phone;
+        const uid = generateId();
         
-        if (providersSnap.empty) {
+        try {
+            await db.collection('providers').doc(uid).set({
+                uid: uid,
+                name: name,
+                work: work,
+                experience: experience,
+                nid: nid,
+                phone: fullPhone,
+                countryCode: countryCode,
+                wallet: 0,
+                role: 'provider',
+                status: 'pending',
+                rating: 0,
+                totalOrders: 0,
+                location: 'Dhaka, Mirpur',
+                lat: 23.735,
+                lng: 90.380,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            await db.collection('users').doc(uid).set({
+                uid: uid,
+                name: name,
+                phone: fullPhone,
+                countryCode: countryCode,
+                role: 'provider',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            currentUserId = uid;
+            const doc = await db.collection('providers').doc(uid).get();
+            currentUserData = doc.data();
+            currentUserData.uid = uid;
+            
+            localStorage.setItem('user_data', JSON.stringify(currentUserData));
+            localStorage.setItem('user_id', uid);
+            
+            updateProviderUI(currentUserData);
+            document.getElementById('bottom-nav-provider').classList.add('show');
+            document.getElementById('bottom-nav-user').classList.remove('show');
+            goToPage('page-provider-home');
+            updateNav('page-provider-home');
+            setTimeout(() => initProviderMap(23.735, 90.380), 500);
+            showToast('Provider registration successful! Waiting for approval.', 'success');
+        } catch (error) {
+            console.error('Provider registration error:', error);
+            showToast('Registration failed: ' + error.message, 'error');
+        }
+    }
+
+    // ============================================================
+    //  UI UPDATE
+    // ============================================================
+    function updateUserUI(data) {
+        document.getElementById('profileName').textContent = data.name || 'User';
+        document.getElementById('profileLocation').textContent = data.location || 'Unknown';
+        document.getElementById('profilePhone').textContent = data.phone || '';
+        document.getElementById('userWalletBalance').textContent = (data.wallet || 0).toLocaleString();
+        document.getElementById('walletBalanceDisplay').textContent = (data.wallet || 0).toLocaleString();
+        document.getElementById('profileWallet').textContent = (data.wallet || 0).toLocaleString();
+    }
+
+    function updateProviderUI(data) {
+        document.getElementById('providerNameDisplay').textContent = data.name || 'Provider';
+        document.getElementById('providerProfileName').textContent = data.name || '';
+        document.getElementById('providerProfileWork').textContent = data.work || '';
+        document.getElementById('providerProfileExp').textContent = data.experience || 0;
+        document.getElementById('providerProfileNid').textContent = data.nid || '';
+        document.getElementById('providerProfilePhone').textContent = data.phone || '';
+        document.getElementById('providerProfileWallet').textContent = (data.wallet || 0).toLocaleString();
+        document.getElementById('providerCategory').textContent = data.work || 'Profession';
+        document.getElementById('providerWalletBalance').textContent = (data.wallet || 0).toLocaleString();
+        document.getElementById('providerWalletDisplay').textContent = (data.wallet || 0).toLocaleString();
+        document.getElementById('providerWalletStat').textContent = (data.wallet || 0).toLocaleString();
+    }
+
+    // ============================================================
+    //  WALLET
+    // ============================================================
+    window.rechargeWallet = async function() {
+        if (!isLoggedIn || currentUserRole !== 'user') {
+            showToast('⚠️ Please login as user!', 'error');
+            return;
+        }
+        const amount = parseInt(document.getElementById('rechargeAmount').value);
+        if (!amount || amount <= 0) {
+            showToast('Please enter a valid amount!', 'error');
+            return;
+        }
+        
+        try {
+            const userRef = db.collection('users').doc(currentUserId);
+            await db.runTransaction(async (transaction) => {
+                const doc = await transaction.get(userRef);
+                const currentWallet = doc.data().wallet || 0;
+                transaction.update(userRef, { wallet: currentWallet + amount });
+            });
+            const doc = await db.collection('users').doc(currentUserId).get();
+            currentUserData = doc.data();
+            currentUserData.uid = currentUserId;
+            localStorage.setItem('user_data', JSON.stringify(currentUserData));
+            updateUserUI(currentUserData);
+            showToast('✅ ' + amount + ' Tk recharged successfully!', 'success');
+        } catch (error) {
+            showToast('❌ Recharge failed', 'error');
+        }
+    };
+
+    window.withdrawMoney = async function() {
+        if (!isLoggedIn || currentUserRole !== 'provider') {
+            showToast('⚠️ Please login as provider!', 'error');
+            return;
+        }
+        const amount = parseInt(document.getElementById('withdrawAmount').value);
+        if (!amount || amount <= 0) {
+            showToast('Please enter a valid amount!', 'error');
+            return;
+        }
+        
+        try {
+            const providerRef = db.collection('providers').doc(currentUserId);
+            await db.runTransaction(async (transaction) => {
+                const doc = await transaction.get(providerRef);
+                const currentWallet = doc.data().wallet || 0;
+                if (amount > currentWallet) throw new Error('Insufficient balance!');
+                transaction.update(providerRef, { wallet: currentWallet - amount });
+            });
+            const doc = await db.collection('providers').doc(currentUserId).get();
+            currentUserData = doc.data();
+            currentUserData.uid = currentUserId;
+            localStorage.setItem('user_data', JSON.stringify(currentUserData));
+            updateProviderUI(currentUserData);
+            showToast('✅ ' + amount + ' Tk withdrawn successfully!', 'success');
+        } catch (error) {
+            showToast('❌ Withdraw failed: ' + error.message, 'error');
+        }
+    };
+
+    // ============================================================
+    //  LOGOUT
+    // ============================================================
+    window.logout = function() {
+        if (confirm('Are you sure you want to logout?')) {
+            isLoggedIn = false;
+            currentUserRole = null;
+            currentUserId = null;
+            currentUserData = null;
+            localStorage.removeItem('user_data');
+            localStorage.removeItem('user_id');
+            document.getElementById('bottom-nav-user').classList.remove('show');
+            document.getElementById('bottom-nav-provider').classList.remove('show');
+            goToPage('page-role');
+            showToast('✅ Logged out successfully!', 'success');
+        }
+    };
+
+    // ============================================================
+    //  ADMIN
+    // ============================================================
+    window.verifyAdmin = function() {
+        const password = document.getElementById('adminPassword').value;
+        if (password === 'admin123') {
+            goToPage('page-admin-dashboard');
+            document.getElementById('adminError').textContent = '';
+            loadAdminDashboard();
+        } else {
+            document.getElementById('adminError').textContent = '❌ Wrong password!';
+        }
+    };
+
+    async function loadAdminDashboard() {
+        try {
+            const usersSnap = await db.collection('users').get();
+            document.getElementById('adminTotalUsers').textContent = usersSnap.size;
+            
+            const providersSnap = await db.collection('providers').get();
+            document.getElementById('adminTotalProviders').textContent = providersSnap.size;
+            
+            const bookingsSnap = await db.collection('bookings').get();
+            document.getElementById('adminTotalOrders').textContent = bookingsSnap.size;
+            
+            const pendingSnap = await db.collection('providers').where('status', '==', 'pending').get();
+            const container = document.getElementById('adminPendingProviders');
+            if (pendingSnap.empty) {
+                container.innerHTML = '<div style="text-align:center;padding:10px;color:#5e5a4a;"><i class="fas fa-check-circle" style="color:#4CAF50;"></i> No pending providers</div>';
+            } else {
+                let html = '';
+                pendingSnap.forEach(doc => {
+                    const data = doc.data();
+                    html += `<div class="admin-user-item"><div class="info">${data.name || 'Unknown'} <span style="font-size:0.6rem;color:#5e5a4a;">(${data.work || 'Profession'})</span></div><div class="admin-actions"><button onclick="approveProvider('${doc.id}')"><i class="fas fa-check"></i></button><button class="danger" onclick="rejectProvider('${doc.id}')"><i class="fas fa-times"></i></button></div></div>`;
+                });
+                container.innerHTML = html;
+            }
+        } catch(e) {
+            console.error('Admin load error:', e);
+        }
+    }
+
+    window.approveProvider = async function(id) {
+        try {
+            await db.collection('providers').doc(id).update({ status: 'approved' });
+            showToast('✅ Provider approved!', 'success');
+            loadAdminDashboard();
+        } catch(e) { showToast('❌ Approval failed', 'error'); }
+    };
+
+    window.rejectProvider = async function(id) {
+        if (!confirm('Reject this provider?')) return;
+        try {
+            await db.collection('providers').doc(id).update({ status: 'rejected' });
+            showToast('❌ Provider rejected', 'error');
+            loadAdminDashboard();
+        } catch(e) { showToast('❌ Rejection failed', 'error'); }
+    };
+
+    window.logoutAdmin = function() {
+        document.getElementById('adminPassword').value = '';
+        window.location.hash = '';
+        goToPage('page-role');
+        showToast('Admin logout successful', 'success');
+    };
+
+    window.downloadReport = function() {
+        showToast('📄 Report downloading (Demo)', 'success');
+    };
+
+    // ============================================================
+    //  MAP & CATEGORY
+    // ============================================================
+    let userMap = null, providerMap = null, mapMarkers = [], currentProviders = [];
+    let currentCategory = 'Plumber', currentFilter = 'all', userLat = 23.735, userLng = 90.380;
+
+    function initFreeMap(lat, lng) {
+        const container = document.getElementById('mapContainer');
+        if (!container) return;
+        if (userMap) { userMap.remove(); userMap = null; }
+        try {
+            container.innerHTML = '<div class="map-loading"><i class="fas fa-spinner"></i><span>Map loading...</span></div>';
+            userMap = new maplibregl.Map({
+                container: 'mapContainer',
+                style: 'https://tiles.openfreemap.org/styles/liberty',
+                center: [lng, lat],
+                zoom: 13,
+                attributionControl: false
+            });
+            userMap.on('load', function() {
+                document.getElementById('mapLocationText').textContent = 'Your location: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
+                new maplibregl.Marker({ color: '#dba32b', scale: 1.2 }).setLngLat([lng, lat]).addTo(userMap);
+                addProviderMarkers();
+            });
+        } catch(e) {
+            container.innerHTML = '<div style="padding:20px;text-align:center;color:#e53935;">Map failed to load</div>';
+        }
+    }
+
+    function addProviderMarkers() {
+        if (!userMap) return;
+        mapMarkers.forEach(m => m.remove());
+        mapMarkers = [];
+        let filtered = [...currentProviders];
+        if (currentFilter !== 'all') {
+            const maxDist = parseFloat(currentFilter);
+            filtered = filtered.filter(p => p.distance <= maxDist);
+        }
+        filtered.forEach(p => {
+            const marker = new maplibregl.Marker({ color: '#e53935', scale: 0.8 })
+                .setLngLat([p.lng, p.lat])
+                .setPopup(new maplibregl.Popup({ offset: 25 }).setHTML('<strong>' + p.name + '</strong><br>⭐ ' + p.rating + ' · ' + p.distance + ' km'))
+                .addTo(userMap);
+            mapMarkers.push(marker);
+        });
+    }
+
+    function initProviderMap(lat, lng) {
+        const container = document.getElementById('providerMapContainer');
+        if (!container) return;
+        if (providerMap) { providerMap.remove(); providerMap = null; }
+        try {
+            container.innerHTML = '<div class="map-loading"><i class="fas fa-spinner"></i><span>Map loading...</span></div>';
+            providerMap = new maplibregl.Map({
+                container: 'providerMapContainer',
+                style: 'https://tiles.openfreemap.org/styles/liberty',
+                center: [lng, lat],
+                zoom: 13,
+                attributionControl: false
+            });
+            providerMap.on('load', function() {
+                document.getElementById('providerMapLocationText').textContent = 'Your location: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
+                new maplibregl.Marker({ color: '#dba32b', scale: 1.2 }).setLngLat([lng, lat]).addTo(providerMap);
+            });
+        } catch(e) {
+            container.innerHTML = '<div style="padding:20px;text-align:center;color:#e53935;">Map failed to load</div>';
+        }
+    }
+
+    window.filterDistance = function(dist, e) {
+        currentFilter = dist;
+        document.querySelectorAll('#distanceFilter button').forEach(b => b.classList.remove('active'));
+        if (e) e.target.classList.add('active');
+        updateProviderList();
+        addProviderMarkers();
+    };
+
+    window.searchLocation = function() {
+        const input = document.getElementById('userLocationInput').value;
+        if (!input) { showToast('Please enter a location!', 'error'); return; }
+        const locs = { 'Mirpur': {lat:23.806,lng:90.368}, 'Uttara': {lat:23.875,lng:90.379}, 'Mohammadpur': {lat:23.757,lng:90.375}, 'Bashundhara': {lat:23.813,lng:90.425}, 'Gazipur': {lat:23.999,lng:90.420}, 'Narayanganj': {lat:23.617,lng:90.500} };
+        let found = false;
+        for (const [key, loc] of Object.entries(locs)) {
+            if (input.includes(key)) { userLat = loc.lat; userLng = loc.lng; found = true; break; }
+        }
+        if (!found) { userLat = 23.735; userLng = 90.380; }
+        initFreeMap(userLat, userLng);
+        updateProviderList();
+    };
+
+    window.openCategory = function(cat) {
+        if (!isLoggedIn) { showToast('⚠️ Please login!', 'error'); return; }
+        currentCategory = cat;
+        currentFilter = 'all';
+        document.querySelectorAll('#distanceFilter button').forEach(b => b.classList.remove('active'));
+        document.querySelector('#distanceFilter button:first-child')?.classList.add('active');
+        document.getElementById('category-title').textContent = '📍 ' + cat;
+        document.getElementById('category-sub').textContent = 'Providers near you';
+        
+        loadProvidersFromFirebase(cat);
+    };
+
+    async function loadProvidersFromFirebase(category) {
+        try {
+            const providersSnap = await db.collection('providers')
+                .where('work', '==', category)
+                .where('status', '==', 'approved')
+                .get();
+            
+            if (providersSnap.empty) {
+                currentProviders = [];
+                updateProviderList();
+                goToPage('page-user-category');
+                setTimeout(() => initFreeMap(userLat, userLng), 500);
+                return;
+            }
+            
+            const colors = ['#f7c948', '#ff9800', '#e91e63', '#2196F3', '#4CAF50', '#9C27B0'];
             currentProviders = [];
+            providersSnap.forEach((doc, index) => {
+                const data = doc.data();
+                const lat = 23.735 + (Math.random() - 0.5) * 0.1;
+                const lng = 90.380 + (Math.random() - 0.5) * 0.1;
+                const distance = (Math.random() * 5 + 0.2).toFixed(1);
+                currentProviders.push({
+                    id: doc.id,
+                    name: data.name || 'Provider',
+                    rating: (4 + Math.random()).toFixed(1),
+                    distance: parseFloat(distance),
+                    experience: data.experience || Math.floor(Math.random() * 10) + 1,
+                    color: colors[index % colors.length],
+                    phone: data.phone || '01700000000',
+                    lat: lat,
+                    lng: lng
+                });
+            });
             updateProviderList();
             goToPage('page-user-category');
             setTimeout(() => initFreeMap(userLat, userLng), 500);
-            return;
-        }
-        
-        const colors = ['#f7c948', '#ff9800', '#e91e63', '#2196F3', '#4CAF50', '#9C27B0'];
-        currentProviders = [];
-        providersSnap.forEach((doc, index) => {
-            const data = doc.data();
-            const lat = 23.735 + (Math.random() - 0.5) * 0.1;
-            const lng = 90.380 + (Math.random() - 0.5) * 0.1;
-            const distance = (Math.random() * 5 + 0.2).toFixed(1);
-            currentProviders.push({
-                id: doc.id,
-                name: data.name || 'Provider',
-                rating: (4 + Math.random()).toFixed(1),
-                distance: parseFloat(distance),
-                experience: data.experience || Math.floor(Math.random() * 10) + 1,
-                color: colors[index % colors.length],
-                phone: data.phone || '01700000000',
-                lat: lat,
-                lng: lng
-            });
-        });
-        updateProviderList();
-        goToPage('page-user-category');
-        setTimeout(() => initFreeMap(userLat, userLng), 500);
-    } catch(e) {
-        showToast('Failed to load providers', 'error');
-    }
-}
-
-function updateProviderList() {
-    const container = document.getElementById('provider-list');
-    let filtered = [...currentProviders];
-    if (currentFilter !== 'all') {
-        const maxDist = parseFloat(currentFilter);
-        filtered = filtered.filter(p => p.distance <= maxDist);
-    }
-    filtered.sort((a,b) => a.distance - b.distance);
-    if (filtered.length === 0) {
-        container.innerHTML = '<div style="text-align:center;padding:20px;color:#5e5a4a;"><i class="fas fa-search" style="font-size:1.3rem;color:#f7c948;"></i><p style="margin-top:4px;font-size:.85rem;">' + (currentFilter === 'all' ? 'No providers in this category' : 'No providers within this distance') + '</p></div>';
-        return;
-    }
-    let html = '';
-    filtered.forEach(p => {
-        const whatsappLink = 'https://wa.me/' + p.phone + '?text=Hello,%20I%20need%20a%20' + currentCategory + '%20service';
-        html += '<div class="provider-card"><div class="avatar" style="background:' + p.color + ';"><i class="fas fa-user"></i></div><div class="info"><div class="name">' + p.name + '</div><div class="detail"><span>⭐ ' + p.rating + '</span><span class="badge-distance">' + p.distance + ' km</span><span>' + p.experience + ' years</span></div><div class="contact-buttons"><a href="' + whatsappLink + '" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a><button class="btn-phone-call" onclick="makeCall(\'' + p.phone + '\')"><i class="fas fa-phone"></i> Call</button></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;"><button class="btn-book" onclick="bookProvider(\'' + p.id + '\', \'' + currentCategory + '\', \'' + p.name + '\')">Book</button></div></div>';
-    });
-    container.innerHTML = html;
-}
-
-window.makeCall = function(phone) {
-    if (!phone) return;
-    let f = phone.trim();
-    if (f.startsWith('0')) f = '88' + f;
-    else if (!f.startsWith('+')) f = '+' + f;
-    window.location.href = 'tel:' + f;
-};
-
-window.bookProvider = async function(providerId, category, name) {
-    if (!isLoggedIn || currentUserRole !== 'user') {
-        showToast('⚠️ Please login as user!', 'error');
-        return;
-    }
-    try {
-        const userDoc = await db.collection('users').doc(currentUserId).get();
-        const userData = userDoc.data();
-        await db.collection('bookings').add({
-            userId: currentUserId,
-            providerId: providerId,
-            userName: userData.name || 'User',
-            userPhone: userData.phone || '',
-            service: category,
-            location: userData.location || 'Unknown',
-            date: new Date().toLocaleDateString('en-US') + ' · ' + new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'}),
-            status: 'pending',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        showToast('✅ Booking successful for ' + name + '!', 'success');
-    } catch(e) {
-        showToast('❌ Booking failed', 'error');
-    }
-};
-
-// ============================================================
-//  SEARCH FUNCTION
-// ============================================================
-document.getElementById('userSearchInput')?.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        const query = this.value.trim().toLowerCase();
-        if (!query) {
-            showToast('⚠️ Please enter something!', 'warning');
-            return;
-        }
-
-        const categories = [
-            { name: 'Plumber', bn: ['প্লাম্বার', 'প্লাম্বিং', 'পাইপ', 'লাইন', 'স্যানিটারি', 'নল', 'কল'], en: ['plumber', 'plumbing', 'pipe', 'line', 'sanitary', 'tap', 'water'] },
-            { name: 'Electrician', bn: ['ইলেকট্রিশিয়ান', 'ইলেকট্রিক', 'বাইরে', 'ফ্যান', 'লাইট', 'ওয়্যার', 'তারের', 'বাল্ব', 'সুইচ'], en: ['electrician', 'electric', 'wire', 'fan', 'light', 'cable', 'switch', 'bulb'] },
-            { name: 'AC Technician', bn: ['এসি', 'এসি টেকনিশিয়ান', 'এসি সার্ভিস', 'কুলার', 'ফ্রিজ', 'এয়ার কন্ডিশন', 'ঠান্ডা'], en: ['ac', 'air conditioner', 'cooler', 'fridge', 'refrigerator', 'cooling', 'ac service'] },
-            { name: 'Cleaner', bn: ['ক্লিনার', 'ক্লিনিং', 'পরিচ্ছন্ন', 'মপ', 'ডাস্ট', 'ঝাড়ু', 'পরিষ্কার'], en: ['cleaner', 'cleaning', 'mop', 'dust', 'broom', 'janitor', 'clean'] },
-            { name: 'Carpenter', bn: ['কার্পেন্টার', 'কাঠ', 'ফার্নিচার', 'তক্তা', 'জয়েনার', 'বাক্স', 'ছুতার'], en: ['carpenter', 'wood', 'furniture', 'joinery', 'cabinet', 'plywood', 'carpentry'] },
-            { name: 'Mechanic', bn: ['মেকানিক', 'গাড়ি', 'ইঞ্জিন', 'মোটর', 'অটো', 'রিপেয়ার', 'গ্যারেজ'], en: ['mechanic', 'car', 'engine', 'motor', 'auto', 'repair', 'garage'] }
-        ];
-
-        let foundCategory = null;
-        let matchedKeyword = '';
-
-        for (const cat of categories) {
-            if (cat.name.toLowerCase() === query || cat.name === query) {
-                foundCategory = cat.name;
-                matchedKeyword = cat.name;
-                break;
-            }
-            for (const kw of cat.bn) {
-                if (query.includes(kw) || kw.includes(query)) {
-                    foundCategory = cat.name;
-                    matchedKeyword = kw;
-                    break;
-                }
-            }
-            if (foundCategory) break;
-            for (const kw of cat.en) {
-                if (query.includes(kw) || kw.includes(query)) {
-                    foundCategory = cat.name;
-                    matchedKeyword = kw;
-                    break;
-                }
-            }
-            if (foundCategory) break;
-        }
-
-        if (foundCategory) {
-            showToast('🔍 Found "' + foundCategory + '"! (Match: ' + matchedKeyword + ')', 'success');
-            openCategory(foundCategory);
-        } else {
-            showToast('❌ No category found for "' + this.value + '"', 'error');
-        }
-    }
-});
-
-// ============================================================
-//  ONBOARDING & INIT
-// ============================================================
-function startOnboarding() {
-    document.getElementById('page-onboarding').classList.add('active');
-    setTimeout(() => {
-        document.getElementById('page-onboarding').classList.remove('active');
-        goToPage('page-role');
-    }, 2000);
-}
-
-window.addEventListener('load', function() {
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('statusTime').textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-    }
-    updateTime();
-    setInterval(updateTime, 30000);
-
-    // Load saved language
-    const savedLang = localStorage.getItem('app_lang') || 'en';
-    changeLanguage(savedLang);
-
-    const savedData = localStorage.getItem('user_data');
-    const savedId = localStorage.getItem('user_id');
-    if (savedData && savedId) {
-        try {
-            const data = JSON.parse(savedData);
-            currentUserId = savedId;
-            currentUserData = data;
-            currentUserData.uid = savedId;
-            isLoggedIn = true;
-            
-            if (data.role === 'user') {
-                currentUserRole = 'user';
-                updateUserUI(data);
-                document.getElementById('bottom-nav-user').classList.add('show');
-                goToPage('page-user-home');
-                updateNav('page-user-home');
-            } else if (data.role === 'provider') {
-                currentUserRole = 'provider';
-                updateProviderUI(data);
-                document.getElementById('bottom-nav-provider').classList.add('show');
-                goToPage('page-provider-home');
-                updateNav('page-provider-home');
-                setTimeout(() => initProviderMap(23.735, 90.380), 500);
-            }
         } catch(e) {
+            showToast('Failed to load providers', 'error');
+        }
+    }
+
+    function updateProviderList() {
+        const container = document.getElementById('provider-list');
+        let filtered = [...currentProviders];
+        if (currentFilter !== 'all') {
+            const maxDist = parseFloat(currentFilter);
+            filtered = filtered.filter(p => p.distance <= maxDist);
+        }
+        filtered.sort((a,b) => a.distance - b.distance);
+        if (filtered.length === 0) {
+            container.innerHTML = '<div style="text-align:center;padding:20px;color:#5e5a4a;"><i class="fas fa-search" style="font-size:1.3rem;color:#f7c948;"></i><p style="margin-top:4px;font-size:.85rem;">' + (currentFilter === 'all' ? 'No providers in this category' : 'No providers within this distance') + '</p></div>';
+            return;
+        }
+        let html = '';
+        filtered.forEach(p => {
+            const whatsappLink = 'https://wa.me/' + p.phone + '?text=Hello,%20I%20need%20a%20' + currentCategory + '%20service';
+            html += '<div class="provider-card"><div class="avatar" style="background:' + p.color + ';"><i class="fas fa-user"></i></div><div class="info"><div class="name">' + p.name + '</div><div class="detail"><span>⭐ ' + p.rating + '</span><span class="badge-distance">' + p.distance + ' km</span><span>' + p.experience + ' years</span></div><div class="contact-buttons"><a href="' + whatsappLink + '" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a><button class="btn-phone-call" onclick="makeCall(\'' + p.phone + '\')"><i class="fas fa-phone"></i> Call</button></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;"><button class="btn-book" onclick="bookProvider(\'' + p.id + '\', \'' + currentCategory + '\', \'' + p.name + '\')">Book</button></div></div>';
+        });
+        container.innerHTML = html;
+    }
+
+    window.makeCall = function(phone) {
+        if (!phone) return;
+        let f = phone.trim();
+        if (f.startsWith('0')) f = '88' + f;
+        else if (!f.startsWith('+')) f = '+' + f;
+        window.location.href = 'tel:' + f;
+    };
+
+    window.bookProvider = async function(providerId, category, name) {
+        if (!isLoggedIn || currentUserRole !== 'user') {
+            showToast('⚠️ Please login as user!', 'error');
+            return;
+        }
+        try {
+            const userDoc = await db.collection('users').doc(currentUserId).get();
+            const userData = userDoc.data();
+            await db.collection('bookings').add({
+                userId: currentUserId,
+                providerId: providerId,
+                userName: userData.name || 'User',
+                userPhone: userData.phone || '',
+                service: category,
+                location: userData.location || 'Unknown',
+                date: new Date().toLocaleDateString('en-US') + ' · ' + new Date().toLocaleTimeString('en-US', {hour:'2-digit', minute:'2-digit'}),
+                status: 'pending',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            showToast('✅ Booking successful for ' + name + '!', 'success');
+        } catch(e) {
+            showToast('❌ Booking failed', 'error');
+        }
+    };
+
+    // ============================================================
+    //  SEARCH FUNCTION
+    // ============================================================
+    document.getElementById('userSearchInput')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const query = this.value.trim().toLowerCase();
+            if (!query) {
+                showToast('⚠️ Please enter something!', 'warning');
+                return;
+            }
+
+            const categories = [
+                { name: 'Plumber', bn: ['প্লাম্বার', 'প্লাম্বিং', 'পাইপ', 'লাইন', 'স্যানিটারি', 'নল', 'কল'], en: ['plumber', 'plumbing', 'pipe', 'line', 'sanitary', 'tap', 'water'] },
+                { name: 'Electrician', bn: ['ইলেকট্রিশিয়ান', 'ইলেকট্রিক', 'বাইরে', 'ফ্যান', 'লাইট', 'ওয়্যার', 'তারের', 'বাল্ব', 'সুইচ'], en: ['electrician', 'electric', 'wire', 'fan', 'light', 'cable', 'switch', 'bulb'] },
+                { name: 'AC Technician', bn: ['এসি', 'এসি টেকনিশিয়ান', 'এসি সার্ভিস', 'কুলার', 'ফ্রিজ', 'এয়ার কন্ডিশন', 'ঠান্ডা'], en: ['ac', 'air conditioner', 'cooler', 'fridge', 'refrigerator', 'cooling', 'ac service'] },
+                { name: 'Cleaner', bn: ['ক্লিনার', 'ক্লিনিং', 'পরিচ্ছন্ন', 'মপ', 'ডাস্ট', 'ঝাড়ু', 'পরিষ্কার'], en: ['cleaner', 'cleaning', 'mop', 'dust', 'broom', 'janitor', 'clean'] },
+                { name: 'Carpenter', bn: ['কার্পেন্টার', 'কাঠ', 'ফার্নিচার', 'তক্তা', 'জয়েনার', 'বাক্স', 'ছুতার'], en: ['carpenter', 'wood', 'furniture', 'joinery', 'cabinet', 'plywood', 'carpentry'] },
+                { name: 'Mechanic', bn: ['মেকানিক', 'গাড়ি', 'ইঞ্জিন', 'মোটর', 'অটো', 'রিপেয়ার', 'গ্যারেজ'], en: ['mechanic', 'car', 'engine', 'motor', 'auto', 'repair', 'garage'] }
+            ];
+
+            let foundCategory = null;
+            let matchedKeyword = '';
+
+            for (const cat of categories) {
+                if (cat.name.toLowerCase() === query || cat.name === query) {
+                    foundCategory = cat.name;
+                    matchedKeyword = cat.name;
+                    break;
+                }
+                for (const kw of cat.bn) {
+                    if (query.includes(kw) || kw.includes(query)) {
+                        foundCategory = cat.name;
+                        matchedKeyword = kw;
+                        break;
+                    }
+                }
+                if (foundCategory) break;
+                for (const kw of cat.en) {
+                    if (query.includes(kw) || kw.includes(query)) {
+                        foundCategory = cat.name;
+                        matchedKeyword = kw;
+                        break;
+                    }
+                }
+                if (foundCategory) break;
+            }
+
+            if (foundCategory) {
+                showToast('🔍 Found "' + foundCategory + '"! (Match: ' + matchedKeyword + ')', 'success');
+                openCategory(foundCategory);
+            } else {
+                showToast('❌ No category found for "' + this.value + '"', 'error');
+            }
+        }
+    });
+
+    // ============================================================
+    //  ONBOARDING & INIT
+    // ============================================================
+    function startOnboarding() {
+        document.getElementById('page-onboarding').classList.add('active');
+        setTimeout(() => {
+            document.getElementById('page-onboarding').classList.remove('active');
+            goToPage('page-role');
+        }, 2000);
+    }
+
+    window.addEventListener('load', function() {
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('statusTime').textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+        }
+        updateTime();
+        setInterval(updateTime, 30000);
+
+        // Load saved language
+        const savedLang = localStorage.getItem('app_lang') || 'en';
+        changeLanguage(savedLang);
+
+        const savedData = localStorage.getItem('user_data');
+        const savedId = localStorage.getItem('user_id');
+        if (savedData && savedId) {
+            try {
+                const data = JSON.parse(savedData);
+                currentUserId = savedId;
+                currentUserData = data;
+                currentUserData.uid = savedId;
+                isLoggedIn = true;
+                
+                if (data.role === 'user') {
+                    currentUserRole = 'user';
+                    updateUserUI(data);
+                    document.getElementById('bottom-nav-user').classList.add('show');
+                    goToPage('page-user-home');
+                    updateNav('page-user-home');
+                } else if (data.role === 'provider') {
+                    currentUserRole = 'provider';
+                    updateProviderUI(data);
+                    document.getElementById('bottom-nav-provider').classList.add('show');
+                    goToPage('page-provider-home');
+                    updateNav('page-provider-home');
+                    setTimeout(() => initProviderMap(23.735, 90.380), 500);
+                }
+            } catch(e) {
+                startOnboarding();
+            }
+        } else {
             startOnboarding();
         }
-    } else {
-        startOnboarding();
-    }
 
-    if (window.location.hash === '#admin') {
-        setTimeout(() => goToPage('page-admin-login'), 300);
-    }
+        if (window.location.hash === '#admin') {
+            setTimeout(() => goToPage('page-admin-login'), 300);
+        }
 
-    document.getElementById('adminPassword')?.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') window.verifyAdmin();
+        document.getElementById('adminPassword')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') window.verifyAdmin();
+        });
     });
-});
 
-window.addEventListener('hashchange', function() {
-    if (window.location.hash === '#admin') {
-        goToPage('page-admin-login');
-    } else {
-        if (isLoggedIn && currentUserRole === 'user') goToPage('page-user-home');
-        else if (isLoggedIn && currentUserRole === 'provider') goToPage('page-provider-home');
-    }
-});
+    window.addEventListener('hashchange', function() {
+        if (window.location.hash === '#admin') {
+            goToPage('page-admin-login');
+        } else {
+            if (isLoggedIn && currentUserRole === 'user') goToPage('page-user-home');
+            else if (isLoggedIn && currentUserRole === 'provider') goToPage('page-provider-home');
+        }
+    });
 
-console.log('🚀 Akor - Global Multi-Language Version Ready!');
-console.log('🔐 Admin Password: admin123');
-console.log('📱 OTP: Any 4 digits');
-console.log('🌍 13+ Languages Supported');
+    console.log('🚀 Akor - Multi-Language Version Ready!');
+    console.log('🔐 Admin Password: admin123');
+    console.log('📱 OTP: Any 4 digits');
+    console.log('🌍 Language Switcher in Profile + Login Prompt');
 
+} else {
+    document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#fef9e7;color:#c62828;font-size:1.2rem;padding:20px;text-align:center;"><div><i class="fas fa-exclamation-triangle" style="font-size:3rem;"></i><p style="margin-top:16px;">❌ Firebase not loaded!<br>Please check your internet connection.</p></div></div>';
+}
 </script>
 </body>
 </html>
