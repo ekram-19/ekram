@@ -7,14 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.css" rel="stylesheet" />
     <script src="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.js"></script>
-    
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <style>
-        /* ===== BASE STYLES ===== */
         *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif}
         html,body{height:100%;background:#1a1a1a;overflow:hidden}
         #app-wrapper{width:100%;height:100vh;height:100dvh;background:#fef9e7;display:flex;flex-direction:column;position:relative}
@@ -30,7 +27,6 @@
         .page.active{display:flex}
         @keyframes fadeUp{0%{opacity:.6;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
 
-        /* ===== ONBOARDING ===== */
         #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:20px;gap:20px}
         #page-onboarding.active{display:flex}
         #page-onboarding .logo{font-size:4.5rem;background:#f7c948;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 15px 40px rgba(247,201,72,.3)}
@@ -42,7 +38,6 @@
         #page-onboarding .loading-dots span:nth-child(3){animation-delay:.4s}
         @keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
 
-        /* ===== ROLE ===== */
         #page-role{justify-content:center;min-height:70vh;gap:20px}
         #page-role .app-header{justify-content:center;text-align:center}
         #page-role .app-header h2{font-size:2rem;color:#1e1e1e}
@@ -53,7 +48,6 @@
         .role-btn i{margin-right:12px;color:#dba32b}
         .role-btn span{display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px}
 
-        /* ===== COMMON ===== */
         .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2px}
         .app-header h2{font-size:1.5rem;font-weight:800;color:#1e1e1e;letter-spacing:-.5px}
         .app-header .badge{background:#f7c948;padding:4px 14px;border-radius:40px;font-size:.7rem;font-weight:700;color:#1e1e1e}
@@ -286,17 +280,6 @@
         }
         .logout-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b71c1c; }
 
-        .admin-link {
-            color: #b89b4b;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: underline;
-            font-size: .85rem;
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-        }
-
         .country-select { margin-bottom: 6px; }
         .country-select select {
             padding: 10px 16px;
@@ -458,7 +441,7 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: USER PROFILE -->
+<!-- PAGE: USER PROFILE (No Admin Link) -->
 <!-- ============================================================ -->
 <div id="page-user-profile" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
@@ -476,7 +459,6 @@
     <div class="profile-menu">
         <div class="menu-item" onclick="goToPage('page-user-orders')"><i class="fas fa-clipboard-list"></i> আমার অর্ডার <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item" onclick="goToPage('page-user-wallet')"><i class="fas fa-wallet"></i> ওয়ালেট <i class="fas fa-chevron-right"></i></div>
-        <div class="menu-item" onclick="window.location.hash='admin'"><i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
     </div>
 </div>
@@ -575,7 +557,7 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: PROVIDER PROFILE -->
+<!-- PAGE: PROVIDER PROFILE (No Admin Link) -->
 <!-- ============================================================ -->
 <div id="page-provider-profile" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
@@ -595,13 +577,12 @@
     <div class="profile-menu">
         <div class="menu-item" onclick="goToPage('page-provider-orders')"><i class="fas fa-clipboard-list"></i> বুকিং রিকোয়েস্ট <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item" onclick="goToPage('page-provider-wallet')"><i class="fas fa-wallet"></i> ওয়ালেট <i class="fas fa-chevron-right"></i></div>
-        <div class="menu-item" onclick="window.location.hash='admin'"><i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
     </div>
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: ADMIN LOGIN (পাসওয়ার্ড দিয়ে) -->
+<!-- PAGE: ADMIN LOGIN (URL: #admin) -->
 <!-- ============================================================ -->
 <div id="page-admin-login" class="page">
     <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
@@ -999,7 +980,7 @@ if (typeof firebase !== 'undefined') {
     };
 
     // ============================================================
-    //  ADMIN - শুধু পাসওয়ার্ড দিয়ে
+    //  ADMIN (শুধু পাসওয়ার্ড)
     // ============================================================
     const ADMIN_PASSWORD = "admin123";
 
@@ -1330,6 +1311,7 @@ if (typeof firebase !== 'undefined') {
             } catch(e) { startOnboarding(); }
         } else { startOnboarding(); }
 
+        // Check URL hash for admin access
         if (window.location.hash === '#admin') {
             setTimeout(() => goToPage('page-admin-login'), 300);
         }
