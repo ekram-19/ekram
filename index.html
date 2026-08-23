@@ -14,128 +14,111 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <style>
-        /* ===== CSS VARIABLES ===== */
-        :root {
-            --bg-color: #fef9e7;
-            --text-color: #1e1e1e;
-            --card-bg: #fefcf5;
-            --border-color: #f7e3a0;
-            --shadow: 0 4px 0 #efe1b0;
-            --primary: #f7c948;
-            --primary-dark: #dba32b;
-        }
-        .dark-mode {
-            --bg-color: #1a1a1a;
-            --text-color: #fef9e7;
-            --card-bg: #2d2a1e;
-            --border-color: #4a4535;
-            --shadow: 0 4px 0 #3a3525;
-        }
-        
+        /* ===== BASE STYLES ===== */
         *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif}
-        body{background:#1a1a1a;width:100%;height:100%;overflow:hidden;transition:background 0.3s}
-        #app-wrapper{width:100%;height:100vh;height:100dvh;background:var(--bg-color);display:flex;flex-direction:column;position:relative;transition:background 0.3s}
+        html,body{height:100%;background:#1a1a1a;overflow:hidden}
+        #app-wrapper{width:100%;height:100vh;height:100dvh;background:#fef9e7;display:flex;flex-direction:column;position:relative}
         #status-bar{background:#1e1e1e;color:#fff;padding:6px 20px;display:flex;justify-content:space-between;font-size:.7rem;font-weight:600;flex-shrink:0;min-height:30px;z-index:100}
         #status-bar .time{font-weight:700}
         #status-bar .icons{display:flex;gap:6px;align-items:center}
         #status-bar .icons i{font-size:.8rem}
-        #app-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:12px 16px 8px;background:var(--bg-color);scroll-behavior:smooth;-webkit-overflow-scrolling:touch;transition:background 0.3s}
+        #app-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:12px 16px 8px;background:#fef9e7;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
         #app-content::-webkit-scrollbar{width:3px}
         #app-content::-webkit-scrollbar-track{background:transparent}
-        #app-content::-webkit-scrollbar-thumb{background:var(--primary);border-radius:10px}
+        #app-content::-webkit-scrollbar-thumb{background:#f7c948;border-radius:10px}
         .page{display:none;flex-direction:column;gap:14px;padding-bottom:12px;animation:fadeUp .25s ease}
         .page.active{display:flex}
         @keyframes fadeUp{0%{opacity:.6;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
-        
+
         /* ===== ONBOARDING ===== */
         #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:20px;gap:20px}
         #page-onboarding.active{display:flex}
-        #page-onboarding .logo{font-size:4.5rem;background:var(--primary);width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 15px 40px rgba(247,201,72,.3)}
-        #page-onboarding .app-name{font-size:2.2rem;font-weight:800;color:var(--text-color)}
+        #page-onboarding .logo{font-size:4.5rem;background:#f7c948;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 15px 40px rgba(247,201,72,.3)}
+        #page-onboarding .app-name{font-size:2.2rem;font-weight:800;color:#1e1e1e}
         #page-onboarding .app-tagline{color:#5e5a4a;font-size:1rem;font-weight:500;opacity:.7}
         #page-onboarding .loading-dots{display:flex;gap:10px;margin-top:10px}
-        #page-onboarding .loading-dots span{width:12px;height:12px;background:var(--primary);border-radius:50%;animation:bounce 1.2s ease-in-out infinite}
+        #page-onboarding .loading-dots span{width:12px;height:12px;background:#f7c948;border-radius:50%;animation:bounce 1.2s ease-in-out infinite}
         #page-onboarding .loading-dots span:nth-child(2){animation-delay:.2s}
         #page-onboarding .loading-dots span:nth-child(3){animation-delay:.4s}
         @keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-        
+
         /* ===== ROLE ===== */
         #page-role{justify-content:center;min-height:70vh;gap:20px}
         #page-role .app-header{justify-content:center;text-align:center}
-        #page-role .app-header h2{font-size:2rem;color:var(--text-color)}
-        #page-role .subhead{text-align:center;border-left:0;background:0 0;padding:0;font-size:1rem;color:var(--text-color)}
-        #page-role .role-btn{max-width:320px;margin:0 auto;width:100%}
-        .role-btn{background:#fff;border:2px solid var(--primary);border-radius:60px;padding:22px 10px;font-size:1.5rem;font-weight:700;color:var(--text-color);box-shadow:0 6px 0 #e6b13a;transition:.08s linear;cursor:pointer;text-align:center;width:100%;background:var(--card-bg)}
+        #page-role .app-header h2{font-size:2rem;color:#1e1e1e}
+        #page-role .subhead{text-align:center;border-left:0;background:0 0;padding:0;font-size:1rem;color:#5e5a4a}
+        .role-btn{max-width:320px;margin:0 auto;width:100%}
+        .role-btn{background:#fff;border:2px solid #f7c948;border-radius:60px;padding:22px 10px;font-size:1.5rem;font-weight:700;color:#1e1e1e;box-shadow:0 6px 0 #e6b13a;transition:.08s linear;cursor:pointer;text-align:center;width:100%}
         .role-btn:active{transform:translateY(5px);box-shadow:0 1px 0 #e6b13a}
-        .role-btn i{margin-right:12px;color:var(--primary-dark)}
+        .role-btn i{margin-right:12px;color:#dba32b}
         .role-btn span{display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px}
-        
+
         /* ===== COMMON ===== */
         .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2px}
-        .app-header h2{font-size:1.5rem;font-weight:800;color:var(--text-color);letter-spacing:-.5px}
-        .app-header .badge{background:var(--primary);padding:4px 14px;border-radius:40px;font-size:.7rem;font-weight:700;color:var(--text-color)}
+        .app-header h2{font-size:1.5rem;font-weight:800;color:#1e1e1e;letter-spacing:-.5px}
+        .app-header .badge{background:#f7c948;padding:4px 14px;border-radius:40px;font-size:.7rem;font-weight:700;color:#1e1e1e}
         .subhead{color:#5e5a4a;font-size:.9rem;border-left:4px solid #f5b342;padding-left:12px;background:#fff9e6;border-radius:0 12px 12px 0;padding:6px 12px;margin-top:-6px}
-        .yellow-btn{background:var(--primary);border:0;padding:14px 12px;border-radius:60px;font-weight:700;font-size:1.1rem;color:#1e1e1e;box-shadow:0 5px 0 var(--primary-dark);transition:all .08s linear;cursor:pointer;text-align:center;width:100%;letter-spacing:.3px}
-        .yellow-btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--primary-dark)}
-        .yellow-btn:disabled{opacity:.6;transform:translateY(4px);box-shadow:0 1px 0 var(--primary-dark);cursor:not-allowed}
+        .yellow-btn{background:#f7c948;border:0;padding:14px 12px;border-radius:60px;font-weight:700;font-size:1.1rem;color:#1e1e1e;box-shadow:0 5px 0 #dba32b;transition:all .08s linear;cursor:pointer;text-align:center;width:100%;letter-spacing:.3px}
+        .yellow-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #dba32b}
+        .yellow-btn:disabled{opacity:.6;transform:translateY(4px);box-shadow:0 1px 0 #dba32b;cursor:not-allowed}
         .input-group{display:flex;flex-direction:column;gap:4px}
-        .input-group label{font-weight:600;color:var(--text-color);font-size:.85rem;display:flex;align-items:center;gap:8px}
-        .input-group input{padding:14px 18px;border-radius:40px;border:1.5px solid var(--border-color);background:var(--card-bg);color:var(--text-color);font-size:1rem;outline:0;transition:.2s;width:100%}
+        .input-group label{font-weight:600;color:#2d2a1e;font-size:.85rem;display:flex;align-items:center;gap:8px}
+        .input-group input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;color:#1e1e1e;font-size:1rem;outline:0;transition:.2s;width:100%}
         .input-group input:focus{border-color:#f5b342;box-shadow:0 0 0 4px rgba(245,179,66,.15)}
         .input-group input::placeholder{color:#a0967a}
         .back-link{color:#b89b4b;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:0;background:0 0;font-size:.95rem;padding:4px 0;width:fit-content}
-        .dash-card{background:var(--card-bg);border-radius:20px;padding:16px;border:1px solid var(--border-color);box-shadow:var(--shadow);transition:background 0.3s, border 0.3s}
-        .dash-stat{display:flex;justify-content:space-between;font-weight:600;padding:5px 0;color:var(--text-color)}
-        .wallet-badge{background:var(--primary);border-radius:40px;padding:4px 14px;font-weight:700;font-size:.8rem;color:var(--text-color)}
+        .dash-card{background:#fefcf5;border-radius:20px;padding:16px;border:1px solid #f7e3a0;box-shadow:0 4px 0 #efe1b0}
+        .dash-stat{display:flex;justify-content:space-between;font-weight:600;padding:5px 0;color:#1e1e1e}
+        .wallet-badge{background:#f7c948;border-radius:40px;padding:4px 14px;font-weight:700;font-size:.8rem;color:#1e1e1e}
         .text-center{text-align:center}
         .text-muted{color:#7a725a;font-size:.8rem}
         .loading-spinner{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px;color:#5e5a4a}
-        .loading-spinner i{color:var(--primary);font-size:1.5rem;animation:spin 1s linear infinite}
+        .loading-spinner i{color:#f7c948;font-size:1.5rem;animation:spin 1s linear infinite}
         @keyframes spin{100%{transform:rotate(360deg)}}
-        
+
         .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e1e1e;color:#fff;padding:12px 24px;border-radius:40px;font-weight:600;font-size:.9rem;z-index:9999;display:none;max-width:90%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.3)}
         .toast.show{display:block;animation:fadeUp .3s ease}
         .toast.success{background:#2e7d32}
         .toast.error{background:#c62828}
         .toast.warning{background:#e65100}
-        
+
         .otp-status{text-align:center;font-weight:600;margin-top:4px;font-size:.9rem}
         .otp-status.success{color:#2e7d32}
         .otp-status.error{color:#c62828}
         .otp-row{display:flex;gap:10px;align-items:center}
-        .otp-row input{flex:2;text-align:center;font-size:1.2rem;letter-spacing:4px}
+        .otp-row input{flex:2;text-align:center;font-size:1.2rem;letter-spacing:4px;background:#fefcf5;border:1.5px solid #f0e3c0;border-radius:40px;padding:14px;color:#1e1e1e}
         .otp-row .yellow-btn{flex:1;padding:14px 6px;font-size:.9rem;width:auto}
-        
-        .offer-banner{background:linear-gradient(145deg,#f7d44a,#f5b342);border-radius:24px;padding:18px 16px;color:#1e1e1e;box-shadow:0 5px 0 var(--primary-dark)}
+
+        .offer-banner{background:linear-gradient(145deg,#f7d44a,#f5b342);border-radius:24px;padding:18px 16px;color:#1e1e1e;box-shadow:0 5px 0 #dba32b}
         .offer-banner h3{font-size:1.3rem;font-weight:800}
         .offer-banner p{font-weight:500;opacity:.85;margin-top:2px}
-        .search-bar{background:var(--card-bg);border:2px solid var(--border-color);border-radius:60px;padding:10px 18px;display:flex;align-items:center;gap:10px}
+        .search-bar{background:#fefcf5;border:2px solid #f7e3a0;border-radius:60px;padding:10px 18px;display:flex;align-items:center;gap:10px}
         .search-bar i{color:#b89b4b;font-size:1.1rem}
-        .search-bar input{border:0;background:0 0;color:var(--text-color);font-size:1rem;width:100%;outline:0}
+        .search-bar input{border:0;background:0 0;color:#1e1e1e;font-size:1rem;width:100%;outline:0}
         .search-bar input::placeholder{color:#a0967a}
-        #searchSuggestions{position:absolute;top:100%;left:0;right:0;background:var(--card-bg);border-radius:16px;border:1px solid var(--border-color);margin-top:4px;z-index:1000;max-height:200px;overflow-y:auto;display:none;box-shadow:0 8px 20px rgba(0,0,0,0.1)}
-        #searchSuggestions .suggestion-item{padding:10px 16px;cursor:pointer;border-bottom:1px solid var(--border-color);font-size:.9rem;color:var(--text-color)}
-        #searchSuggestions .suggestion-item:hover{background:var(--primary)}
         .search-wrapper{position:relative}
-        
+        #searchSuggestions{position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:16px;border:1px solid #f7e3a0;margin-top:4px;z-index:1000;max-height:200px;overflow-y:auto;display:none;box-shadow:0 8px 20px rgba(0,0,0,0.1)}
+        #searchSuggestions .suggestion-item{padding:10px 16px;cursor:pointer;border-bottom:1px solid #f7e9b0;font-size:.9rem;color:#1e1e1e}
+        #searchSuggestions .suggestion-item:hover{background:#fef6dc}
+
         .category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-        .category-item{background:var(--card-bg);border:1.5px solid var(--border-color);border-radius:40px;padding:12px 6px;text-align:center;font-weight:600;color:var(--text-color);box-shadow:0 3px 0 #e6d19c;transition:.08s;cursor:pointer;font-size:.8rem}
+        .category-item{background:#fefcf5;border:1.5px solid #f7e3a0;border-radius:40px;padding:12px 6px;text-align:center;font-weight:600;color:#2d2a1e;box-shadow:0 3px 0 #e6d19c;transition:.08s;cursor:pointer;font-size:.8rem}
         .category-item:active{transform:translateY(3px);box-shadow:0 0 0 #e6d19c}
-        .category-item i{display:block;font-size:1.4rem;margin-bottom:2px;color:var(--primary-dark)}
-        
+        .category-item i{display:block;font-size:1.4rem;margin-bottom:2px;color:#dba32b}
+
         .wallet-box{text-align:center;padding:20px;background:linear-gradient(145deg,#f7c948,#f5b342);border-radius:24px;color:#1e1e1e}
         .wallet-box .amount{font-size:2.2rem;font-weight:800}
         .wallet-box .label{font-size:.85rem;opacity:.8}
-        .wallet-transaction{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-color);color:var(--text-color)}
+        .wallet-transaction{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f7e9b0;color:#1e1e1e}
         .wallet-transaction .amount{font-weight:700}
         .wallet-transaction .amount.credit{color:#2e7d32}
         .wallet-transaction .amount.debit{color:#c62828}
         .commission-info{background:#fff9e6;border-radius:16px;padding:10px 14px;border-left:4px solid #f5b342;font-size:.85rem;color:#5e5a4a}
-        
-        .provider-card{background:var(--card-bg);border-radius:18px;padding:14px;border:1px solid var(--border-color);display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+
+        .provider-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
         .provider-card .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0}
         .provider-card .info{flex:1}
-        .provider-card .info .name{font-weight:700;font-size:.9rem;color:var(--text-color)}
+        .provider-card .info .name{font-weight:700;font-size:.9rem;color:#1e1e1e}
         .provider-card .info .detail{font-size:.7rem;color:#5e5a4a;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
         .badge-distance{background:#f0e3c0;padding:2px 10px;border-radius:40px;font-size:.6rem;font-weight:600}
         .contact-buttons{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
@@ -144,56 +127,48 @@
         .btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 3px 0 #128C7E}
         .btn-imo{background:#1A8BFF;color:#fff;box-shadow:0 3px 0 #0A5EB0}
         .btn-phone-call{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;padding:8px 16px;border-radius:40px;border:0;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
-        .btn-book{background:var(--primary);color:#1e1e1e;box-shadow:0 3px 0 var(--primary-dark);border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
-        
-        .order-card{background:var(--card-bg);border-radius:18px;padding:14px;border:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center}
-        .order-card .order-info{color:var(--text-color)}
-        .order-card .order-info strong{color:var(--text-color)}
+        .btn-book{background:#f7c948;color:#1e1e1e;box-shadow:0 3px 0 #dba32b;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+
+        .order-card{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;display:flex;justify-content:space-between;align-items:center;color:#1e1e1e}
         .status-badge{padding:4px 12px;border-radius:40px;font-size:.7rem;font-weight:700}
         .status-badge.pending{background:#ffd54f}
         .status-badge.ongoing{background:#4FC3F7}
         .status-badge.completed{background:#81C784;color:#1e1e1e}
         .status-badge.cancelled{background:#e57373;color:#fff}
-        .booking-request{background:var(--card-bg);border-radius:18px;padding:14px;border:1px solid var(--border-color);border-left:4px solid var(--primary)}
-        .booking-request .user-info{font-weight:600;color:var(--text-color)}
-        .booking-request .service-info{font-size:.8rem;color:#5e5a4a}
+        .booking-request{background:#fefcf5;border-radius:18px;padding:14px;border:1px solid #f7e3a0;border-left:4px solid #f7c948;color:#1e1e1e}
         .booking-actions{display:flex;gap:8px;margin-top:8px}
         .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
         .btn-reject{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
-        
-        #mapContainer{height:180px;border-radius:20px;overflow:hidden;border:2px solid var(--border-color);background:#e8e4d8}
-        #providerMapContainer{height:200px;border-radius:20px;overflow:hidden;border:2px solid var(--border-color);background:#e8e4d8}
-        .map-loading{display:flex;align-items:center;justify-content:center;height:100%;color:#5e5a4a;background:var(--card-bg);font-size:.8rem;gap:8px}
-        .map-loading i{color:var(--primary);animation:spin 1s linear infinite}
+
+        #mapContainer{height:180px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
+        #providerMapContainer{height:200px;border-radius:20px;overflow:hidden;border:2px solid #f7e3a0;background:#e8e4d8}
+        .map-loading{display:flex;align-items:center;justify-content:center;height:100%;color:#5e5a4a;background:#fefcf5;font-size:.8rem;gap:8px}
+        .map-loading i{color:#f7c948;animation:spin 1s linear infinite}
         .location-input-row{display:flex;gap:8px;align-items:center}
-        .location-input-row input{flex:1;padding:10px 16px;border-radius:40px;border:1.5px solid var(--border-color);background:var(--card-bg);color:var(--text-color);font-size:.9rem;outline:0}
+        .location-input-row input{flex:1;padding:10px 16px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;color:#1e1e1e;font-size:.9rem;outline:0}
         .location-input-row input:focus{border-color:#f5b342;box-shadow:0 0 0 4px rgba(245,179,66,.15)}
-        .location-input-row button{padding:10px 14px;border-radius:40px;border:0;background:var(--primary);font-weight:600;cursor:pointer;box-shadow:0 3px 0 var(--primary-dark);transition:.08s;white-space:nowrap;font-size:.8rem;color:#1e1e1e}
-        .location-input-row button:active{transform:translateY(3px);box-shadow:0 0 0 var(--primary-dark)}
+        .location-input-row button{padding:10px 14px;border-radius:40px;border:0;background:#f7c948;font-weight:600;cursor:pointer;box-shadow:0 3px 0 #dba32b;transition:.08s;white-space:nowrap;font-size:.8rem;color:#1e1e1e}
+        .location-input-row button:active{transform:translateY(3px);box-shadow:0 0 0 #dba32b}
         .map-location-text{margin-top:4px;text-align:center;font-size:.7rem;color:#5e5a4a}
         .filter-row{display:flex;gap:6px;overflow-x:auto;padding:4px 0;-webkit-overflow-scrolling:touch}
-        .filter-row button{padding:6px 14px;border-radius:40px;border:1.5px solid var(--border-color);background:var(--card-bg);color:var(--text-color);font-weight:600;font-size:.7rem;cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
-        .filter-row button.active{background:var(--primary);border-color:var(--primary);box-shadow:0 3px 0 var(--primary-dark)}
-        .filter-row button:active{transform:translateY(2px)}
-        
-        /* ===== ADMIN ===== */
+        .filter-row button{padding:6px 14px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;color:#1e1e1e;font-weight:600;font-size:.7rem;cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
+        .filter-row button.active{background:#f7c948;border-color:#f7c948;box-shadow:0 3px 0 #dba32b}
+
         .admin-lock{text-align:center;padding:10px 0}
-        .admin-lock input{padding:14px 18px;border-radius:40px;border:1.5px solid var(--border-color);background:var(--card-bg);color:var(--text-color);font-size:1rem;outline:0;width:100%;text-align:center}
+        .admin-lock input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0e3c0;background:#fefcf5;color:#1e1e1e;font-size:1rem;outline:0;width:100%;text-align:center}
         .admin-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-        .admin-stat-card{background:var(--card-bg);border-radius:16px;padding:12px;border:1px solid var(--border-color);text-align:center}
-        .admin-stat-card .number{font-size:1.5rem;font-weight:800;color:var(--text-color)}
+        .admin-stat-card{background:#fefcf5;border-radius:16px;padding:12px;border:1px solid #f7e3a0;text-align:center}
+        .admin-stat-card .number{font-size:1.5rem;font-weight:800;color:#1e1e1e}
         .admin-stat-card .label{font-size:.7rem;color:#5e5a4a}
-        .admin-stat-card i{font-size:1.2rem;color:var(--primary);margin-bottom:2px}
-        .admin-user-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-color)}
-        .admin-user-item .info{font-weight:600;font-size:.85rem;color:var(--text-color)}
+        .admin-stat-card i{font-size:1.2rem;color:#f7c948;margin-bottom:2px}
+        .admin-user-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f7e9b0;color:#1e1e1e}
         .admin-actions{display:flex;gap:6px}
-        .admin-actions button{background:var(--primary);border:0;border-radius:40px;padding:4px 10px;font-weight:600;font-size:.65rem;cursor:pointer;color:#1e1e1e}
+        .admin-actions button{background:#f7c948;border:0;border-radius:40px;padding:4px 10px;font-weight:600;font-size:.65rem;cursor:pointer;color:#1e1e1e}
         .admin-actions button.danger{background:#e53935;color:#fff}
-        
-        /* ===== NAVIGATION ===== */
+
         #bottom-nav-user, #bottom-nav-provider {
-            background: var(--card-bg);
-            border-top: 2px solid var(--border-color);
+            background: white;
+            border-top: 2px solid #f7e9b0;
             padding: 6px 12px 10px 12px;
             display: none;
             justify-content: space-around;
@@ -205,7 +180,6 @@
             position: sticky;
             bottom: 0;
             z-index: 1000;
-            transition: background 0.3s;
         }
         #bottom-nav-user.show, #bottom-nav-provider.show { display: flex !important; }
 
@@ -227,168 +201,75 @@
         }
         .nav-item i { font-size: 1.3rem; }
         .nav-item.active {
-            color: var(--primary-dark);
+            color: #dba32b;
             background: #fef6dc;
+            padding: 4px 14px;
         }
         .nav-item:active { transform: scale(0.95); }
-        
-        /* ===== PROFILE PAGE ===== */
+
         .profile-header {
-            background: var(--card-bg);
+            background: #fefcf5;
             border-radius: 24px;
             padding: 24px 16px;
             text-align: center;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            transition: background 0.3s;
+            border: 1px solid #f7e3a0;
+            box-shadow: 0 4px 0 #efe1b0;
         }
         .profile-avatar {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: var(--primary);
+            background: #f7c948;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 12px;
             font-size: 2.8rem;
             color: #fff;
-            border: 3px solid var(--primary-dark);
+            border: 3px solid #dba32b;
         }
-        .profile-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-        .profile-location {
-            font-size: 0.85rem;
-            color: #5e5a4a;
-            margin-top: 2px;
-        }
+        .profile-name { font-size: 1.3rem; font-weight: 700; color: #1e1e1e; }
+        .profile-location { font-size: 0.85rem; color: #5e5a4a; margin-top: 2px; }
         .profile-stats {
             display: flex;
             justify-content: space-around;
             margin: 16px 0 12px;
             padding: 12px 0;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            border-top: 1px solid #f7e9b0;
+            border-bottom: 1px solid #f7e9b0;
         }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-        .stat-label {
-            font-size: 0.65rem;
-            color: #5e5a4a;
-            display: block;
-        }
-        .profile-phone {
-            font-size: 0.85rem;
-            color: #5e5a4a;
-        }
-        .profile-phone i {
-            margin-right: 6px;
-            color: var(--primary-dark);
-        }
-        
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 1.1rem; font-weight: 700; color: #1e1e1e; }
+        .stat-label { font-size: 0.65rem; color: #5e5a4a; display: block; }
+        .profile-phone { font-size: 0.85rem; color: #5e5a4a; }
+        .profile-phone i { margin-right: 6px; color: #dba32b; }
+
         .profile-menu {
-            background: var(--card-bg);
+            background: #fefcf5;
             border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
+            border: 1px solid #f7e3a0;
+            box-shadow: 0 4px 0 #efe1b0;
             overflow: hidden;
-            transition: background 0.3s;
         }
         .menu-item {
             display: flex;
             align-items: center;
             padding: 14px 18px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #f7e9b0;
             cursor: pointer;
             transition: 0.15s;
-            color: var(--text-color);
-            gap: 12px;
-        }
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-        .menu-item:hover {
-            background: var(--primary);
-            opacity: 0.8;
-        }
-        .menu-item i:first-child {
-            width: 20px;
-            text-align: center;
-            color: var(--primary-dark);
-        }
-        .menu-item .fa-chevron-right {
-            margin-left: auto;
-            color: #a0967a;
-            font-size: 0.7rem;
-        }
-        .menu-item.logout i:first-child {
-            color: #e53935;
-        }
-        .menu-item.logout:hover {
-            background: #e53935;
-            color: #fff;
-        }
-        .menu-item.logout:hover i:first-child {
-            color: #fff;
-        }
-        .menu-item.logout:hover .fa-chevron-right {
-            color: #fff;
-        }
-        
-        /* ===== SETTINGS / TUTORIAL ===== */
-        .tutorial-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-        }
-        .tutorial-card h4 {
-            color: var(--text-color);
-            margin-bottom: 6px;
-        }
-        .tutorial-card p {
-            color: #5e5a4a;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-        .tutorial-step {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .tutorial-step:last-child {
-            border-bottom: none;
-        }
-        .tutorial-step .step-num {
-            background: var(--primary);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.7rem;
             color: #1e1e1e;
-            flex-shrink: 0;
+            gap: 12px;
         }
-        .tutorial-step .step-text {
-            color: var(--text-color);
-            font-size: 0.85rem;
-        }
-        
+        .menu-item:last-child { border-bottom: none; }
+        .menu-item:hover { background: #f7c948; opacity: 0.8; }
+        .menu-item i:first-child { width: 20px; text-align: center; color: #dba32b; }
+        .menu-item .fa-chevron-right { margin-left: auto; color: #a0967a; font-size: 0.7rem; }
+        .menu-item.logout i:first-child { color: #e53935; }
+        .menu-item.logout:hover { background: #e53935; color: #fff; }
+        .menu-item.logout:hover i:first-child { color: #fff; }
+        .menu-item.logout:hover .fa-chevron-right { color: #fff; }
+
         .logout-btn {
             background: #e53935;
             color: #fff;
@@ -404,7 +285,7 @@
             transition: 0.08s;
         }
         .logout-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b71c1c; }
-        
+
         .admin-link {
             color: #b89b4b;
             font-weight: 600;
@@ -415,31 +296,14 @@
             text-align: center;
             margin-top: 10px;
         }
-        .dark-toggle-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 40px;
-            padding: 10px 18px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-color);
-            width: 100%;
-            justify-content: center;
-        }
-        .dark-toggle-btn i {
-            font-size: 1.1rem;
-        }
-        
+
         .country-select { margin-bottom: 6px; }
         .country-select select {
             padding: 10px 16px;
             border-radius: 40px;
-            border: 1.5px solid var(--border-color);
-            background: var(--card-bg);
-            color: var(--text-color);
+            border: 1.5px solid #f0e3c0;
+            background: #fefcf5;
+            color: #1e1e1e;
             font-size: .95rem;
             outline: 0;
             width: 100%;
@@ -541,7 +405,7 @@
         <div id="searchSuggestions"></div>
     </div>
     <div class="offer-banner"><h3>🔥 আজকের অফার</h3><p>সকল সার্ভিসে ২০% ডিসকাউন্ট! <span style="background:#1e1e1e;color:#fff;padding:2px 14px;border-radius:40px;font-size:.75rem;">নতুন ইউজার</span></p></div>
-    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:var(--text-color);">৳ <span id="userWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> রিচার্জ</button></div>
+    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:#1e1e1e;">৳ <span id="userWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> রিচার্জ</button></div>
     <div class="category-grid">
         <div class="category-item" onclick="openCategory('Plumber')"><i class="fas fa-wrench"></i> প্লাম্বার</div>
         <div class="category-item" onclick="openCategory('Electrician')"><i class="fas fa-bolt"></i> ইলেকট্রিশিয়ান</div>
@@ -560,7 +424,7 @@
 <!-- ============================================================ -->
 <div id="page-user-category" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> ক্যাটাগরিতে</button>
-    <div class="app-header"><h2 id="category-title" style="color:var(--text-color)">📍 প্লাম্বার</h2></div>
+    <div class="app-header"><h2 id="category-title" style="color:#1e1e1e;">📍 প্লাম্বার</h2></div>
     <div class="subhead" id="category-sub">আপনার কাছাকাছি প্রোভাইডার</div>
     <div class="location-input-row"><input type="text" id="userLocationInput" placeholder="আপনার লোকেশন দিন"><button onclick="searchLocation()"><i class="fas fa-search"></i> খুঁজুন</button></div>
     <div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)">সব</button><button onclick="filterDistance('1',event)">১ কিমি</button><button onclick="filterDistance('3',event)">৩ কিমি</button><button onclick="filterDistance('5',event)">৫ কিমি</button><button onclick="filterDistance('10',event)">১০ কিমি</button></div>
@@ -574,7 +438,7 @@
 <!-- ============================================================ -->
 <div id="page-user-orders" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">📋 আমার অর্ডার</h2></div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">📋 আমার অর্ডার</h2></div>
     <div class="subhead">আপনার করা সকল অর্ডার</div>
     <div id="userOrderList"><div class="loading-spinner"><i class="fas fa-spinner"></i> অর্ডার লোড হচ্ছে...</div></div>
 </div>
@@ -584,7 +448,7 @@
 <!-- ============================================================ -->
 <div id="page-user-wallet" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">💳 ওয়ালেট</h2></div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">💳 ওয়ালেট</h2></div>
     <div class="subhead">আপনার ট্রানজেকশন হিস্টোরি</div>
     <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="walletBalanceDisplay">0</span></div></div>
     <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="rechargeAmount" placeholder="যেমন: ৫০০"></div>
@@ -594,11 +458,10 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: USER PROFILE (UPDATED - Professional) -->
+<!-- PAGE: USER PROFILE -->
 <!-- ============================================================ -->
 <div id="page-user-profile" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
-    
     <div class="profile-header">
         <div class="profile-avatar"><i class="fas fa-user-circle"></i></div>
         <div class="profile-name" id="profileName">-</div>
@@ -610,50 +473,20 @@
         </div>
         <div class="profile-phone" id="profilePhone"><i class="fas fa-phone"></i> -</div>
     </div>
-    
     <div class="profile-menu">
         <div class="menu-item" onclick="goToPage('page-user-orders')"><i class="fas fa-clipboard-list"></i> আমার অর্ডার <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item" onclick="goToPage('page-user-wallet')"><i class="fas fa-wallet"></i> ওয়ালেট <i class="fas fa-chevron-right"></i></div>
-        <div class="menu-item" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> ডার্ক মোড <i class="fas fa-toggle-on" id="darkModeToggle"></i></div>
-        <div class="menu-item" onclick="goToPage('page-settings')"><i class="fas fa-cog"></i> সেটিংস <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item" onclick="window.location.hash='admin'"><i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
     </div>
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: SETTINGS (NEW - with Tutorial) -->
-<!-- ============================================================ -->
-<div id="page-settings" class="page">
-    <button class="back-link" onclick="goToPage('page-user-profile')"><i class="fas fa-arrow-left"></i> প্রোফাইলে</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">⚙️ সেটিংস</h2></div>
-    <div class="subhead">অ্যাপ ব্যবহারের গাইড</div>
-    
-    <div class="tutorial-card">
-        <h4>📖 ইউজার টিউটোরিয়াল</h4>
-        <div class="tutorial-step"><span class="step-num">১</span><span class="step-text">আপনার পছন্দের ক্যাটাগরি সিলেক্ট করুন (প্লাম্বার, ইলেকট্রিশিয়ান ইত্যাদি)</span></div>
-        <div class="tutorial-step"><span class="step-num">২</span><span class="step-text">প্রোভাইডার লিস্ট থেকে পছন্দের একজন বেছে নিন</span></div>
-        <div class="tutorial-step"><span class="step-num">৩</span><span class="step-text">WhatsApp বা IMO দিয়ে যোগাযোগ করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">৪</span><span class="step-text">বুকিং করুন এবং সার্ভিস নিন</span></div>
-    </div>
-    
-    <div class="tutorial-card">
-        <h4>🛠️ প্রোভাইডার টিউটোরিয়াল</h4>
-        <div class="tutorial-step"><span class="step-num">১</span><span class="step-text">রেজিস্ট্রেশন করুন এবং প্রোফাইল তৈরি করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">২</span><span class="step-text">অ্যাডমিন অনুমোদনের জন্য অপেক্ষা করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">৩</span><span class="step-text">বুকিং রিকোয়েস্ট পেলে গ্রহণ করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">৪</span><span class="step-text">সার্ভিস শেষে রেটিং দেখুন</span></div>
-    </div>
-    
-    <button class="dark-toggle-btn" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> ডার্ক মোড টগল</button>
-</div>
-
-<!-- ============================================================ -->
-<!-- PAGE: PROVIDER FORM (with WhatsApp & IMO) -->
+<!-- PAGE: PROVIDER FORM -->
 <!-- ============================================================ -->
 <div id="page-provider-form" class="page">
     <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> রোল নির্বাচন</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">🛠️ প্রোভাইডার তথ্য</h2></div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">🛠️ প্রোভাইডার তথ্য</h2></div>
     <div class="subhead">আপনার পেশাগত তথ্য দিন</div>
     <div class="input-group"><label><i class="fas fa-user"></i> নাম</label><input type="text" id="provider-name" placeholder="করিম মিয়া"></div>
     <div class="input-group"><label><i class="fas fa-briefcase"></i> কাজ/পেশা</label><input type="text" id="provider-work" placeholder="প্লাম্বার, ইলেকট্রিশিয়ান"></div>
@@ -669,10 +502,32 @@
 <!-- ============================================================ -->
 <div id="page-provider-otp" class="page">
     <button class="back-link" onclick="goToPage('page-provider-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">📱 প্রোভাইডার নম্বর</h2></div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">📱 প্রোভাইডার নম্বর</h2></div>
     <div class="subhead">ওটিপি যাচাই</div>
     <div class="phone-row">
-        <div class="country-select"><select id="provider-country-code"><option value="+880">🇧🇩 +880</option><option value="+91">🇮🇳 +91</option><option value="+1">🇺🇸 +1</option></select></div>
+        <div class="country-select">
+            <select id="provider-country-code">
+                <option value="+880">🇧🇩 +880</option>
+                <option value="+91">🇮🇳 +91</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+86">🇨🇳 +86</option>
+                <option value="+81">🇯🇵 +81</option>
+                <option value="+82">🇰🇷 +82</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+39">🇮🇹 +39</option>
+                <option value="+55">🇧🇷 +55</option>
+                <option value="+7">🇷🇺 +7</option>
+                <option value="+20">🇪🇬 +20</option>
+                <option value="+234">🇳🇬 +234</option>
+                <option value="+254">🇰🇪 +254</option>
+                <option value="+92">🇵🇰 +92</option>
+                <option value="+94">🇱🇰 +94</option>
+                <option value="+977">🇳🇵 +977</option>
+            </select>
+        </div>
         <div class="input-group" style="flex:1;"><input type="tel" id="provider-phone" placeholder="১৯১২৩৪৫৬৭৮"></div>
     </div>
     <button class="yellow-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
@@ -684,16 +539,16 @@
 <!-- PAGE: PROVIDER HOME -->
 <!-- ============================================================ -->
 <div id="page-provider-home" class="page">
-    <div class="app-header"><h2 style="color:var(--text-color)">📊 ড্যাশবোর্ড</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">📊 ড্যাশবোর্ড</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
     <div class="subhead">স্বাগতম, <span id="providerNameDisplay">-</span></div>
-    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:var(--text-color);">৳ <span id="providerWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> তুলুন</button></div>
+    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:#1e1e1e;">৳ <span id="providerWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> তুলুন</button></div>
     <div class="dash-card">
         <div class="dash-stat"><span>📌 কাজের ক্যাটাগরি</span> <span class="wallet-badge" id="providerCategory">-</span></div>
         <div class="dash-stat"><span>⭐ রেটিং</span> <span id="providerRatingDisplay">৪.৯ (৪২ রিভিউ)</span></div>
         <div class="dash-stat"><span>📦 সম্পূর্ণ অর্ডার</span> <span id="providerTotalOrders">0</span></div>
         <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">0</span></span></div>
     </div>
-    <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:var(--text-color);margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
+    <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#1e1e1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
 </div>
 
 <!-- ============================================================ -->
@@ -701,7 +556,7 @@
 <!-- ============================================================ -->
 <div id="page-provider-orders" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">📋 বুকিং রিকোয়েস্ট</h2></div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">📋 বুকিং রিকোয়েস্ট</h2></div>
     <div class="subhead">আপনার কাছে আসা বুকিং অনুরোধ</div>
     <div id="providerBookingList"><div class="loading-spinner"><i class="fas fa-spinner"></i> বুকিং লোড হচ্ছে...</div></div>
 </div>
@@ -711,7 +566,7 @@
 <!-- ============================================================ -->
 <div id="page-provider-wallet" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">💳 ওয়ালেট</h2></div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">💳 ওয়ালেট</h2></div>
     <div class="subhead">আপনার আয়-ব্যয়ের হিস্টোরি</div>
     <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="providerWalletDisplay">0</span></div></div>
     <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="withdrawAmount" placeholder="যেমন: ৫০০"></div>
@@ -720,11 +575,10 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: PROVIDER PROFILE (UPDATED - Professional) -->
+<!-- PAGE: PROVIDER PROFILE -->
 <!-- ============================================================ -->
 <div id="page-provider-profile" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    
     <div class="profile-header">
         <div class="profile-avatar"><i class="fas fa-tools"></i></div>
         <div class="profile-name" id="providerProfileName">-</div>
@@ -738,53 +592,23 @@
         <div class="profile-phone" id="providerProfileWhatsApp"><i class="fab fa-whatsapp"></i> -</div>
         <div class="profile-phone" id="providerProfileImo"><i class="fas fa-video"></i> -</div>
     </div>
-    
     <div class="profile-menu">
         <div class="menu-item" onclick="goToPage('page-provider-orders')"><i class="fas fa-clipboard-list"></i> বুকিং রিকোয়েস্ট <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item" onclick="goToPage('page-provider-wallet')"><i class="fas fa-wallet"></i> ওয়ালেট <i class="fas fa-chevron-right"></i></div>
-        <div class="menu-item" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> ডার্ক মোড <i class="fas fa-toggle-on" id="darkModeToggleProvider"></i></div>
-        <div class="menu-item" onclick="goToPage('page-settings-provider')"><i class="fas fa-cog"></i> সেটিংস <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item" onclick="window.location.hash='admin'"><i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
     </div>
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: PROVIDER SETTINGS -->
-<!-- ============================================================ -->
-<div id="page-settings-provider" class="page">
-    <button class="back-link" onclick="goToPage('page-provider-profile')"><i class="fas fa-arrow-left"></i> প্রোফাইলে</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">⚙️ সেটিংস</h2></div>
-    <div class="subhead">অ্যাপ ব্যবহারের গাইড</div>
-    
-    <div class="tutorial-card">
-        <h4>📖 ইউজার টিউটোরিয়াল</h4>
-        <div class="tutorial-step"><span class="step-num">১</span><span class="step-text">আপনার পছন্দের ক্যাটাগরি সিলেক্ট করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">২</span><span class="step-text">প্রোভাইডার লিস্ট থেকে পছন্দের একজন বেছে নিন</span></div>
-        <div class="tutorial-step"><span class="step-num">৩</span><span class="step-text">WhatsApp বা IMO দিয়ে যোগাযোগ করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">৪</span><span class="step-text">বুকিং করুন এবং সার্ভিস নিন</span></div>
-    </div>
-    
-    <div class="tutorial-card">
-        <h4>🛠️ প্রোভাইডার টিউটোরিয়াল</h4>
-        <div class="tutorial-step"><span class="step-num">১</span><span class="step-text">রেজিস্ট্রেশন করুন এবং প্রোফাইল তৈরি করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">২</span><span class="step-text">অ্যাডমিন অনুমোদনের জন্য অপেক্ষা করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">৩</span><span class="step-text">বুকিং রিকোয়েস্ট পেলে গ্রহণ করুন</span></div>
-        <div class="tutorial-step"><span class="step-num">৪</span><span class="step-text">সার্ভিস শেষে রেটিং দেখুন</span></div>
-    </div>
-    
-    <button class="dark-toggle-btn" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> ডার্ক মোড টগল</button>
-</div>
-
-<!-- ============================================================ -->
-<!-- PAGE: ADMIN LOGIN (SECURE) -->
+<!-- PAGE: ADMIN LOGIN (পাসওয়ার্ড দিয়ে) -->
 <!-- ============================================================ -->
 <div id="page-admin-login" class="page">
     <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">🔐 অ্যাডমিন অ্যাক্সেস</h2></div>
-    <div class="subhead">শুধুমাত্র অ্যাডমিন ইমেইল দিয়ে প্রবেশ করুন</div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">🔐 অ্যাডমিন অ্যাক্সেস</h2></div>
+    <div class="subhead">শুধুমাত্র অ্যাডমিন পাসওয়ার্ড দিয়ে প্রবেশ করুন</div>
     <div class="admin-lock">
-        <input type="email" id="adminEmail" placeholder="আপনার ইমেইল দিন" />
+        <input type="password" id="adminPassword" placeholder="অ্যাডমিন পাসওয়ার্ড দিন" />
         <button class="yellow-btn" onclick="verifyAdmin()">প্রবেশ করুন <i class="fas fa-arrow-right"></i></button>
         <div style="margin-top:8px;font-size:.8rem;color:#e53935;" id="adminError"></div>
     </div>
@@ -795,7 +619,7 @@
 <!-- ============================================================ -->
 <div id="page-admin-dashboard" class="page">
     <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
-    <div class="app-header"><h2 style="color:var(--text-color)">📊 অ্যাডমিন</h2></div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">📊 অ্যাডমিন</h2></div>
     <div class="subhead">আপনার অ্যাপের সারাংশ</div>
     <div class="admin-stats-grid">
         <div class="admin-stat-card"><i class="fas fa-users"></i><div class="number" id="adminTotalUsers">0</div><div class="label">মোট ইউজার</div></div>
@@ -803,8 +627,8 @@
         <div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">0</div><div class="label">মোট অর্ডার</div></div>
         <div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ 0</div><div class="label">মোট আয়</div></div>
     </div>
-    <div class="dash-card"><h3 style="font-size:.9rem;color:var(--text-color)">📌 পেন্ডিং প্রোভাইডার</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div>
-    <div class="dash-card"><h3 style="font-size:.9rem;color:var(--text-color)">💰 কমিশন রিপোর্ট</h3><div class="dash-stat"><span>মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span>এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span>পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
+    <div class="dash-card"><h3 style="font-size:.9rem;color:#1e1e1e;">📌 পেন্ডিং প্রোভাইডার</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div>
+    <div class="dash-card"><h3 style="font-size:.9rem;color:#1e1e1e;">💰 কমিশন রিপোর্ট</h3><div class="dash-stat"><span>মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span>এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span>পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
     <button class="yellow-btn" onclick="downloadReport()"><i class="fas fa-download"></i> রিপোর্ট ডাউনলোড</button>
     <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> অ্যাডমিন লগআউট</button>
 </div>
@@ -831,7 +655,7 @@
 
 <script>
 // ============================================================
-//  FIREBASE CONFIG - আপনার Config বসান
+//  FIREBASE CONFIG
 // ============================================================
 const firebaseConfig = {
     apiKey: "AIzaSyCQgVgG7VdHP9kLTRll3d5QFT_S5scqInY",
@@ -841,11 +665,6 @@ const firebaseConfig = {
     messagingSenderId: "1085782895382",
     appId: "1:1085782895382:web:cfba1ff046ff90be273e37"
 };
-
-// ============================================================
-//  ADMIN EMAIL - আপনার ইমেইল বসান
-// ============================================================
-const ADMIN_EMAIL = "e4nx19@gmail.com"; // 🔥 আপনার ইমেইল দিন
 
 // ============================================================
 //  FIREBASE INIT
@@ -865,33 +684,6 @@ if (typeof firebase !== 'undefined') {
     let currentUserId = null;
     let currentUserData = null;
     let selectedCountryCode = '+880';
-    let isAdmin = false;
-
-    // ============================================================
-    //  DARK MODE
-    // ============================================================
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        const toggle = document.getElementById('darkModeToggle');
-        const toggleProvider = document.getElementById('darkModeToggleProvider');
-        if (toggle) {
-            toggle.classList.toggle('fa-toggle-on');
-            toggle.classList.toggle('fa-toggle-off');
-        }
-        if (toggleProvider) {
-            toggleProvider.classList.toggle('fa-toggle-on');
-            toggleProvider.classList.toggle('fa-toggle-off');
-        }
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    }
-
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-        const toggle = document.getElementById('darkModeToggle');
-        const toggleProvider = document.getElementById('darkModeToggleProvider');
-        if (toggle) { toggle.classList.add('fa-toggle-on'); toggle.classList.remove('fa-toggle-off'); }
-        if (toggleProvider) { toggleProvider.classList.add('fa-toggle-on'); toggleProvider.classList.remove('fa-toggle-off'); }
-    }
 
     // ============================================================
     //  TOAST
@@ -941,7 +733,7 @@ if (typeof firebase !== 'undefined') {
     };
 
     // ============================================================
-    //  COUNTRY CODE
+    //  COUNTRY CODE HANDLERS
     // ============================================================
     document.getElementById('user-country-code')?.addEventListener('change', function() { selectedCountryCode = this.value; });
     document.getElementById('provider-country-code')?.addEventListener('change', function() { selectedCountryCode = this.value; });
@@ -952,7 +744,7 @@ if (typeof firebase !== 'undefined') {
     }
 
     // ============================================================
-    //  OTP SYSTEM
+    //  OTP SYSTEM (DEMO)
     // ============================================================
     function generateOTP() { return String(Math.floor(1000 + Math.random() * 9000)); }
 
@@ -962,7 +754,11 @@ if (typeof firebase !== 'undefined') {
         const btn = document.getElementById(role === 'user' ? 'userSendOtpBtn' : 'providerSendOtpBtn');
         const countryCode = getCountryCode(role);
         const phone = phoneInput.value.trim().replace(/\D/g, '');
-        if (phone.length < 4 || phone.length > 15) { statusDiv.textContent = '❌ সঠিক ফোন নম্বর দিন!'; statusDiv.className = 'otp-status error'; return; }
+        if (phone.length < 4 || phone.length > 15) {
+            statusDiv.textContent = '❌ সঠিক ফোন নম্বর দিন!';
+            statusDiv.className = 'otp-status error';
+            return;
+        }
         const fullNumber = countryCode + phone;
         console.log('📱 Full number:', fullNumber);
         btn.disabled = true;
@@ -983,7 +779,11 @@ if (typeof firebase !== 'undefined') {
         const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
         const statusDiv = role === 'user' ? document.getElementById('userOtpStatus') : document.getElementById('providerOtpStatus');
         const otp = otpInput.value.trim();
-        if (!otp || otp.length !== 4) { statusDiv.textContent = '❌ ৪ ডিজিটের OTP দিন!'; statusDiv.className = 'otp-status error'; return; }
+        if (!otp || otp.length !== 4) {
+            statusDiv.textContent = '❌ ৪ ডিজিটের OTP দিন!';
+            statusDiv.className = 'otp-status error';
+            return;
+        }
         if (window._demoOTP && window._demoOTP === otp) {
             statusDiv.textContent = '✅ লগইন সফল!';
             statusDiv.className = 'otp-status success';
@@ -1014,7 +814,16 @@ if (typeof firebase !== 'undefined') {
         const fullPhone = countryCode + phone;
         const uid = generateId();
         try {
-            await db.collection('users').doc(uid).set({ uid, name, location, phone: fullPhone, countryCode, wallet: 0, role: 'user', createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+            await db.collection('users').doc(uid).set({
+                uid: uid,
+                name: name,
+                location: location,
+                phone: fullPhone,
+                countryCode: countryCode,
+                wallet: 0,
+                role: 'user',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
             currentUserId = uid;
             const doc = await db.collection('users').doc(uid).get();
             currentUserData = doc.data();
@@ -1034,7 +843,7 @@ if (typeof firebase !== 'undefined') {
     }
 
     // ============================================================
-    //  REGISTER PROVIDER (with WhatsApp & IMO)
+    //  REGISTER PROVIDER
     // ============================================================
     async function registerProvider() {
         const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
@@ -1048,8 +857,34 @@ if (typeof firebase !== 'undefined') {
         const fullPhone = countryCode + phone;
         const uid = generateId();
         try {
-            await db.collection('providers').doc(uid).set({ uid, name, work, experience, nid, phone: fullPhone, whatsapp, imo, countryCode, wallet: 0, role: 'provider', status: 'pending', rating: 0, totalOrders: 0, location: 'ঢাকা, মিরপুর', lat: 23.735, lng: 90.380, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
-            await db.collection('users').doc(uid).set({ uid, name, phone: fullPhone, countryCode, role: 'provider', createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+            await db.collection('providers').doc(uid).set({
+                uid: uid,
+                name: name,
+                work: work,
+                experience: experience,
+                nid: nid,
+                phone: fullPhone,
+                whatsapp: whatsapp,
+                imo: imo,
+                countryCode: countryCode,
+                wallet: 0,
+                role: 'provider',
+                status: 'pending',
+                rating: 0,
+                totalOrders: 0,
+                location: 'ঢাকা, মিরপুর',
+                lat: 23.735,
+                lng: 90.380,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            await db.collection('users').doc(uid).set({
+                uid: uid,
+                name: name,
+                phone: fullPhone,
+                countryCode: countryCode,
+                role: 'provider',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
             currentUserId = uid;
             const doc = await db.collection('providers').doc(uid).get();
             currentUserData = doc.data();
@@ -1164,33 +999,18 @@ if (typeof firebase !== 'undefined') {
     };
 
     // ============================================================
-    //  ADMIN - SECURE with Firebase Auth
+    //  ADMIN - শুধু পাসওয়ার্ড দিয়ে
     // ============================================================
+    const ADMIN_PASSWORD = "admin123";
+
     window.verifyAdmin = function() {
-        const email = document.getElementById('adminEmail').value.trim();
-        if (!email) { document.getElementById('adminError').textContent = '❌ ইমেইল দিন!'; return; }
-        
-        // Check if current user is logged in and email matches
-        const user = firebase.auth().currentUser;
-        if (user && user.email === ADMIN_EMAIL) {
+        const password = document.getElementById('adminPassword').value;
+        if (password === ADMIN_PASSWORD) {
             goToPage('page-admin-dashboard');
             document.getElementById('adminError').textContent = '';
             loadAdminDashboard();
         } else {
-            // Try to sign in with email
-            auth.signInWithEmailAndPassword(email, 'admin123')
-                .then((userCredential) => {
-                    if (userCredential.user.email === ADMIN_EMAIL) {
-                        goToPage('page-admin-dashboard');
-                        document.getElementById('adminError').textContent = '';
-                        loadAdminDashboard();
-                    } else {
-                        document.getElementById('adminError').textContent = '❌ এই ইমেইল অ্যাডমিন নয়!';
-                    }
-                })
-                .catch((error) => {
-                    document.getElementById('adminError').textContent = '❌ লগইন ব্যর্থ: ' + error.message;
-                });
+            document.getElementById('adminError').textContent = '❌ ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।';
         }
     };
 
@@ -1236,7 +1056,7 @@ if (typeof firebase !== 'undefined') {
     };
 
     window.logoutAdmin = function() {
-        document.getElementById('adminEmail').value = '';
+        document.getElementById('adminPassword').value = '';
         window.location.hash = '';
         goToPage('page-role');
         showToast('অ্যাডমিন লগআউট সফল', 'success');
@@ -1514,7 +1334,7 @@ if (typeof firebase !== 'undefined') {
             setTimeout(() => goToPage('page-admin-login'), 300);
         }
 
-        document.getElementById('adminEmail')?.addEventListener('keypress', function(e) {
+        document.getElementById('adminPassword')?.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') window.verifyAdmin();
         });
     });
@@ -1528,8 +1348,8 @@ if (typeof firebase !== 'undefined') {
         }
     });
 
-    console.log('🚀 মিস্ত্রি বুক - সম্পূর্ণ আপডেটেড!');
-    console.log('🔐 অ্যাডমিন ইমেইল:', ADMIN_EMAIL);
+    console.log('🚀 মিস্ত্রি বুক - আপডেটেড ভার্সন রেডি!');
+    console.log('🔐 অ্যাডমিন পাসওয়ার্ড: admin123');
     console.log('📱 ডেমো OTP: যেকোনো ৪ ডিজিট');
     console.log('📌 অ্যাডমিন: URL এর শেষে #admin যোগ করুন');
 
