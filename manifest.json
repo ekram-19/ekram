@@ -1,6 +1,6 @@
 {
-  "name": "মিস্ত্রি বুক",
-  "short_name": "মিস্ত্রি বুক",
+  "name": "Mistiri Book",
+  "short_name": "Mistiri Book",
   "description": "On-demand home services platform connecting verified professionals with urban households in Bangladesh.",
   "start_url": "/",
   "display": "standalone",
@@ -15,8 +15,8 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/launchericon-144x144.png",
-      "sizes": "144x144",
+      "src": "/launchericon-512x512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
