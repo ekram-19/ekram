@@ -1,12 +1,14 @@
 {
+  "id": "mistri-book",
   "name": "Mistri Book",
   "short_name": "Mistri Book",
   "description": "On-demand home services platform connecting verified professionals with urban households in Bangladesh.",
-  "start_url": "/",
+  "start_url": "https://ekram-gamma.vercel.app/",
   "display": "standalone",
   "background_color": "#fef9e7",
   "theme_color": "#f7c948",
   "orientation": "portrait",
+  "categories": ["lifestyle", "utilities"],
   "icons": [
     {
       "src": "/launchericon-192x192.png",
