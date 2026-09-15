@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="apple-touch-icon" href="/launchericon-512x512.png" />
 
-    <title>মিস্ত্রি বুক</title>
+    <title>Mistri Book</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.css" rel="stylesheet" />
     <script src="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.js"></script>
@@ -21,7 +21,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <style>
-        /* ===== সব CSS আগের মতোই ===== */
         *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif}
         html,body{height:100%;background:#1a1a1a;overflow:hidden}
         #app-wrapper{width:100%;height:100vh;height:100dvh;background:#fef9e7;display:flex;flex-direction:column;position:relative}
@@ -37,30 +36,20 @@
         .page.active{display:flex}
         @keyframes fadeUp{0%{opacity:.6;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
 
-        /* ===== অনবোর্ডিং পেজের জন্য লোগো স্টাইল ===== */
-        #page-onboarding .logo-img {
-            width: 180px;
-            height: auto;
-            margin-bottom: 8px;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        #page-onboarding .logo-bn {
-            width: 140px;
-            height: auto;
-            margin-bottom: 5px;
-        }
-
-        #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;text-align:center;padding:20px;gap:20px}
+        /* ===== অনবোর্ডিং পেজ (শুধু টেক্সট) ===== */
+        #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;text-align:center;padding:20px}
         #page-onboarding.active{display:flex}
-        #page-onboarding .logo{font-size:4.5rem;background:#f7c948;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 15px 40px rgba(247,201,72,.3)}
-        #page-onboarding .app-name{font-size:2.2rem;font-weight:800;color:#1e1e1e}
-        #page-onboarding .app-tagline{color:#5e5a4a;font-size:1rem;font-weight:500;opacity:.7}
-        #page-onboarding .loading-dots{display:flex;gap:10px;margin-top:10px}
-        #page-onboarding .loading-dots span{width:12px;height:12px;background:#f7c948;border-radius:50%;animation:bounce 1.2s ease-in-out infinite}
-        #page-onboarding .loading-dots span:nth-child(2){animation-delay:.2s}
-        #page-onboarding .loading-dots span:nth-child(3){animation-delay:.4s}
-        @keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+        #page-onboarding .brand-text{
+            font-size:3rem;
+            font-weight:900;
+            color:#1e1e1e;
+            letter-spacing:-1px;
+            animation:brandPop .4s ease;
+        }
+        @keyframes brandPop{
+            0%{opacity:0;transform:scale(.85)}
+            100%{opacity:1;transform:scale(1)}
+        }
 
         #page-role{justify-content:center;min-height:70vh;gap:20px}
         #page-role .app-header{justify-content:center;text-align:center}
@@ -330,18 +319,11 @@
 <div id="app-content">
 
 <!-- ============================================================ -->
-<!-- PAGE: ONBOARDING (লোগো যোগ করা হয়েছে) -->
+<!-- PAGE: ONBOARDING (শুধু টেক্সট, সাথে সাথে রোল সিলেকশন) -->
 <!-- ============================================================ -->
 <div id="page-onboarding" class="page active">
-    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:60vh;">
-        <!-- ✅ ইংরেজি লোগো (Google Drive) -->
-        <img src="https://drive.google.com/uc?export=view&id=1EI8W1CndXHjkOJt3sYRJg0v3VkRgZN33" alt="Mistri Book Logo" class="logo-img" />
-        
-        <!-- ✅ বাংলা লোগো (Google Drive) -->
-        <img src="https://drive.google.com/uc?export=view&id=1HGY_N-6buQiTynVZU5mUmgUrK3qmj69U" alt="আপনার বাড়ির কাজ, আমাদের দায়িত্ব" class="logo-bn" />
-        
-        <div class="loading-dots"><span></span><span></span><span></span></div>
-        <div style="font-size:.8rem;color:#b89b4b;margin-top:10px;"><i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...</div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;">
+        <div class="brand-text">Mistri Book</div>
     </div>
 </div>
 
@@ -498,8 +480,8 @@
     <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> রোল নির্বাচন</button>
     <div class="app-header"><h2 style="color:#1e1e1e;">🛠️ প্রোভাইডার তথ্য</h2></div>
     <div class="subhead">আপনার পেশাগত তথ্য দিন</div>
-    <div class="input-group"><label><i class="fas fa-user"></i> নাম</label><input type="text" id="provider-name" placeholder="করিম মিয়া"></div>
-    <div class="input-group"><label><i class="fas fa-briefcase"></i> কাজ/পেশা</label><input type="text" id="provider-work" placeholder="প্লাম্বার, ইলেকট্রিশিয়ান"></div>
+    <div class="input-group"><label><i class="fas fa-user"></i> নাম</label><input type="text" id="provider-name" placeholder="করিম মিয়া"></div>
+    <div class="input-group"><label><i class="fas fa-briefcase"></i> কাজ/পেশা</label><input type="text" id="provider-work" placeholder="প্লাম্বার, ইলেকট্রিশিয়ান"></div>
     <div class="input-group"><label><i class="fas fa-clock"></i> অভিজ্ঞতা (বছর)</label><input type="number" id="provider-experience" placeholder="৫"></div>
     <div class="input-group"><label><i class="fas fa-id-card"></i> এনআইডি নম্বর</label><input type="text" id="provider-nid" placeholder="এনআইডি"></div>
     <div class="input-group"><label><i class="fab fa-whatsapp"></i> WhatsApp নম্বর</label><input type="tel" id="provider-whatsapp" placeholder="০১XXXXXXXXX"></div>
@@ -556,7 +538,7 @@
         <div class="dash-stat"><span>📌 কাজের ক্যাটাগরি</span> <span class="wallet-badge" id="providerCategory">-</span></div>
         <div class="dash-stat"><span>⭐ রেটিং</span> <span id="providerRatingDisplay">৪.৯ (৪২ রিভিউ)</span></div>
         <div class="dash-stat"><span>📦 সম্পূর্ণ অর্ডার</span> <span id="providerTotalOrders">0</span></div>
-        <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">0</span></span></div>
+        <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">0</span></span></div>
     </div>
     <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#1e1e1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
 </div>
@@ -576,8 +558,8 @@
 <!-- ============================================================ -->
 <div id="page-provider-wallet" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    <div class="app-header"><h2 style="color:#1e1e1e;">💳 ওয়ালেট</h2></div>
-    <div class="subhead">আপনার আয়-ব্যয়ের হিস্টোরি</div>
+    <div class="app-header"><h2 style="color:#1e1e1e;">💳 ওয়ালেট</h2></div>
+    <div class="subhead">আপনার আয়-ব্যয়ের হিস্টোরি</div>
     <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="providerWalletDisplay">0</span></div></div>
     <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="withdrawAmount" placeholder="যেমন: ৫০০"></div>
     <button class="yellow-btn" onclick="withdrawMoney()"><i class="fas fa-arrow-up"></i> টাকা তুলুন</button>
@@ -604,7 +586,7 @@
     </div>
     <div class="profile-menu">
         <div class="menu-item" onclick="goToPage('page-provider-orders')"><i class="fas fa-clipboard-list"></i> বুকিং রিকোয়েস্ট <i class="fas fa-chevron-right"></i></div>
-        <div class="menu-item" onclick="goToPage('page-provider-wallet')"><i class="fas fa-wallet"></i> ওয়ালেট <i class="fas fa-chevron-right"></i></div>
+        <div class="menu-item" onclick="goToPage('page-provider-wallet')"><i class="fas fa-wallet"></i> ওয়ালেট <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
     </div>
 </div>
@@ -650,13 +632,13 @@
 <div id="bottom-nav-user">
     <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span>হোম</span></button>
     <button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span>অর্ডার</span></button>
-    <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
+    <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
     <button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
 </div>
 <div id="bottom-nav-provider">
     <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span>ড্যাশবোর্ড</span></button>
     <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span>বুকিং</span></button>
-    <button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
+    <button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
     <button class="nav-item" data-page="page-provider-profile" onclick="navigateToProvider('page-provider-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
 </div>
 
@@ -664,7 +646,7 @@
 
 <script>
 // ============================================================
-// FIREBASE CONFIG
+//  FIREBASE CONFIG
 // ============================================================
 const firebaseConfig = {
     apiKey: "AIzaSyCQgVgG7VdHP9kLTRll3d5QFT_S5scqInY",
@@ -676,7 +658,7 @@ const firebaseConfig = {
 };
 
 // ============================================================
-// FIREBASE INIT
+//  FIREBASE INIT
 // ============================================================
 if (typeof firebase !== 'undefined') {
     firebase.initializeApp(firebaseConfig);
@@ -686,7 +668,7 @@ if (typeof firebase !== 'undefined') {
     console.log('✅ Firebase initialized!');
 
     // ============================================================
-    // APP STATE
+    //  APP STATE
     // ============================================================
     let currentUserRole = null;
     let isLoggedIn = false;
@@ -695,7 +677,7 @@ if (typeof firebase !== 'undefined') {
     let selectedCountryCode = '+880';
 
     // ============================================================
-    // TOAST
+    //  TOAST
     // ============================================================
     function showToast(msg, type = 'success') {
         const t = document.getElementById('toast');
@@ -707,7 +689,7 @@ if (typeof firebase !== 'undefined') {
     }
 
     // ============================================================
-    // NAVIGATION
+    //  NAVIGATION
     // ============================================================
     function goToPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -734,7 +716,7 @@ if (typeof firebase !== 'undefined') {
     }
 
     // ============================================================
-    // ROLE SELECTION
+    //  ROLE SELECTION
     // ============================================================
     window.selectRole = function(role) {
         currentUserRole = role;
@@ -742,7 +724,7 @@ if (typeof firebase !== 'undefined') {
     };
 
     // ============================================================
-    // COUNTRY CODE HANDLERS
+    //  COUNTRY CODE HANDLERS
     // ============================================================
     document.getElementById('user-country-code')?.addEventListener('change', function() { selectedCountryCode = this.value; });
     document.getElementById('provider-country-code')?.addEventListener('change', function() { selectedCountryCode = this.value; });
@@ -753,7 +735,7 @@ if (typeof firebase !== 'undefined') {
     }
 
     // ============================================================
-    // OTP SYSTEM (DEMO)
+    //  OTP SYSTEM (DEMO)
     // ============================================================
     function generateOTP() { return String(Math.floor(1000 + Math.random() * 9000)); }
 
@@ -775,7 +757,7 @@ if (typeof firebase !== 'undefined') {
         const otpCode = generateOTP();
         window._demoOTP = otpCode;
         console.log('📱 DEMO OTP:', otpCode);
-        statusDiv.textContent = '✅ OTP পাঠানো হয়েছে! (ডেমো OTP: ' + otpCode + ')';
+        statusDiv.textContent = '✅ OTP পাঠানো হয়েছে! (ডেমো OTP: ' + otpCode + ')';
         statusDiv.className = 'otp-status success';
         showToast('OTP পাঠানো হয়েছে!', 'success');
         const otpInput = role === 'user' ? document.getElementById('user-otp') : document.getElementById('provider-otp');
@@ -808,12 +790,12 @@ if (typeof firebase !== 'undefined') {
     };
 
     // ============================================================
-    // GENERATE ID
+    //  GENERATE ID
     // ============================================================
     function generateId() { return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
 
     // ============================================================
-    // REGISTER USER
+    //  REGISTER USER
     // ============================================================
     async function registerUser() {
         const name = document.getElementById('user-name').value.trim() || 'ইউজার';
@@ -852,7 +834,7 @@ if (typeof firebase !== 'undefined') {
     }
 
     // ============================================================
-    // REGISTER PROVIDER
+    //  REGISTER PROVIDER
     // ============================================================
     async function registerProvider() {
         const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
@@ -914,7 +896,7 @@ if (typeof firebase !== 'undefined') {
     }
 
     // ============================================================
-    // UI UPDATE
+    //  UI UPDATE
     // ============================================================
     function updateUserUI(data) {
         document.getElementById('profileName').textContent = data.name || 'ইউজার';
@@ -946,7 +928,7 @@ if (typeof firebase !== 'undefined') {
     }
 
     // ============================================================
-    // WALLET
+    //  WALLET
     // ============================================================
     window.rechargeWallet = async function() {
         if (!isLoggedIn || currentUserRole !== 'user') { showToast('⚠️ ইউজার হিসেবে লগইন করুন!', 'error'); return; }
@@ -990,7 +972,7 @@ if (typeof firebase !== 'undefined') {
     };
 
     // ============================================================
-    // LOGOUT
+    //  LOGOUT
     // ============================================================
     window.logout = function() {
         if (confirm('আপনি কি লগআউট করতে চান?')) {
@@ -1008,7 +990,7 @@ if (typeof firebase !== 'undefined') {
     };
 
     // ============================================================
-    // ADMIN (শুধু পাসওয়ার্ড)
+    //  ADMIN (শুধু পাসওয়ার্ড)
     // ============================================================
     const ADMIN_PASSWORD = "admin123";
 
@@ -1031,7 +1013,7 @@ if (typeof firebase !== 'undefined') {
             document.getElementById('adminTotalProviders').textContent = providersSnap.size;
             const bookingsSnap = await db.collection('bookings').get();
             document.getElementById('adminTotalOrders').textContent = bookingsSnap.size;
-
+            
             const pendingSnap = await db.collection('providers').where('status', '==', 'pending').get();
             const container = document.getElementById('adminPendingProviders');
             if (pendingSnap.empty) {
@@ -1074,7 +1056,7 @@ if (typeof firebase !== 'undefined') {
     window.downloadReport = function() { showToast('📄 রিপোর্ট ডাউনলোড (ডেমো)', 'success'); };
 
     // ============================================================
-    // MAP & CATEGORY
+    //  MAP & CATEGORY
     // ============================================================
     let userMap = null, providerMap = null, mapMarkers = [], currentProviders = [];
     let currentCategory = 'Plumber', currentFilter = 'all', userLat = 23.735, userLng = 90.380;
@@ -1265,12 +1247,12 @@ if (typeof firebase !== 'undefined') {
                 status: 'pending',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-            showToast('✅ ' + name + ' কে বুকিং করা হয়েছে!', 'success');
+            showToast('✅ ' + name + ' কে বুকিং করা হয়েছে!', 'success');
         } catch(e) { showToast('❌ বুকিং ব্যর্থ', 'error'); }
     };
 
     // ============================================================
-    // SEARCH
+    //  SEARCH
     // ============================================================
     document.getElementById('userSearchInput')?.addEventListener('input', function(e) {
         const query = this.value.trim().toLowerCase();
@@ -1278,9 +1260,9 @@ if (typeof firebase !== 'undefined') {
         if (query.length === 0) { container.style.display = 'none'; return; }
         const categories = [
             { name: 'Plumber', bn: 'প্লাম্বার' },
-            { name: 'Electrician', bn: 'ইলেকট্রিশিয়ান' },
-            { name: 'AC Technician', bn: 'এসি টেকনিশিয়ান' },
-            { name: 'Fridge Technician', bn: 'ফ্রিজ টেকনিশিয়ান' },
+            { name: 'Electrician', bn: 'ইলেকট্রিশিয়ান' },
+            { name: 'AC Technician', bn: 'এসি টেকনিশিয়ান' },
+            { name: 'Fridge Technician', bn: 'ফ্রিজ টেকনিশিয়ান' },
             { name: 'Cleaner', bn: 'ক্লিনার' },
             { name: 'Carpenter', bn: 'কার্পেন্টার' },
             { name: 'Car Mechanic', bn: 'কার মেকানিক' },
@@ -1295,14 +1277,14 @@ if (typeof firebase !== 'undefined') {
     });
 
     // ============================================================
-    // ONBOARDING & INIT
+    //  ONBOARDING & INIT (এখন ০.০০০১ সেকেন্ড পর রোল সিলেকশন)
     // ============================================================
     function startOnboarding() {
         document.getElementById('page-onboarding').classList.add('active');
         setTimeout(() => {
             document.getElementById('page-onboarding').classList.remove('active');
             goToPage('page-role');
-        }, 2000);
+        }, 1); // ০.০০১ সেকেন্ড
     }
 
     window.addEventListener('load', function() {
@@ -1358,10 +1340,10 @@ if (typeof firebase !== 'undefined') {
         }
     });
 
-    console.log('🚀 মিস্ত্রি বুক - আপডেটেড ভার্সন রেডি!');
-    console.log('🔐 অ্যাডমিন পাসওয়ার্ড: admin123');
-    console.log('📱 ডেমো OTP: যেকোনো ৪ ডিজিট');
-    console.log('📌 অ্যাডমিন: URL এর শেষে #admin যোগ করুন');
+    console.log('🚀 Mistri Book - Final Version Ready!');
+    console.log('🔐 Admin Password: admin123');
+    console.log('📱 Demo OTP: যেকোনো ৪ ডিজিট');
+    console.log('📌 Admin: URL শেষে #admin যোগ করুন');
 
 } else {
     document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#fef9e7;color:#c62828;font-size:1.2rem;padding:20px;text-align:center;"><div><i class="fas fa-exclamation-triangle" style="font-size:3rem;"></i><p style="margin-top:16px;">❌ Firebase লোড হয়নি!<br>ইন্টারনেট কানেকশন চেক করুন।</p></div></div>';
