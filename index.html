@@ -24,20 +24,19 @@
         *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif}
         html,body{height:100%;background:#1a1a1a;overflow:hidden}
         #app-wrapper{width:100%;height:100vh;height:100dvh;background:#fff5f5;display:flex;flex-direction:column;position:relative}
-        #status-bar{background:#1e1e1e;color:#fff;padding:6px 20px;display:flex;justify-content:space-between;font-size:.7rem;font-weight:600;flex-shrink:0;min-height:30px;z-index:100}
-        #status-bar .time{font-weight:700}
-        #status-bar .icons{display:flex;gap:6px;align-items:center}
-        #status-bar .icons i{font-size:.8rem}
-        #app-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:12px 16px 8px;background:#fff5f5;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+        
+        /* ✅ ডেমো স্ট্যাটাস বার সরিয়ে দেওয়া হয়েছে */
+        
+        #app-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:14px 18px 10px;background:#fff5f5;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
         #app-content::-webkit-scrollbar{width:3px}
         #app-content::-webkit-scrollbar-track{background:transparent}
         #app-content::-webkit-scrollbar-thumb{background:#e53935;border-radius:10px}
-        .page{display:none;flex-direction:column;gap:14px;padding-bottom:12px;animation:fadeUp .25s ease}
+        .page{display:none;flex-direction:column;gap:16px;padding-bottom:14px;animation:fadeUp .3s ease}
         .page.active{display:flex}
         @keyframes fadeUp{0%{opacity:.6;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
 
-        /* ===== অনবোর্ডিং পেজ (শুধু টেক্সট) ===== */
-        #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;text-align:center;padding:20px}
+        /* ===== অনবোর্ডিং পেজ ===== */
+        #page-onboarding{display:none;flex-direction:column;align-items:center;justify-content:center;min-height:85vh;text-align:center;padding:20px}
         #page-onboarding.active{display:flex}
         #page-onboarding .brand-text{
             font-size:3.5rem;
@@ -45,42 +44,42 @@
             color:#e53935;
             letter-spacing:2px;
             animation:brandPop .4s ease;
-            text-shadow:0 4px 12px rgba(229,57,53,.25);
+            text-shadow:0 6px 18px rgba(229,57,53,.3);
         }
         @keyframes brandPop{
             0%{opacity:0;transform:scale(.85)}
             100%{opacity:1;transform:scale(1)}
         }
 
-        #page-role{justify-content:center;min-height:70vh;gap:20px}
+        #page-role{justify-content:center;min-height:75vh;gap:22px;padding:20px 0}
         #page-role .app-header{justify-content:center;text-align:center}
-        #page-role .app-header h2{font-size:2rem;color:#1e1e1e}
+        #page-role .app-header h2{font-size:2.1rem;color:#1e1e1e;font-weight:800;letter-spacing:-.5px}
         #page-role .subhead{text-align:center;border-left:0;background:0 0;padding:0;font-size:1rem;color:#5e5a4a}
-        .role-btn{max-width:320px;margin:0 auto;width:100%}
-        .role-btn{background:#fff;border:2px solid #e53935;border-radius:60px;padding:22px 10px;font-size:1.5rem;font-weight:700;color:#1e1e1e;box-shadow:0 6px 0 #b71c1c;transition:.08s linear;cursor:pointer;text-align:center;width:100%}
+        .role-btn{max-width:340px;margin:0 auto;width:100%}
+        .role-btn{background:#fff;border:2px solid #e53935;border-radius:60px;padding:24px 10px;font-size:1.5rem;font-weight:700;color:#1e1e1e;box-shadow:0 6px 0 #b71c1c;transition:.08s linear;cursor:pointer;text-align:center;width:100%;letter-spacing:.3px}
         .role-btn:active{transform:translateY(5px);box-shadow:0 1px 0 #b71c1c}
         .role-btn i{margin-right:12px;color:#e53935}
         .role-btn span{display:block;font-size:.85rem;font-weight:500;color:#5e5a4a;margin-top:2px}
 
-        .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:2px}
+        .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:4px}
         .app-header h2{font-size:1.5rem;font-weight:800;color:#1e1e1e;letter-spacing:-.5px}
         .app-header .badge{background:#e53935;padding:4px 14px;border-radius:40px;font-size:.7rem;font-weight:700;color:#fff}
-        .subhead{color:#5e5a4a;font-size:.9rem;border-left:4px solid #e53935;padding-left:12px;background:#ffeaea;border-radius:0 12px 12px 0;padding:6px 12px;margin-top:-6px}
-        .yellow-btn{background:#e53935;border:0;padding:14px 12px;border-radius:60px;font-weight:700;font-size:1.1rem;color:#fff;box-shadow:0 5px 0 #b71c1c;transition:all .08s linear;cursor:pointer;text-align:center;width:100%;letter-spacing:.3px}
+        .subhead{color:#5e5a4a;font-size:.9rem;border-left:4px solid #e53935;padding-left:12px;background:#ffeaea;border-radius:0 12px 12px 0;padding:8px 14px;margin-top:-6px}
+        .yellow-btn{background:#e53935;border:0;padding:15px 12px;border-radius:60px;font-weight:700;font-size:1.05rem;color:#fff;box-shadow:0 5px 0 #b71c1c;transition:all .08s linear;cursor:pointer;text-align:center;width:100%;letter-spacing:.4px}
         .yellow-btn:active{transform:translateY(4px);box-shadow:0 1px 0 #b71c1c}
         .yellow-btn:disabled{opacity:.6;transform:translateY(4px);box-shadow:0 1px 0 #b71c1c;cursor:not-allowed}
-        .input-group{display:flex;flex-direction:column;gap:4px}
+        .input-group{display:flex;flex-direction:column;gap:5px}
         .input-group label{font-weight:600;color:#2d2a1e;font-size:.85rem;display:flex;align-items:center;gap:8px}
-        .input-group input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0c0c0;background:#fff;color:#1e1e1e;font-size:1rem;outline:0;transition:.2s;width:100%}
+        .input-group input{padding:15px 18px;border-radius:40px;border:1.5px solid #f5c0c0;background:#fff;color:#1e1e1e;font-size:1rem;outline:0;transition:.2s;width:100%}
         .input-group input:focus{border-color:#e53935;box-shadow:0 0 0 4px rgba(229,57,53,.15)}
         .input-group input::placeholder{color:#a0967a}
         .back-link{color:#e53935;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:0;background:0 0;font-size:.95rem;padding:4px 0;width:fit-content}
-        .dash-card{background:#fff;border-radius:20px;padding:16px;border:1px solid #f7d0d0;box-shadow:0 4px 0 #f0c0c0}
-        .dash-stat{display:flex;justify-content:space-between;font-weight:600;padding:5px 0;color:#1e1e1e}
+        .dash-card{background:#fff;border-radius:20px;padding:18px;border:1px solid #f5d0d0;box-shadow:0 4px 0 #f0c0c0}
+        .dash-stat{display:flex;justify-content:space-between;font-weight:600;padding:6px 0;color:#1e1e1e}
         .wallet-badge{background:#e53935;border-radius:40px;padding:4px 14px;font-weight:700;font-size:.8rem;color:#fff}
         .text-center{text-align:center}
         .text-muted{color:#7a725a;font-size:.8rem}
-        .loading-spinner{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px;color:#5e5a4a}
+        .loading-spinner{display:flex;align-items:center;justify-content:center;gap:8px;padding:24px;color:#5e5a4a}
         .loading-spinner i{color:#e53935;font-size:1.5rem;animation:spin 1s linear infinite}
         @keyframes spin{100%{transform:rotate(360deg)}}
 
@@ -94,95 +93,95 @@
         .otp-status.success{color:#2e7d32}
         .otp-status.error{color:#c62828}
         .otp-row{display:flex;gap:10px;align-items:center}
-        .otp-row input{flex:2;text-align:center;font-size:1.2rem;letter-spacing:4px;background:#fff;border:1.5px solid #f0c0c0;border-radius:40px;padding:14px;color:#1e1e1e}
-        .otp-row .yellow-btn{flex:1;padding:14px 6px;font-size:.9rem;width:auto}
+        .otp-row input{flex:2;text-align:center;font-size:1.2rem;letter-spacing:4px;background:#fff;border:1.5px solid #f5c0c0;border-radius:40px;padding:15px;color:#1e1e1e}
+        .otp-row .yellow-btn{flex:1;padding:15px 6px;font-size:.9rem;width:auto}
 
-        .offer-banner{background:linear-gradient(145deg,#e53935,#b71c1c);border-radius:24px;padding:18px 16px;color:#fff;box-shadow:0 5px 0 #8e0000}
+        .offer-banner{background:linear-gradient(145deg,#e53935,#b71c1c);border-radius:24px;padding:20px 18px;color:#fff;box-shadow:0 5px 0 #8e0000}
         .offer-banner h3{font-size:1.3rem;font-weight:800}
-        .offer-banner p{font-weight:500;opacity:.9;margin-top:2px}
-        .search-bar{background:#fff;border:2px solid #f7d0d0;border-radius:60px;padding:10px 18px;display:flex;align-items:center;gap:10px}
+        .offer-banner p{font-weight:500;opacity:.9;margin-top:3px}
+        .search-bar{background:#fff;border:2px solid #f5d0d0;border-radius:60px;padding:12px 18px;display:flex;align-items:center;gap:10px}
         .search-bar i{color:#e53935;font-size:1.1rem}
         .search-bar input{border:0;background:0 0;color:#1e1e1e;font-size:1rem;width:100%;outline:0}
         .search-bar input::placeholder{color:#a0967a}
         .search-wrapper{position:relative}
-        #searchSuggestions{position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:16px;border:1px solid #f7d0d0;margin-top:4px;z-index:1000;max-height:200px;overflow-y:auto;display:none;box-shadow:0 8px 20px rgba(0,0,0,0.1)}
-        #searchSuggestions .suggestion-item{padding:10px 16px;cursor:pointer;border-bottom:1px solid #f7e9b0;font-size:.9rem;color:#1e1e1e}
+        #searchSuggestions{position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:16px;border:1px solid #f5d0d0;margin-top:6px;z-index:1000;max-height:200px;overflow-y:auto;display:none;box-shadow:0 8px 20px rgba(0,0,0,0.1)}
+        #searchSuggestions .suggestion-item{padding:12px 16px;cursor:pointer;border-bottom:1px solid #f7e9b0;font-size:.9rem;color:#1e1e1e}
         #searchSuggestions .suggestion-item:hover{background:#ffeaea}
 
-        .category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-        .category-item{background:#fff;border:1.5px solid #f7d0d0;border-radius:40px;padding:12px 6px;text-align:center;font-weight:600;color:#2d2a1e;box-shadow:0 3px 0 #f0c0c0;transition:.08s;cursor:pointer;font-size:.8rem}
+        .category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+        .category-item{background:#fff;border:1.5px solid #f5d0d0;border-radius:40px;padding:14px 6px;text-align:center;font-weight:600;color:#2d2a1e;box-shadow:0 3px 0 #f0c0c0;transition:.08s;cursor:pointer;font-size:.8rem}
         .category-item:active{transform:translateY(3px);box-shadow:0 0 0 #f0c0c0}
-        .category-item i{display:block;font-size:1.4rem;margin-bottom:2px;color:#e53935}
+        .category-item i{display:block;font-size:1.5rem;margin-bottom:3px;color:#e53935}
 
-        .wallet-box{text-align:center;padding:20px;background:linear-gradient(145deg,#e53935,#b71c1c);border-radius:24px;color:#fff}
+        .wallet-box{text-align:center;padding:24px;background:linear-gradient(145deg,#e53935,#b71c1c);border-radius:24px;color:#fff;box-shadow:0 5px 0 #8e0000}
         .wallet-box .amount{font-size:2.2rem;font-weight:800}
         .wallet-box .label{font-size:.85rem;opacity:.9}
         .wallet-transaction{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f7e9b0;color:#1e1e1e}
         .wallet-transaction .amount{font-weight:700}
         .wallet-transaction .amount.credit{color:#2e7d32}
         .wallet-transaction .amount.debit{color:#c62828}
-        .commission-info{background:#ffeaea;border-radius:16px;padding:10px 14px;border-left:4px solid #e53935;font-size:.85rem;color:#5e5a4a}
+        .commission-info{background:#ffeaea;border-radius:16px;padding:12px 14px;border-left:4px solid #e53935;font-size:.85rem;color:#5e5a4a}
 
-        .provider-card{background:#fff;border-radius:18px;padding:14px;border:1px solid #f7d0d0;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-        .provider-card .avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0}
+        .provider-card{background:#fff;border-radius:18px;padding:16px;border:1px solid #f5d0d0;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+        .provider-card .avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0}
         .provider-card .info{flex:1}
-        .provider-card .info .name{font-weight:700;font-size:.9rem;color:#1e1e1e}
-        .provider-card .info .detail{font-size:.7rem;color:#5e5a4a;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .provider-card .info .name{font-weight:700;font-size:.95rem;color:#1e1e1e}
+        .provider-card .info .detail{font-size:.7rem;color:#5e5a4a;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:2px}
         .badge-distance{background:#ffeaea;padding:2px 10px;border-radius:40px;font-size:.6rem;font-weight:600}
-        .contact-buttons{display:flex;gap:4px;margin-top:4px;flex-wrap:wrap}
-        .contact-buttons a{flex:1;padding:6px 8px;border-radius:40px;text-align:center;text-decoration:none;font-weight:700;font-size:.65rem;transition:.2s;display:flex;align-items:center;justify-content:center;gap:4px;min-width:50px}
+        .contact-buttons{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+        .contact-buttons a{flex:1;padding:7px 8px;border-radius:40px;text-align:center;text-decoration:none;font-weight:700;font-size:.65rem;transition:.2s;display:flex;align-items:center;justify-content:center;gap:4px;min-width:50px}
         .contact-buttons a:active{transform:scale(.95)}
         .btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 3px 0 #128C7E}
         .btn-imo{background:#1A8BFF;color:#fff;box-shadow:0 3px 0 #0A5EB0}
         .btn-phone-call{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;padding:8px 16px;border-radius:40px;border:0;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
-        .btn-book{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+        .btn-book{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:0;padding:7px 13px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
 
-        .order-card{background:#fff;border-radius:18px;padding:14px;border:1px solid #f7d0d0;display:flex;justify-content:space-between;align-items:center;color:#1e1e1e}
-        .status-badge{padding:4px 12px;border-radius:40px;font-size:.7rem;font-weight:700}
+        .order-card{background:#fff;border-radius:18px;padding:15px;border:1px solid #f5d0d0;display:flex;justify-content:space-between;align-items:center;color:#1e1e1e}
+        .status-badge{padding:5px 12px;border-radius:40px;font-size:.7rem;font-weight:700}
         .status-badge.pending{background:#ffd54f}
         .status-badge.ongoing{background:#4FC3F7}
         .status-badge.completed{background:#81C784;color:#1e1e1e}
         .status-badge.cancelled{background:#e57373;color:#fff}
-        .booking-request{background:#fff;border-radius:18px;padding:14px;border:1px solid #f7d0d0;border-left:4px solid #e53935;color:#1e1e1e}
-        .booking-actions{display:flex;gap:8px;margin-top:8px}
-        .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
-        .btn-reject{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:0;padding:6px 12px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+        .booking-request{background:#fff;border-radius:18px;padding:15px;border:1px solid #f5d0d0;border-left:4px solid #e53935;color:#1e1e1e}
+        .booking-actions{display:flex;gap:8px;margin-top:10px}
+        .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:0;padding:7px 13px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
+        .btn-reject{background:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c;border:0;padding:7px 13px;border-radius:40px;font-weight:700;cursor:pointer;font-size:.75rem}
 
-        #mapContainer{height:180px;border-radius:20px;overflow:hidden;border:2px solid #f7d0d0;background:#e8e4d8}
-        #providerMapContainer{height:200px;border-radius:20px;overflow:hidden;border:2px solid #f7d0d0;background:#e8e4d8}
+        #mapContainer{height:190px;border-radius:20px;overflow:hidden;border:2px solid #f5d0d0;background:#e8e4d8}
+        #providerMapContainer{height:210px;border-radius:20px;overflow:hidden;border:2px solid #f5d0d0;background:#e8e4d8}
         .map-loading{display:flex;align-items:center;justify-content:center;height:100%;color:#5e5a4a;background:#fff;font-size:.8rem;gap:8px}
         .map-loading i{color:#e53935;animation:spin 1s linear infinite}
         .location-input-row{display:flex;gap:8px;align-items:center}
-        .location-input-row input{flex:1;padding:10px 16px;border-radius:40px;border:1.5px solid #f0c0c0;background:#fff;color:#1e1e1e;font-size:.9rem;outline:0}
+        .location-input-row input{flex:1;padding:12px 16px;border-radius:40px;border:1.5px solid #f5c0c0;background:#fff;color:#1e1e1e;font-size:.9rem;outline:0}
         .location-input-row input:focus{border-color:#e53935;box-shadow:0 0 0 4px rgba(229,57,53,.15)}
-        .location-input-row button{padding:10px 14px;border-radius:40px;border:0;background:#e53935;font-weight:600;cursor:pointer;box-shadow:0 3px 0 #b71c1c;transition:.08s;white-space:nowrap;font-size:.8rem;color:#fff}
+        .location-input-row button{padding:12px 16px;border-radius:40px;border:0;background:#e53935;font-weight:600;cursor:pointer;box-shadow:0 3px 0 #b71c1c;transition:.08s;white-space:nowrap;font-size:.8rem;color:#fff}
         .location-input-row button:active{transform:translateY(3px);box-shadow:0 0 0 #b71c1c}
-        .map-location-text{margin-top:4px;text-align:center;font-size:.7rem;color:#5e5a4a}
-        .filter-row{display:flex;gap:6px;overflow-x:auto;padding:4px 0;-webkit-overflow-scrolling:touch}
-        .filter-row button{padding:6px 14px;border-radius:40px;border:1.5px solid #f0c0c0;background:#fff;color:#1e1e1e;font-weight:600;font-size:.7rem;cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
+        .map-location-text{margin-top:6px;text-align:center;font-size:.7rem;color:#5e5a4a}
+        .filter-row{display:flex;gap:7px;overflow-x:auto;padding:6px 0;-webkit-overflow-scrolling:touch}
+        .filter-row button{padding:7px 15px;border-radius:40px;border:1.5px solid #f5c0c0;background:#fff;color:#1e1e1e;font-weight:600;font-size:.7rem;cursor:pointer;white-space:nowrap;transition:.2s;flex-shrink:0}
         .filter-row button.active{background:#e53935;border-color:#e53935;color:#fff;box-shadow:0 3px 0 #b71c1c}
 
-        .admin-lock{text-align:center;padding:10px 0}
-        .admin-lock input{padding:14px 18px;border-radius:40px;border:1.5px solid #f0c0c0;background:#fff;color:#1e1e1e;font-size:1rem;outline:0;width:100%;text-align:center}
-        .admin-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-        .admin-stat-card{background:#fff;border-radius:16px;padding:12px;border:1px solid #f7d0d0;text-align:center}
-        .admin-stat-card .number{font-size:1.5rem;font-weight:800;color:#1e1e1e}
+        .admin-lock{text-align:center;padding:12px 0}
+        .admin-lock input{padding:15px 18px;border-radius:40px;border:1.5px solid #f5c0c0;background:#fff;color:#1e1e1e;font-size:1rem;outline:0;width:100%;text-align:center}
+        .admin-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+        .admin-stat-card{background:#fff;border-radius:16px;padding:14px;border:1px solid #f5d0d0;text-align:center}
+        .admin-stat-card .number{font-size:1.6rem;font-weight:800;color:#1e1e1e}
         .admin-stat-card .label{font-size:.7rem;color:#5e5a4a}
-        .admin-stat-card i{font-size:1.2rem;color:#e53935;margin-bottom:2px}
-        .admin-user-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f7e9b0;color:#1e1e1e}
+        .admin-stat-card i{font-size:1.3rem;color:#e53935;margin-bottom:3px}
+        .admin-user-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f7e9b0;color:#1e1e1e}
         .admin-actions{display:flex;gap:6px}
-        .admin-actions button{background:#e53935;border:0;border-radius:40px;padding:4px 10px;font-weight:600;font-size:.65rem;cursor:pointer;color:#fff}
+        .admin-actions button{background:#e53935;border:0;border-radius:40px;padding:5px 11px;font-weight:600;font-size:.65rem;cursor:pointer;color:#fff}
         .admin-actions button.danger{background:#b71c1c;color:#fff}
 
         #bottom-nav-user, #bottom-nav-provider {
-            background: white;
-            border-top: 2px solid #f7d0d0;
-            padding: 6px 12px 10px 12px;
+            background: #fff;
+            border-top: 2px solid #f5d0d0;
+            padding: 8px 12px 12px 12px;
             display: none;
             justify-content: space-around;
             align-items: center;
             flex-shrink: 0;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
             margin-top: auto;
             width: 100%;
             position: sticky;
@@ -199,50 +198,50 @@
             font-size: 0.6rem;
             font-weight: 600;
             cursor: pointer;
-            padding: 4px 12px;
+            padding: 5px 12px;
             border-radius: 40px;
             border: none;
             background: transparent;
-            gap: 1px;
-            min-width: 50px;
+            gap: 2px;
+            min-width: 52px;
             transition: 0.2s;
         }
         .nav-item i { font-size: 1.3rem; }
         .nav-item.active {
             color: #e53935;
             background: #ffeaea;
-            padding: 4px 14px;
+            padding: 5px 14px;
         }
         .nav-item:active { transform: scale(0.95); }
 
         .profile-header {
             background: #fff;
             border-radius: 24px;
-            padding: 24px 16px;
+            padding: 26px 16px;
             text-align: center;
-            border: 1px solid #f7d0d0;
+            border: 1px solid #f5d0d0;
             box-shadow: 0 4px 0 #f0c0c0;
         }
         .profile-avatar {
-            width: 80px;
-            height: 80px;
+            width: 84px;
+            height: 84px;
             border-radius: 50%;
             background: #e53935;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px;
+            margin: 0 auto 14px;
             font-size: 2.8rem;
             color: #fff;
             border: 3px solid #b71c1c;
         }
-        .profile-name { font-size: 1.3rem; font-weight: 700; color: #1e1e1e; }
+        .profile-name { font-size: 1.35rem; font-weight: 700; color: #1e1e1e; }
         .profile-location { font-size: 0.85rem; color: #5e5a4a; margin-top: 2px; }
         .profile-stats {
             display: flex;
             justify-content: space-around;
-            margin: 16px 0 12px;
-            padding: 12px 0;
+            margin: 18px 0 14px;
+            padding: 14px 0;
             border-top: 1px solid #f7e9b0;
             border-bottom: 1px solid #f7e9b0;
         }
@@ -255,14 +254,14 @@
         .profile-menu {
             background: #fff;
             border-radius: 20px;
-            border: 1px solid #f7d0d0;
+            border: 1px solid #f5d0d0;
             box-shadow: 0 4px 0 #f0c0c0;
             overflow: hidden;
         }
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 14px 18px;
+            padding: 15px 18px;
             border-bottom: 1px solid #f7e9b0;
             cursor: pointer;
             transition: 0.15s;
@@ -284,23 +283,23 @@
             background: #e53935;
             color: #fff;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 40px;
             font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
             width: 100%;
             box-shadow: 0 5px 0 #b71c1c;
-            margin-top: 10px;
+            margin-top: 12px;
             transition: 0.08s;
         }
         .logout-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #b71c1c; }
 
-        .country-select { margin-bottom: 6px; }
+        .country-select { margin-bottom: 8px; }
         .country-select select {
-            padding: 10px 16px;
+            padding: 12px 16px;
             border-radius: 40px;
-            border: 1.5px solid #f0c0c0;
+            border: 1.5px solid #f5c0c0;
             background: #fff;
             color: #1e1e1e;
             font-size: .95rem;
@@ -317,15 +316,15 @@
 </head>
 <body>
 <div id="app-wrapper">
-<div id="status-bar"><span class="time" id="statusTime">9:41</span><span class="icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span></div>
+<!-- ✅ স্ট্যাটাস বার সরিয়ে দেওয়া হয়েছে -->
 <div id="toast" class="toast"></div>
 <div id="app-content">
 
 <!-- ============================================================ -->
-<!-- PAGE: ONBOARDING (শুধু ZETMO টেক্সট) -->
+<!-- PAGE: ONBOARDING -->
 <!-- ============================================================ -->
 <div id="page-onboarding" class="page active">
-    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:85vh;">
         <div class="brand-text">ZETMO</div>
     </div>
 </div>
@@ -387,7 +386,7 @@
         <div class="input-group" style="flex:1;"><input type="tel" id="user-phone" placeholder="১৯১২৩৪৫৬৭৮"></div>
     </div>
     <button class="yellow-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
-    <div class="otp-row"><input type="text" id="user-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('user')"><i class="fas fa-check"></i> যাচাই</button></div>
+    <div class="otp-row"><input type="text" id="user-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:15px 8px;font-size:.9rem;" onclick="verifyOTP('user')"><i class="fas fa-check"></i> যাচাই</button></div>
     <div id="userOtpStatus" class="otp-status"></div>
 </div>
 
@@ -401,7 +400,7 @@
         <div id="searchSuggestions"></div>
     </div>
     <div class="offer-banner"><h3>🔥 আজকের অফার</h3><p>সকল সার্ভিসে ২০% ডিসকাউন্ট! <span style="background:#1e1e1e;color:#fff;padding:2px 14px;border-radius:40px;font-size:.75rem;">নতুন ইউজার</span></p></div>
-    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:#1e1e1e;">৳ <span id="userWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> রিচার্জ</button></div>
+    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:#1e1e1e;">৳ <span id="userWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:11px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> রিচার্জ</button></div>
     <div class="category-grid">
         <div class="category-item" onclick="openCategory('Plumber')"><i class="fas fa-wrench"></i> প্লাম্বার</div>
         <div class="category-item" onclick="openCategory('Electrician')"><i class="fas fa-bolt"></i> ইলেকট্রিশিয়ান</div>
@@ -454,7 +453,7 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: USER PROFILE (No Admin Link) -->
+<!-- PAGE: USER PROFILE -->
 <!-- ============================================================ -->
 <div id="page-user-profile" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
@@ -526,7 +525,7 @@
         <div class="input-group" style="flex:1;"><input type="tel" id="provider-phone" placeholder="১৯১২৩৪৫৬৭৮"></div>
     </div>
     <button class="yellow-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
-    <div class="otp-row"><input type="text" id="provider-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:14px 8px;font-size:.9rem;" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> যাচাই</button></div>
+    <div class="otp-row"><input type="text" id="provider-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="yellow-btn" style="padding:15px 8px;font-size:.9rem;" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> যাচাই</button></div>
     <div id="providerOtpStatus" class="otp-status"></div>
 </div>
 
@@ -536,14 +535,14 @@
 <div id="page-provider-home" class="page">
     <div class="app-header"><h2 style="color:#1e1e1e;">📊 ড্যাশবোর্ড</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
     <div class="subhead">স্বাগতম, <span id="providerNameDisplay">-</span></div>
-    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:#1e1e1e;">৳ <span id="providerWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:10px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> তুলুন</button></div>
+    <div class="dash-card" style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:.75rem;color:#5e5a4a;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:#1e1e1e;">৳ <span id="providerWalletBalance">0</span></div></div><button class="yellow-btn" style="width:auto;padding:11px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> তুলুন</button></div>
     <div class="dash-card">
         <div class="dash-stat"><span>📌 কাজের ক্যাটাগরি</span> <span class="wallet-badge" id="providerCategory">-</span></div>
         <div class="dash-stat"><span>⭐ রেটিং</span> <span id="providerRatingDisplay">৪.৯ (৪২ রিভিউ)</span></div>
         <div class="dash-stat"><span>📦 সম্পূর্ণ অর্ডার</span> <span id="providerTotalOrders">0</span></div>
-        <hr><div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">0</span></span></div>
+        <hr style="border:none;border-top:1px solid #f7e9b0;margin:6px 0;"><div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">0</span></span></div>
     </div>
-    <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#1e1e1e;margin-bottom:6px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
+    <div style="margin-top:4px;"><div style="font-weight:600;font-size:.9rem;color:#1e1e1e;margin-bottom:8px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
 </div>
 
 <!-- ============================================================ -->
@@ -570,7 +569,7 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: PROVIDER PROFILE (No Admin Link) -->
+<!-- PAGE: PROVIDER PROFILE -->
 <!-- ============================================================ -->
 <div id="page-provider-profile" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
@@ -595,7 +594,7 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- PAGE: ADMIN LOGIN (URL: #admin) -->
+<!-- PAGE: ADMIN LOGIN -->
 <!-- ============================================================ -->
 <div id="page-admin-login" class="page">
     <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
@@ -603,8 +602,8 @@
     <div class="subhead">শুধুমাত্র অ্যাডমিন পাসওয়ার্ড দিয়ে প্রবেশ করুন</div>
     <div class="admin-lock">
         <input type="password" id="adminPassword" placeholder="অ্যাডমিন পাসওয়ার্ড দিন" />
-        <button class="yellow-btn" onclick="verifyAdmin()">প্রবেশ করুন <i class="fas fa-arrow-right"></i></button>
-        <div style="margin-top:8px;font-size:.8rem;color:#e53935;" id="adminError"></div>
+        <button class="yellow-btn" onclick="verifyAdmin()" style="margin-top:10px;">প্রবেশ করুন <i class="fas fa-arrow-right"></i></button>
+        <div style="margin-top:10px;font-size:.8rem;color:#e53935;" id="adminError"></div>
     </div>
 </div>
 
@@ -621,8 +620,8 @@
         <div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">0</div><div class="label">মোট অর্ডার</div></div>
         <div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ 0</div><div class="label">মোট আয়</div></div>
     </div>
-    <div class="dash-card"><h3 style="font-size:.9rem;color:#1e1e1e;">📌 পেন্ডিং প্রোভাইডার</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div>
-    <div class="dash-card"><h3 style="font-size:.9rem;color:#1e1e1e;">💰 কমিশন রিপোর্ট</h3><div class="dash-stat"><span>মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span>এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span>পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
+    <div class="dash-card"><h3 style="font-size:.9rem;color:#1e1e1e;margin-bottom:8px;">📌 পেন্ডিং প্রোভাইডার</h3><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div>
+    <div class="dash-card"><h3 style="font-size:.9rem;color:#1e1e1e;margin-bottom:8px;">💰 কমিশন রিপোর্ট</h3><div class="dash-stat"><span>মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span>এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span>পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
     <button class="yellow-btn" onclick="downloadReport()"><i class="fas fa-download"></i> রিপোর্ট ডাউনলোড</button>
     <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> অ্যাডমিন লগআউট</button>
 </div>
@@ -670,18 +669,12 @@ if (typeof firebase !== 'undefined') {
     db.settings({ merge: true });
     console.log('✅ Firebase initialized!');
 
-    // ============================================================
-    //  APP STATE
-    // ============================================================
     let currentUserRole = null;
     let isLoggedIn = false;
     let currentUserId = null;
     let currentUserData = null;
     let selectedCountryCode = '+880';
 
-    // ============================================================
-    //  TOAST
-    // ============================================================
     function showToast(msg, type = 'success') {
         const t = document.getElementById('toast');
         if (!t) return;
@@ -691,9 +684,6 @@ if (typeof firebase !== 'undefined') {
         t._timeout = setTimeout(() => t.classList.remove('show'), 3000);
     }
 
-    // ============================================================
-    //  NAVIGATION
-    // ============================================================
     function goToPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const el = document.getElementById(id);
@@ -718,17 +708,11 @@ if (typeof firebase !== 'undefined') {
         else showToast('⚠️ দয়া করে লগইন করুন!', 'error');
     }
 
-    // ============================================================
-    //  ROLE SELECTION
-    // ============================================================
     window.selectRole = function(role) {
         currentUserRole = role;
         goToPage(role === 'user' ? 'page-user-form' : 'page-provider-form');
     };
 
-    // ============================================================
-    //  COUNTRY CODE HANDLERS
-    // ============================================================
     document.getElementById('user-country-code')?.addEventListener('change', function() { selectedCountryCode = this.value; });
     document.getElementById('provider-country-code')?.addEventListener('change', function() { selectedCountryCode = this.value; });
 
@@ -737,9 +721,6 @@ if (typeof firebase !== 'undefined') {
         else return document.getElementById('provider-country-code').value;
     }
 
-    // ============================================================
-    //  OTP SYSTEM (DEMO)
-    // ============================================================
     function generateOTP() { return String(Math.floor(1000 + Math.random() * 9000)); }
 
     window.sendOTP = function(role) {
@@ -792,14 +773,8 @@ if (typeof firebase !== 'undefined') {
         }
     };
 
-    // ============================================================
-    //  GENERATE ID
-    // ============================================================
     function generateId() { return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6); }
 
-    // ============================================================
-    //  REGISTER USER
-    // ============================================================
     async function registerUser() {
         const name = document.getElementById('user-name').value.trim() || 'ইউজার';
         const location = document.getElementById('user-location').value.trim() || 'ঢাকা';
@@ -809,14 +784,8 @@ if (typeof firebase !== 'undefined') {
         const uid = generateId();
         try {
             await db.collection('users').doc(uid).set({
-                uid: uid,
-                name: name,
-                location: location,
-                phone: fullPhone,
-                countryCode: countryCode,
-                wallet: 0,
-                role: 'user',
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                uid: uid, name: name, location: location, phone: fullPhone, countryCode: countryCode,
+                wallet: 0, role: 'user', createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
             currentUserId = uid;
             const doc = await db.collection('users').doc(uid).get();
@@ -836,9 +805,6 @@ if (typeof firebase !== 'undefined') {
         }
     }
 
-    // ============================================================
-    //  REGISTER PROVIDER
-    // ============================================================
     async function registerProvider() {
         const name = document.getElementById('provider-name').value.trim() || 'প্রোভাইডার';
         const work = document.getElementById('provider-work').value.trim() || 'পেশা';
@@ -852,31 +818,14 @@ if (typeof firebase !== 'undefined') {
         const uid = generateId();
         try {
             await db.collection('providers').doc(uid).set({
-                uid: uid,
-                name: name,
-                work: work,
-                experience: experience,
-                nid: nid,
-                phone: fullPhone,
-                whatsapp: whatsapp,
-                imo: imo,
-                countryCode: countryCode,
-                wallet: 0,
-                role: 'provider',
-                status: 'pending',
-                rating: 0,
-                totalOrders: 0,
-                location: 'ঢাকা, মিরপুর',
-                lat: 23.735,
-                lng: 90.380,
+                uid: uid, name: name, work: work, experience: experience, nid: nid,
+                phone: fullPhone, whatsapp: whatsapp, imo: imo, countryCode: countryCode,
+                wallet: 0, role: 'provider', status: 'pending', rating: 0, totalOrders: 0,
+                location: 'ঢাকা, মিরপুর', lat: 23.735, lng: 90.380,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
             await db.collection('users').doc(uid).set({
-                uid: uid,
-                name: name,
-                phone: fullPhone,
-                countryCode: countryCode,
-                role: 'provider',
+                uid: uid, name: name, phone: fullPhone, countryCode: countryCode, role: 'provider',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
             currentUserId = uid;
@@ -898,9 +847,6 @@ if (typeof firebase !== 'undefined') {
         }
     }
 
-    // ============================================================
-    //  UI UPDATE
-    // ============================================================
     function updateUserUI(data) {
         document.getElementById('profileName').textContent = data.name || 'ইউজার';
         document.getElementById('profileLocation').textContent = data.location || 'অজানা';
@@ -930,9 +876,6 @@ if (typeof firebase !== 'undefined') {
         document.getElementById('providerProfileRating').textContent = data.rating || '৪.৯';
     }
 
-    // ============================================================
-    //  WALLET
-    // ============================================================
     window.rechargeWallet = async function() {
         if (!isLoggedIn || currentUserRole !== 'user') { showToast('⚠️ ইউজার হিসেবে লগইন করুন!', 'error'); return; }
         const amount = parseInt(document.getElementById('rechargeAmount').value);
@@ -974,9 +917,6 @@ if (typeof firebase !== 'undefined') {
         } catch (error) { showToast('❌ উইথড্র ব্যর্থ: ' + error.message, 'error'); }
     };
 
-    // ============================================================
-    //  LOGOUT
-    // ============================================================
     window.logout = function() {
         if (confirm('আপনি কি লগআউট করতে চান?')) {
             isLoggedIn = false;
@@ -992,9 +932,6 @@ if (typeof firebase !== 'undefined') {
         }
     };
 
-    // ============================================================
-    //  ADMIN (শুধু পাসওয়ার্ড)
-    // ============================================================
     const ADMIN_PASSWORD = "admin123";
 
     window.verifyAdmin = function() {
@@ -1016,7 +953,7 @@ if (typeof firebase !== 'undefined') {
             document.getElementById('adminTotalProviders').textContent = providersSnap.size;
             const bookingsSnap = await db.collection('bookings').get();
             document.getElementById('adminTotalOrders').textContent = bookingsSnap.size;
-            
+
             const pendingSnap = await db.collection('providers').where('status', '==', 'pending').get();
             const container = document.getElementById('adminPendingProviders');
             if (pendingSnap.empty) {
@@ -1058,9 +995,6 @@ if (typeof firebase !== 'undefined') {
 
     window.downloadReport = function() { showToast('📄 রিপোর্ট ডাউনলোড (ডেমো)', 'success'); };
 
-    // ============================================================
-    //  MAP & CATEGORY
-    // ============================================================
     let userMap = null, providerMap = null, mapMarkers = [], currentProviders = [];
     let currentCategory = 'Plumber', currentFilter = 'all', userLat = 23.735, userLng = 90.380;
 
@@ -1073,9 +1007,7 @@ if (typeof firebase !== 'undefined') {
             userMap = new maplibregl.Map({
                 container: 'mapContainer',
                 style: 'https://tiles.openfreemap.org/styles/liberty',
-                center: [lng, lat],
-                zoom: 13,
-                attributionControl: false
+                center: [lng, lat], zoom: 13, attributionControl: false
             });
             userMap.on('load', function() {
                 document.getElementById('mapLocationText').textContent = 'আপনার অবস্থান: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
@@ -1112,9 +1044,7 @@ if (typeof firebase !== 'undefined') {
             providerMap = new maplibregl.Map({
                 container: 'providerMapContainer',
                 style: 'https://tiles.openfreemap.org/styles/liberty',
-                center: [lng, lat],
-                zoom: 13,
-                attributionControl: false
+                center: [lng, lat], zoom: 13, attributionControl: false
             });
             providerMap.on('load', function() {
                 document.getElementById('providerMapLocationText').textContent = 'আপনার অবস্থান: ' + lat.toFixed(4) + ', ' + lng.toFixed(4);
@@ -1173,8 +1103,7 @@ if (typeof firebase !== 'undefined') {
                 const lng = 90.380 + (Math.random() - 0.5) * 0.1;
                 const distance = (Math.random() * 5 + 0.2).toFixed(1);
                 currentProviders.push({
-                    id: doc.id,
-                    name: data.name || 'প্রোভাইডার',
+                    id: doc.id, name: data.name || 'প্রোভাইডার',
                     rating: (4 + Math.random()).toFixed(1),
                     distance: parseFloat(distance),
                     experience: data.experience || Math.floor(Math.random() * 10) + 1,
@@ -1182,8 +1111,7 @@ if (typeof firebase !== 'undefined') {
                     phone: data.phone || '01700000000',
                     whatsapp: data.whatsapp || '',
                     imo: data.imo || '',
-                    lat: lat,
-                    lng: lng
+                    lat: lat, lng: lng
                 });
             });
             updateProviderList();
@@ -1240,8 +1168,7 @@ if (typeof firebase !== 'undefined') {
             const userDoc = await db.collection('users').doc(currentUserId).get();
             const userData = userDoc.data();
             await db.collection('bookings').add({
-                userId: currentUserId,
-                providerId: providerId,
+                userId: currentUserId, providerId: providerId,
                 userName: userData.name || 'ইউজার',
                 userPhone: userData.phone || '',
                 service: category,
@@ -1254,9 +1181,6 @@ if (typeof firebase !== 'undefined') {
         } catch(e) { showToast('❌ বুকিং ব্যর্থ', 'error'); }
     };
 
-    // ============================================================
-    //  SEARCH
-    // ============================================================
     document.getElementById('userSearchInput')?.addEventListener('input', function(e) {
         const query = this.value.trim().toLowerCase();
         const container = document.getElementById('searchSuggestions');
@@ -1279,9 +1203,6 @@ if (typeof firebase !== 'undefined') {
         } else { container.style.display = 'none'; }
     });
 
-    // ============================================================
-    //  ONBOARDING & INIT (০.০০০১ সেকেন্ড পর রোল সিলেকশন)
-    // ============================================================
     function startOnboarding() {
         document.getElementById('page-onboarding').classList.add('active');
         setTimeout(() => {
@@ -1291,13 +1212,6 @@ if (typeof firebase !== 'undefined') {
     }
 
     window.addEventListener('load', function() {
-        function updateTime() {
-            const now = new Date();
-            document.getElementById('statusTime').textContent = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
-        }
-        updateTime();
-        setInterval(updateTime, 30000);
-
         const savedData = localStorage.getItem('user_data');
         const savedId = localStorage.getItem('user_id');
         if (savedData && savedId) {
@@ -1324,7 +1238,6 @@ if (typeof firebase !== 'undefined') {
             } catch(e) { startOnboarding(); }
         } else { startOnboarding(); }
 
-        // Check URL hash for admin access
         if (window.location.hash === '#admin') {
             setTimeout(() => goToPage('page-admin-login'), 300);
         }
