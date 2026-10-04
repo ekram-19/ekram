@@ -40,7 +40,8 @@
         @keyframes brandPop{0%{opacity:0;transform:scale(.6) rotate(-5deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
         #page-role{justify-content:center;min-height:75vh;gap:24px;padding:20px 0}
         .welcome-header{text-align:center;animation:pageIn .6s ease}
-        .welcome-header h2{font-size:2.2rem;font-weight:800;color:var(--text);letter-spacing:-.5px;line-height:1.2}
+        .welcome-header h2{font-size:2.2rem;font-weight:800;color:var(--text);letter-spacing:-.5px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:10px}
+        .welcome-header h2 i{color:var(--primary);font-size:1.8rem}
         .welcome-header h2 span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
         .welcome-header .sub{color:var(--text-muted);font-size:1rem;font-weight:500;margin-top:6px}
         .role-btn{max-width:340px;margin:0 auto;width:100%;background:var(--card);border:2px solid var(--primary-light);border-radius:var(--radius-xl);padding:26px 16px;font-size:1.4rem;font-weight:700;color:var(--text);box-shadow:0 8px 0 #f5d0d0,var(--shadow-md);transition:all .15s cubic-bezier(0.34,1.56,0.64,1);cursor:pointer;text-align:center;position:relative;overflow:hidden}
@@ -48,13 +49,15 @@
         .role-btn i{margin-right:14px;color:var(--primary);font-size:1.6rem;vertical-align:middle}
         .role-btn span{display:block;font-size:.85rem;font-weight:500;color:var(--text-muted);margin-top:6px}
         .app-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:6px}
-        .app-header h2{font-size:1.6rem;font-weight:800;color:var(--text);letter-spacing:-.5px}
+        .app-header h2{font-size:1.6rem;font-weight:800;color:var(--text);letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+        .app-header h2 i{color:var(--primary);font-size:1.4rem}
         .app-header .badge{background:var(--gradient);padding:8px 14px;border-radius:var(--radius-xl);font-size:.75rem;font-weight:700;color:#fff;box-shadow:var(--shadow-red);display:flex;align-items:center;gap:6px;animation:pulseBadge 2s ease-in-out infinite}
         @keyframes pulseBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-        .subhead{color:var(--text-muted);font-size:.9rem;border-left:4px solid var(--primary);padding:8px 14px;background:var(--primary-light);border-radius:0 14px 14px 0;margin-top:-6px;font-weight:500}
+        .subhead{color:var(--text-muted);font-size:.9rem;border-left:4px solid var(--primary);padding:8px 14px;background:var(--primary-light);border-radius:0 14px 14px 0;margin-top:-6px;font-weight:500;display:flex;align-items:center;gap:8px}
+        .subhead i{color:var(--primary)}
         .back-link{color:var(--primary);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border:0;background:rgba(229,57,53,0.08);font-size:.9rem;padding:8px 14px;border-radius:var(--radius-xl);width:fit-content;transition:all .2s}
         .back-link:hover{background:rgba(229,57,53,0.15);transform:translateX(-3px)}
-        .primary-btn{background:var(--gradient);border:0;padding:16px 14px;border-radius:var(--radius-xl);font-weight:700;font-size:1.05rem;color:#fff;box-shadow:var(--shadow-red);transition:all .12s cubic-bezier(0.34,1.56,0.64,1);cursor:pointer;text-align:center;width:100%;letter-spacing:.4px;position:relative;overflow:hidden}
+        .primary-btn{background:var(--gradient);border:0;padding:16px 14px;border-radius:var(--radius-xl);font-weight:700;font-size:1.05rem;color:#fff;box-shadow:var(--shadow-red);transition:all .12s cubic-bezier(0.34,1.56,0.64,1);cursor:pointer;text-align:center;width:100%;letter-spacing:.4px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px}
         .primary-btn::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.3);border-radius:50%;transform:translate(-50%,-50%);transition:width .6s,height .6s}
         .primary-btn:active::after{width:400px;height:400px}
         .primary-btn:active{transform:scale(.97)}
@@ -86,7 +89,7 @@
         .wallet-box::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);animation:shimmer 3s infinite linear}
         @keyframes shimmer{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
         .wallet-box .amount{font-size:2.6rem;font-weight:800;position:relative;z-index:1}
-        .wallet-box .label{font-size:.85rem;opacity:.9;position:relative;z-index:1;font-weight:500}
+        .wallet-box .label{font-size:.85rem;opacity:.9;position:relative;z-index:1;font-weight:500;display:flex;align-items:center;justify-content:center;gap:8px}
         .provider-card{background:var(--card);border-radius:var(--radius-md);padding:16px;border:1px solid var(--border);display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-sm);transition:all .3s;animation:cardSlide .5s ease backwards}
         .provider-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
         .provider-card .avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;flex-shrink:0;box-shadow:var(--shadow-sm)}
@@ -101,9 +104,9 @@
         .btn-whatsapp{background:#25D366;color:#fff;box-shadow:0 3px 0 #128C7E}
         .btn-imo{background:#1A8BFF;color:#fff;box-shadow:0 3px 0 #0A5EB0}
         .btn-phone-call{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;padding:10px 16px;border-radius:var(--radius-xl);border:0;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
-        .btn-book{background:var(--gradient);color:#fff;box-shadow:var(--shadow-red);border:0;padding:9px 16px;border-radius:var(--radius-xl);font-weight:700;cursor:pointer;font-size:.78rem;transition:all .2s}
+        .btn-book{background:var(--gradient);color:#fff;box-shadow:var(--shadow-red);border:0;padding:9px 16px;border-radius:var(--radius-xl);font-weight:700;cursor:pointer;font-size:.78rem;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
         .btn-book:active{transform:scale(.94)}
-        .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(100px);background:#1a1a1a;color:#fff;padding:14px 26px;border-radius:var(--radius-xl);font-weight:600;font-size:.9rem;z-index:9999;opacity:0;max-width:90%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:all .4s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none}
+        .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(100px);background:#1a1a1a;color:#fff;padding:14px 26px;border-radius:var(--radius-xl);font-weight:600;font-size:.9rem;z-index:9999;opacity:0;max-width:90%;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.35);transition:all .4s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;display:flex;align-items:center;gap:10px;justify-content:center}
         .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
         .toast.success{background:linear-gradient(135deg,#2e7d32,#1b5e20)}
         .toast.error{background:linear-gradient(135deg,#c62828,#8e0000)}
@@ -124,8 +127,7 @@
         .stat-item{text-align:center}
         .stat-number{font-size:1.15rem;font-weight:700}
         .stat-label{font-size:.65rem;opacity:.9;display:block;font-weight:500}
-        .profile-phone{font-size:.85rem;position:relative;z-index:1}
-        .profile-phone i{margin-right:6px}
+        .profile-phone{font-size:.85rem;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:6px}
         .profile-menu{background:var(--card);border-radius:var(--radius-md);border:1px solid var(--border);box-shadow:var(--shadow-sm);overflow:hidden}
         .menu-item{display:flex;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s;color:var(--text);gap:14px;font-weight:500}
         .menu-item:last-child{border-bottom:none}
@@ -133,14 +135,16 @@
         .menu-item:active{transform:scale(.98)}
         .menu-item i:first-child{width:22px;text-align:center;color:var(--primary);font-size:1rem}
         .menu-item .fa-chevron-right{margin-left:auto;color:#c0c0c0;font-size:.75rem}
-        .logout-btn{background:var(--gradient);color:#fff;border:none;padding:14px;border-radius:var(--radius-xl);font-weight:700;font-size:1rem;cursor:pointer;width:100%;box-shadow:var(--shadow-red);transition:all .15s;margin-top:12px}
+        .menu-item.logout i:first-child{color:var(--primary)}
+        .logout-btn{background:var(--gradient);color:#fff;border:none;padding:14px;border-radius:var(--radius-xl);font-weight:700;font-size:1rem;cursor:pointer;width:100%;box-shadow:var(--shadow-red);transition:all .15s;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:10px}
         .logout-btn:active{transform:translateY(3px);box-shadow:0 2px 8px rgba(229,57,53,.3)}
         #mapContainer,#providerMapContainer{height:200px;border-radius:var(--radius-md);overflow:hidden;border:2px solid var(--border);background:#f0f0f0;box-shadow:var(--shadow-sm)}
         .map-loading{display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);background:var(--card);font-size:.85rem;gap:10px;font-weight:500}
         .map-loading i{color:var(--primary);animation:spin 1s linear infinite}
         .filter-row{display:flex;gap:8px;overflow-x:auto;padding:6px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
         .filter-row::-webkit-scrollbar{display:none}
-        .filter-row button{padding:9px 18px;border-radius:var(--radius-xl);border:1.5px solid var(--border);background:var(--card);color:var(--text);font-weight:600;font-size:.75rem;cursor:pointer;white-space:nowrap;transition:all .25s;flex-shrink:0;font-family:inherit}
+        .filter-row button{padding:9px 18px;border-radius:var(--radius-xl);border:1.5px solid var(--border);background:var(--card);color:var(--text);font-weight:600;font-size:.75rem;cursor:pointer;white-space:nowrap;transition:all .25s;flex-shrink:0;font-family:inherit;display:inline-flex;align-items:center;gap:6px}
+        .filter-row button i{font-size:.75rem}
         .filter-row button.active{background:var(--gradient);border-color:transparent;color:#fff;box-shadow:var(--shadow-red);transform:scale(1.05)}
         .loading-spinner{display:flex;align-items:center;justify-content:center;gap:10px;padding:24px;color:var(--text-muted);font-weight:500}
         .loading-spinner i{color:var(--primary);font-size:1.6rem;animation:spin 1s linear infinite}
@@ -151,7 +155,7 @@
         .admin-stat-card .number{font-size:1.6rem;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
         .admin-stat-card .label{font-size:.7rem;color:var(--text-muted);font-weight:500;margin-top:2px}
         .admin-stat-card i{font-size:1.4rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
-        .otp-status{text-align:center;font-weight:600;margin-top:6px;font-size:.9rem}
+        .otp-status{text-align:center;font-weight:600;margin-top:6px;font-size:.9rem;display:flex;align-items:center;justify-content:center;gap:6px}
         .otp-status.success{color:#2e7d32}
         .otp-status.error{color:var(--primary)}
         .otp-row{display:flex;gap:12px;align-items:center}
@@ -169,33 +173,37 @@
         .phone-row{display:flex;gap:12px;align-items:center}
         .phone-row .country-select{flex:0 0 125px;margin-bottom:0}
         .phone-row .input-group{flex:1}
-        .commission-info{background:var(--primary-light);border-radius:var(--radius-md);padding:14px 16px;border-left:4px solid var(--primary);font-size:.85rem;color:var(--text-muted);font-weight:500}
-        .wallet-badge{background:var(--gradient);border-radius:var(--radius-xl);padding:5px 14px;font-weight:700;font-size:.75rem;color:#fff}
-        .dash-stat{display:flex;justify-content:space-between;font-weight:600;padding:8px 0;color:var(--text);font-size:.9rem}
+        .commission-info{background:var(--primary-light);border-radius:var(--radius-md);padding:14px 16px;border-left:4px solid var(--primary);font-size:.85rem;color:var(--text-muted);font-weight:500;display:flex;align-items:flex-start;gap:10px}
+        .commission-info i{color:var(--primary);margin-top:2px}
+        .wallet-badge{background:var(--gradient);border-radius:var(--radius-xl);padding:5px 14px;font-weight:700;font-size:.75rem;color:#fff;display:inline-flex;align-items:center;gap:6px}
+        .dash-stat{display:flex;justify-content:space-between;font-weight:600;padding:8px 0;color:var(--text);font-size:.9rem;align-items:center}
+        .dash-stat span:first-child{display:flex;align-items:center;gap:8px}
+        .dash-stat span:first-child i{color:var(--primary);font-size:.9rem}
         .dash-stat span:last-child{color:var(--primary);font-weight:700}
         .text-center{text-align:center}
         .text-muted{color:var(--text-muted);font-size:.8rem;font-weight:500}
         .order-card{background:var(--card);border-radius:var(--radius-md);padding:16px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;color:var(--text);box-shadow:var(--shadow-sm)}
-        .status-badge{padding:5px 12px;border-radius:var(--radius-xl);font-size:.7rem;font-weight:700}
+        .status-badge{padding:5px 12px;border-radius:var(--radius-xl);font-size:.7rem;font-weight:700;display:inline-flex;align-items:center;gap:6px}
         .status-badge.pending{background:#ffd54f;color:#1a1a1a}
         .status-badge.ongoing{background:#4FC3F7;color:#1a1a1a}
         .status-badge.completed{background:#81C784;color:#1a1a1a}
         .status-badge.cancelled{background:#e57373;color:#fff}
         .booking-request{background:var(--card);border-radius:var(--radius-md);padding:16px;border:1px solid var(--border);border-left:4px solid var(--primary);color:var(--text);box-shadow:var(--shadow-sm)}
         .booking-actions{display:flex;gap:8px;margin-top:12px}
-        .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:0;padding:8px 14px;border-radius:var(--radius-xl);font-weight:700;cursor:pointer;font-size:.75rem}
-        .btn-reject{background:var(--gradient);color:#fff;box-shadow:var(--shadow-red);border:0;padding:8px 14px;border-radius:var(--radius-xl);font-weight:700;cursor:pointer;font-size:.75rem}
+        .btn-accept{background:#4CAF50;color:#fff;box-shadow:0 3px 0 #2e7d32;border:0;padding:8px 14px;border-radius:var(--radius-xl);font-weight:700;cursor:pointer;font-size:.75rem;display:inline-flex;align-items:center;gap:6px}
+        .btn-reject{background:var(--gradient);color:#fff;box-shadow:var(--shadow-red);border:0;padding:8px 14px;border-radius:var(--radius-xl);font-weight:700;cursor:pointer;font-size:.75rem;display:inline-flex;align-items:center;gap:6px}
         .admin-lock{text-align:center;padding:12px 0}
         .admin-lock input{padding:16px 20px;border-radius:var(--radius-xl);border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:1rem;outline:0;width:100%;text-align:center;font-family:inherit}
         .admin-user-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);color:var(--text);font-weight:500}
         .admin-actions{display:flex;gap:6px}
-        .admin-actions button{background:var(--gradient);border:0;border-radius:var(--radius-xl);padding:6px 12px;font-weight:600;font-size:.65rem;cursor:pointer;color:#fff}
+        .admin-actions button{background:var(--gradient);border:0;border-radius:var(--radius-xl);padding:6px 12px;font-weight:600;font-size:.65rem;cursor:pointer;color:#fff;display:inline-flex;align-items:center;gap:4px}
         .admin-actions button.danger{background:var(--primary-dark)}
-        .map-location-text{margin-top:6px;text-align:center;font-size:.72rem;color:var(--text-muted);font-weight:500}
+        .map-location-text{margin-top:6px;text-align:center;font-size:.72rem;color:var(--text-muted);font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px}
+        .map-location-text i{color:var(--primary)}
         .location-input-row{display:flex;gap:8px;align-items:center}
         .location-input-row input{flex:1;padding:13px 18px;border-radius:var(--radius-xl);border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem;outline:0;font-family:inherit}
         .location-input-row input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(229,57,53,.12)}
-        .location-input-row button{padding:13px 18px;border-radius:var(--radius-xl);border:0;background:var(--gradient);font-weight:600;cursor:pointer;box-shadow:var(--shadow-red);transition:.15s;white-space:nowrap;font-size:.8rem;color:#fff}
+        .location-input-row button{padding:13px 18px;border-radius:var(--radius-xl);border:0;background:var(--gradient);font-weight:600;cursor:pointer;box-shadow:var(--shadow-red);transition:.15s;white-space:nowrap;font-size:.8rem;color:#fff;display:inline-flex;align-items:center;gap:6px}
         .location-input-row button:active{transform:translateY(2px)}
         .wallet-transaction{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);color:var(--text);font-weight:500}
         .wallet-transaction .amount{font-weight:700}
@@ -208,109 +216,99 @@
 <div id="toast" class="toast"></div>
 <div id="app-content">
 
-<!-- ONBOARDING -->
 <div id="page-onboarding" class="page active">
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:85vh;">
         <div class="brand-text">ZETMO</div>
     </div>
 </div>
 
-<!-- ROLE -->
 <div id="page-role" class="page">
     <div class="welcome-header">
-        <h2>👋 স্বাগতম <span>ZETMO</span></h2>
+        <h2><i class="fas fa-hand-sparkles"></i> স্বাগতম <span>ZETMO</span></h2>
         <div class="sub">আপনি কি হিসেবে যুক্ত হবেন?</div>
     </div>
     <div class="role-btn" onclick="selectRole('user')"><i class="fas fa-user"></i> ইউজার <span>সেবা নিতে চাই</span></div>
-    <div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-tools"></i> প্রোভাইডার <span>সেবা দিতে চাই</span></div>
-    <div class="text-center text-muted" style="margin-top:16px;"><i class="fas fa-shield-alt"></i> নিরাপদ & বিশ্বস্ত</div>
+    <div class="role-btn" onclick="selectRole('provider')"><i class="fas fa-screwdriver-wrench"></i> প্রোভাইডার <span>সেবা দিতে চাই</span></div>
+    <div class="text-center text-muted" style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:6px;"><i class="fas fa-shield-halved" style="color:var(--primary);"></i> নিরাপদ & বিশ্বস্ত</div>
 </div>
 
-<!-- USER FORM -->
 <div id="page-user-form" class="page">
     <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> পিছনে</button>
-    <div class="app-header"><h2>📝 আপনার তথ্য</h2></div>
-    <div class="subhead">ইউজার হিসেবে নিবন্ধন</div>
+    <div class="app-header"><h2><i class="fas fa-user-pen"></i> আপনার তথ্য</h2></div>
+    <div class="subhead"><i class="fas fa-user-plus"></i> ইউজার হিসেবে নিবন্ধন</div>
     <div class="input-group"><label><i class="fas fa-user"></i> আপনার নাম</label><input type="text" id="user-name" placeholder="আপনার নাম"></div>
-    <div class="input-group"><label><i class="fas fa-map-pin"></i> লোকেশন</label><input type="text" id="user-location" placeholder="ঢাকা, মিরপুর"></div>
+    <div class="input-group"><label><i class="fas fa-map-location-dot"></i> লোকেশন</label><input type="text" id="user-location" placeholder="ঢাকা, মিরপুর"></div>
     <button class="primary-btn" onclick="goToPage('page-user-otp')">পরবর্তী <i class="fas fa-arrow-right"></i></button>
 </div>
 
-<!-- USER OTP -->
 <div id="page-user-otp" class="page">
     <button class="back-link" onclick="goToPage('page-user-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button>
-    <div class="app-header"><h2>📱 মোবাইল নম্বর</h2></div>
-    <div class="subhead">ওটিপি পাঠাতে নম্বর দিন</div>
+    <div class="app-header"><h2><i class="fas fa-mobile-screen-button"></i> মোবাইল নম্বর</h2></div>
+    <div class="subhead"><i class="fas fa-comment-sms"></i> ওটিপি পাঠাতে নম্বর দিন</div>
     <div class="phone-row">
         <div class="country-select"><select id="user-country-code"><option value="+880">🇧🇩 +880</option><option value="+91">🇮🇳 +91</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option></select></div>
         <div class="input-group" style="flex:1;"><input type="tel" id="user-phone" placeholder="১৯১২৩৪৫৬৭৮"></div>
     </div>
-    <button class="primary-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
-    <div class="otp-row"><input type="text" id="user-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="primary-btn" onclick="verifyOTP('user')"><i class="fas fa-check"></i> যাচাই</button></div>
+    <button class="primary-btn" id="userSendOtpBtn" onclick="sendOTP('user')"><i class="fas fa-paper-plane"></i> ওটিপি পাঠান</button>
+    <div class="otp-row"><input type="text" id="user-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="primary-btn" onclick="verifyOTP('user')"><i class="fas fa-circle-check"></i> যাচাই</button></div>
     <div id="userOtpStatus" class="otp-status"></div>
 </div>
 
-<!-- USER HOME -->
 <div id="page-user-home" class="page">
-    <div class="app-header"><h2>🏠 হোম</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+    <div class="app-header"><h2><i class="fas fa-house-chimney"></i> হোম</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
     <div class="search-wrapper">
-        <div class="search-bar"><i class="fas fa-search"></i><input type="text" placeholder="সার্চ করুন (বাংলা/ইংরেজি)" id="userSearchInput"></div>
+        <div class="search-bar"><i class="fas fa-magnifying-glass"></i><input type="text" placeholder="সার্চ করুন (বাংলা/ইংরেজি)" id="userSearchInput"></div>
         <div id="searchSuggestions"></div>
     </div>
-    <!-- ✅ অফার ব্যানারে আপনার পোস্টার -->
     <div class="offer-banner">
         <img src="/offer-banner.png" alt="ZETMO Offer Banner" onerror="this.parentElement.style.display='none'" />
     </div>
     <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:.75rem;color:var(--text-muted);font-weight:500;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:var(--text);">৳ <span id="userWalletBalance">0</span></div></div>
-        <button class="primary-btn" style="width:auto;padding:11px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-plus"></i> রিচার্জ</button>
+        <div><div style="font-size:.75rem;color:var(--text-muted);font-weight:500;display:flex;align-items:center;gap:6px;"><i class="fas fa-wallet" style="color:var(--primary);"></i> ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:var(--text);">৳ <span id="userWalletBalance">0</span></div></div>
+        <button class="primary-btn" style="width:auto;padding:11px 18px;font-size:.85rem;" onclick="goToPage('page-user-wallet')"><i class="fas fa-circle-plus"></i> রিচার্জ</button>
     </div>
     <div class="category-grid">
         <div class="category-item" onclick="openCategory('Plumber')"><i class="fas fa-wrench"></i> প্লাম্বার</div>
         <div class="category-item" onclick="openCategory('Electrician')"><i class="fas fa-bolt"></i> ইলেকট্রিশিয়ান</div>
         <div class="category-item" onclick="openCategory('AC Technician')"><i class="fas fa-snowflake"></i> এসি টেকনিশিয়ান</div>
-        <div class="category-item" onclick="openCategory('Fridge Technician')"><i class="fas fa-thermometer-half"></i> ফ্রিজ টেকনিশিয়ান</div>
-        <div class="category-item" onclick="openCategory('Car Mechanic')"><i class="fas fa-car"></i> কার মেকানিক</div>
+        <div class="category-item" onclick="openCategory('Fridge Technician')"><i class="fas fa-temperature-low"></i> ফ্রিজ টেকনিশিয়ান</div>
+        <div class="category-item" onclick="openCategory('Car Mechanic')"><i class="fas fa-car-side"></i> কার মেকানিক</div>
         <div class="category-item" onclick="openCategory('Cleaner')"><i class="fas fa-broom"></i> ক্লিনার</div>
         <div class="category-item" onclick="openCategory('Carpenter')"><i class="fas fa-hammer"></i> কার্পেন্টার</div>
-        <div class="category-item" onclick="openCategory('Mechanic')"><i class="fas fa-cogs"></i> মেকানিক</div>
+        <div class="category-item" onclick="openCategory('Mechanic')"><i class="fas fa-gears"></i> মেকানিক</div>
         <div class="category-item" onclick="openCategory('Painter')"><i class="fas fa-paint-roller"></i> পেইন্টার</div>
     </div>
 </div>
 
-<!-- USER CATEGORY -->
 <div id="page-user-category" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> ক্যাটাগরিতে</button>
-    <div class="app-header"><h2 id="category-title" style="color:var(--text);">📍 প্লাম্বার</h2></div>
-    <div class="subhead" id="category-sub">আপনার কাছাকাছি প্রোভাইডার</div>
-    <div class="location-input-row"><input type="text" id="userLocationInput" placeholder="আপনার লোকেশন দিন"><button onclick="searchLocation()"><i class="fas fa-search"></i> খুঁজুন</button></div>
-    <div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)">সব</button><button onclick="filterDistance('1',event)">১ কিমি</button><button onclick="filterDistance('3',event)">৩ কিমি</button><button onclick="filterDistance('5',event)">৫ কিমি</button><button onclick="filterDistance('10',event)">১০ কিমি</button></div>
+    <div class="app-header"><h2 id="category-title" style="color:var(--text);"><i class="fas fa-location-dot"></i> প্লাম্বার</h2></div>
+    <div class="subhead" id="category-sub"><i class="fas fa-users"></i> আপনার কাছাকাছি প্রোভাইডার</div>
+    <div class="location-input-row"><input type="text" id="userLocationInput" placeholder="আপনার লোকেশন দিন"><button onclick="searchLocation()"><i class="fas fa-magnifying-glass"></i> খুঁজুন</button></div>
+    <div class="filter-row" id="distanceFilter"><button class="active" onclick="filterDistance('all',event)"><i class="fas fa-globe"></i> সব</button><button onclick="filterDistance('1',event)"><i class="fas fa-location-arrow"></i> ১ কিমি</button><button onclick="filterDistance('3',event)"><i class="fas fa-location-arrow"></i> ৩ কিমি</button><button onclick="filterDistance('5',event)"><i class="fas fa-location-arrow"></i> ৫ কিমি</button><button onclick="filterDistance('10',event)"><i class="fas fa-location-arrow"></i> ১০ কিমি</button></div>
     <div id="mapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div>
     <div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="mapLocationText">ঢাকা, বাংলাদেশ</span></div>
     <div id="provider-list"></div>
 </div>
 
-<!-- USER ORDERS -->
 <div id="page-user-orders" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
-    <div class="app-header"><h2>📋 আমার অর্ডার</h2></div>
-    <div class="subhead">আপনার করা সকল অর্ডার</div>
+    <div class="app-header"><h2><i class="fas fa-clipboard-list"></i> আমার অর্ডার</h2></div>
+    <div class="subhead"><i class="fas fa-list-check"></i> আপনার করা সকল অর্ডার</div>
     <div id="userOrderList"><div class="loading-spinner"><i class="fas fa-spinner"></i> অর্ডার লোড হচ্ছে...</div></div>
 </div>
 
-<!-- USER WALLET -->
 <div id="page-user-wallet" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
-    <div class="app-header"><h2>💳 ওয়ালেট</h2></div>
-    <div class="subhead">আপনার ট্রানজেকশন হিস্টোরি</div>
-    <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="walletBalanceDisplay">0</span></div></div>
+    <div class="app-header"><h2><i class="fas fa-wallet"></i> ওয়ালেট</h2></div>
+    <div class="subhead"><i class="fas fa-receipt"></i> আপনার ট্রানজেকশন হিস্টোরি</div>
+    <div class="wallet-box"><div class="label"><i class="fas fa-circle-dollar-to-slot"></i> বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="walletBalanceDisplay">0</span></div></div>
     <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="rechargeAmount" placeholder="যেমন: ৫০০"></div>
-    <button class="primary-btn" onclick="rechargeWallet()"><i class="fas fa-plus"></i> রিচার্জ করুন</button>
-    <div class="commission-info"><i class="fas fa-info-circle"></i> <strong>বিঃদ্রঃ</strong> প্রতি বুকিংয়ে <strong>১০%</strong> কমিশন কেটে নেওয়া হবে।</div>
+    <button class="primary-btn" onclick="rechargeWallet()"><i class="fas fa-circle-plus"></i> রিচার্জ করুন</button>
+    <div class="commission-info"><i class="fas fa-circle-info"></i> <span><strong>বিঃদ্রঃ</strong> প্রতি বুকিংয়ে <strong>১০%</strong> কমিশন কেটে নেওয়া হবে।</span></div>
     <div id="userTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> ট্রানজেকশন লোড হচ্ছে...</div></div>
 </div>
 
-<!-- USER PROFILE -->
 <div id="page-user-profile" class="page">
     <button class="back-link" onclick="goToPage('page-user-home')"><i class="fas fa-arrow-left"></i> হোমে</button>
     <div class="profile-header">
@@ -327,15 +325,14 @@
     <div class="profile-menu">
         <div class="menu-item" onclick="goToPage('page-user-orders')"><i class="fas fa-clipboard-list"></i> আমার অর্ডার <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item" onclick="goToPage('page-user-wallet')"><i class="fas fa-wallet"></i> ওয়ালেট <i class="fas fa-chevron-right"></i></div>
-        <div class="menu-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
+        <div class="menu-item logout" onclick="logout()"><i class="fas fa-right-from-bracket"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
     </div>
 </div>
 
-<!-- PROVIDER FORM -->
 <div id="page-provider-form" class="page">
     <button class="back-link" onclick="goToPage('page-role')"><i class="fas fa-arrow-left"></i> রোল নির্বাচন</button>
-    <div class="app-header"><h2>🛠️ প্রোভাইডার তথ্য</h2></div>
-    <div class="subhead">আপনার পেশাগত তথ্য দিন</div>
+    <div class="app-header"><h2><i class="fas fa-screwdriver-wrench"></i> প্রোভাইডার তথ্য</h2></div>
+    <div class="subhead"><i class="fas fa-briefcase"></i> আপনার পেশাগত তথ্য দিন</div>
     <div class="input-group"><label><i class="fas fa-user"></i> নাম</label><input type="text" id="provider-name" placeholder="করিম মিয়া"></div>
     <div class="input-group"><label><i class="fas fa-briefcase"></i> কাজ/পেশা</label><input type="text" id="provider-work" placeholder="প্লাম্বার, ইলেকট্রিশিয়ান"></div>
     <div class="input-group"><label><i class="fas fa-clock"></i> অভিজ্ঞতা (বছর)</label><input type="number" id="provider-experience" placeholder="৫"></div>
@@ -345,61 +342,56 @@
     <button class="primary-btn" onclick="goToPage('page-provider-otp')">পরবর্তী <i class="fas fa-arrow-right"></i></button>
 </div>
 
-<!-- PROVIDER OTP -->
 <div id="page-provider-otp" class="page">
     <button class="back-link" onclick="goToPage('page-provider-form')"><i class="fas fa-arrow-left"></i> ফর্মে ফিরুন</button>
-    <div class="app-header"><h2>📱 প্রোভাইডার নম্বর</h2></div>
-    <div class="subhead">ওটিপি যাচাই</div>
+    <div class="app-header"><h2><i class="fas fa-mobile-screen-button"></i> প্রোভাইডার নম্বর</h2></div>
+    <div class="subhead"><i class="fas fa-comment-sms"></i> ওটিপি যাচাই</div>
     <div class="phone-row">
         <div class="country-select"><select id="provider-country-code"><option value="+880">🇧🇩 +880</option><option value="+91">🇮🇳 +91</option><option value="+1">🇺🇸 +1</option><option value="+44">🇬🇧 +44</option></select></div>
         <div class="input-group" style="flex:1;"><input type="tel" id="provider-phone" placeholder="১৯১২৩৪৫৬৭৮"></div>
     </div>
-    <button class="primary-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-sms"></i> ওটিপি পাঠান</button>
-    <div class="otp-row"><input type="text" id="provider-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="primary-btn" onclick="verifyOTP('provider')"><i class="fas fa-check"></i> যাচাই</button></div>
+    <button class="primary-btn" id="providerSendOtpBtn" onclick="sendOTP('provider')"><i class="fas fa-paper-plane"></i> ওটিপি পাঠান</button>
+    <div class="otp-row"><input type="text" id="provider-otp" placeholder="৪ ডিজিট" maxlength="4"><button class="primary-btn" onclick="verifyOTP('provider')"><i class="fas fa-circle-check"></i> যাচাই</button></div>
     <div id="providerOtpStatus" class="otp-status"></div>
 </div>
 
-<!-- PROVIDER HOME -->
 <div id="page-provider-home" class="page">
-    <div class="app-header"><h2>📊 ড্যাশবোর্ড</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
-    <div class="subhead">স্বাগতম, <span id="providerNameDisplay">-</span></div>
+    <div class="app-header"><h2><i class="fas fa-chart-line"></i> ড্যাশবোর্ড</h2><span class="badge"><i class="fas fa-bell"></i></span></div>
+    <div class="subhead"><i class="fas fa-hand-wave"></i> স্বাগতম, <span id="providerNameDisplay">-</span></div>
     <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
-        <div><div style="font-size:.75rem;color:var(--text-muted);font-weight:500;">ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:var(--text);">৳ <span id="providerWalletBalance">0</span></div></div>
+        <div><div style="font-size:.75rem;color:var(--text-muted);font-weight:500;display:flex;align-items:center;gap:6px;"><i class="fas fa-wallet" style="color:var(--primary);"></i> ওয়ালেট ব্যালেন্স</div><div style="font-size:1.4rem;font-weight:800;color:var(--text);">৳ <span id="providerWalletBalance">0</span></div></div>
         <button class="primary-btn" style="width:auto;padding:11px 18px;font-size:.85rem;" onclick="goToPage('page-provider-wallet')"><i class="fas fa-arrow-up"></i> তুলুন</button>
     </div>
     <div class="card">
-        <div class="dash-stat"><span>📌 কাজের ক্যাটাগরি</span> <span class="wallet-badge" id="providerCategory">-</span></div>
-        <div class="dash-stat"><span>⭐ রেটিং</span> <span id="providerRatingDisplay">৪.৯ (৪২ রিভিউ)</span></div>
-        <div class="dash-stat"><span>📦 সম্পূর্ণ অর্ডার</span> <span id="providerTotalOrders">0</span></div>
+        <div class="dash-stat"><span><i class="fas fa-tag"></i> কাজের ক্যাটাগরি</span> <span class="wallet-badge" id="providerCategory">-</span></div>
+        <div class="dash-stat"><span><i class="fas fa-star"></i> রেটিং</span> <span id="providerRatingDisplay">৪.৯ (৪২ রিভিউ)</span></div>
+        <div class="dash-stat"><span><i class="fas fa-box"></i> সম্পূর্ণ অর্ডার</span> <span id="providerTotalOrders">0</span></div>
         <div class="dash-stat"><span><i class="fas fa-wallet"></i> ওয়ালেট</span> <span>৳ <span id="providerWalletStat">0</span></span></div>
     </div>
-    <div><div style="font-weight:600;font-size:.9rem;color:var(--text);margin-bottom:8px;"><i class="fas fa-map-marked-alt"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
+    <div><div style="font-weight:600;font-size:.9rem;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:8px;"><i class="fas fa-map-marked-alt" style="color:var(--primary);"></i> আপনার সার্ভিস এলাকা</div><div id="providerMapContainer"><div class="map-loading"><i class="fas fa-spinner"></i><span>ম্যাপ লোড হচ্ছে...</span></div></div><div class="map-location-text"><i class="fas fa-map-pin"></i> <span id="providerMapLocationText">ঢাকা, বাংলাদেশ</span></div></div>
 </div>
 
-<!-- PROVIDER ORDERS -->
 <div id="page-provider-orders" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    <div class="app-header"><h2>📋 বুকিং রিকোয়েস্ট</h2></div>
-    <div class="subhead">আপনার কাছে আসা বুকিং অনুরোধ</div>
+    <div class="app-header"><h2><i class="fas fa-inbox"></i> বুকিং রিকোয়েস্ট</h2></div>
+    <div class="subhead"><i class="fas fa-bell"></i> আপনার কাছে আসা বুকিং অনুরোধ</div>
     <div id="providerBookingList"><div class="loading-spinner"><i class="fas fa-spinner"></i> বুকিং লোড হচ্ছে...</div></div>
 </div>
 
-<!-- PROVIDER WALLET -->
 <div id="page-provider-wallet" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
-    <div class="app-header"><h2>💳 ওয়ালেট</h2></div>
-    <div class="subhead">আপনার আয়-ব্যয়ের হিস্টোরি</div>
-    <div class="wallet-box"><div class="label">বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="providerWalletDisplay">0</span></div></div>
+    <div class="app-header"><h2><i class="fas fa-wallet"></i> ওয়ালেট</h2></div>
+    <div class="subhead"><i class="fas fa-receipt"></i> আপনার আয়-ব্যয়ের হিস্টোরি</div>
+    <div class="wallet-box"><div class="label"><i class="fas fa-circle-dollar-to-slot"></i> বর্তমান ব্যালেন্স</div><div class="amount">৳ <span id="providerWalletDisplay">0</span></div></div>
     <div class="input-group"><label><i class="fas fa-money-bill-wave"></i> টাকা লিখুন</label><input type="number" id="withdrawAmount" placeholder="যেমন: ৫০০"></div>
     <button class="primary-btn" onclick="withdrawMoney()"><i class="fas fa-arrow-up"></i> টাকা তুলুন</button>
     <div id="providerTransactionList"><div class="loading-spinner"><i class="fas fa-spinner"></i> ট্রানজেকশন লোড হচ্ছে...</div></div>
 </div>
 
-<!-- PROVIDER PROFILE -->
 <div id="page-provider-profile" class="page">
     <button class="back-link" onclick="goToPage('page-provider-home')"><i class="fas fa-arrow-left"></i> ড্যাশবোর্ড</button>
     <div class="profile-header">
-        <div class="profile-avatar"><i class="fas fa-tools"></i></div>
+        <div class="profile-avatar"><i class="fas fa-screwdriver-wrench"></i></div>
         <div class="profile-name" id="providerProfileName">-</div>
         <div class="profile-location" id="providerProfileLocation">-</div>
         <div class="profile-stats">
@@ -412,17 +404,16 @@
         <div class="profile-phone" id="providerProfileImo"><i class="fas fa-video"></i> -</div>
     </div>
     <div class="profile-menu">
-        <div class="menu-item" onclick="goToPage('page-provider-orders')"><i class="fas fa-clipboard-list"></i> বুকিং রিকোয়েস্ট <i class="fas fa-chevron-right"></i></div>
+        <div class="menu-item" onclick="goToPage('page-provider-orders')"><i class="fas fa-inbox"></i> বুকিং রিকোয়েস্ট <i class="fas fa-chevron-right"></i></div>
         <div class="menu-item" onclick="goToPage('page-provider-wallet')"><i class="fas fa-wallet"></i> ওয়ালেট <i class="fas fa-chevron-right"></i></div>
-        <div class="menu-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
+        <div class="menu-item logout" onclick="logout()"><i class="fas fa-right-from-bracket"></i> লগআউট <i class="fas fa-chevron-right"></i></div>
     </div>
 </div>
 
-<!-- ADMIN LOGIN -->
 <div id="page-admin-login" class="page">
     <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
-    <div class="app-header"><h2>🔐 অ্যাডমিন অ্যাক্সেস</h2></div>
-    <div class="subhead">শুধুমাত্র অ্যাডমিন পাসওয়ার্ড দিয়ে প্রবেশ করুন</div>
+    <div class="app-header"><h2><i class="fas fa-lock"></i> অ্যাডমিন অ্যাক্সেস</h2></div>
+    <div class="subhead"><i class="fas fa-key"></i> শুধুমাত্র অ্যাডমিন পাসওয়ার্ড দিয়ে প্রবেশ করুন</div>
     <div class="admin-lock">
         <input type="password" id="adminPassword" placeholder="অ্যাডমিন পাসওয়ার্ড দিন" />
         <button class="primary-btn" onclick="verifyAdmin()" style="margin-top:12px;">প্রবেশ করুন <i class="fas fa-arrow-right"></i></button>
@@ -430,34 +421,33 @@
     </div>
 </div>
 
-<!-- ADMIN DASHBOARD -->
 <div id="page-admin-dashboard" class="page">
     <button class="back-link" onclick="window.location.hash=''"><i class="fas fa-arrow-left"></i> ফিরে যান</button>
-    <div class="app-header"><h2>📊 অ্যাডমিন</h2></div>
-    <div class="subhead">আপনার অ্যাপের সারাংশ</div>
+    <div class="app-header"><h2><i class="fas fa-shield-halved"></i> অ্যাডমিন</h2></div>
+    <div class="subhead"><i class="fas fa-chart-simple"></i> আপনার অ্যাপের সারাংশ</div>
     <div class="admin-stats-grid">
         <div class="admin-stat-card"><i class="fas fa-users"></i><div class="number" id="adminTotalUsers">0</div><div class="label">মোট ইউজার</div></div>
-        <div class="admin-stat-card"><i class="fas fa-tools"></i><div class="number" id="adminTotalProviders">0</div><div class="label">মোট প্রোভাইডার</div></div>
+        <div class="admin-stat-card"><i class="fas fa-screwdriver-wrench"></i><div class="number" id="adminTotalProviders">0</div><div class="label">মোট প্রোভাইডার</div></div>
         <div class="admin-stat-card"><i class="fas fa-clipboard-list"></i><div class="number" id="adminTotalOrders">0</div><div class="label">মোট অর্ডার</div></div>
         <div class="admin-stat-card"><i class="fas fa-wallet"></i><div class="number" id="adminTotalRevenue">৳ 0</div><div class="label">মোট আয়</div></div>
     </div>
     <div class="card"><div class="card-title"><i class="fas fa-hourglass-half"></i> পেন্ডিং প্রোভাইডার</div><div id="adminPendingProviders"><div class="loading-spinner"><i class="fas fa-spinner"></i> লোড হচ্ছে...</div></div></div>
-    <div class="card"><div class="card-title"><i class="fas fa-coins"></i> কমিশন রিপোর্ট</div><div class="dash-stat"><span>মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span>এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span>পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
+    <div class="card"><div class="card-title"><i class="fas fa-coins"></i> কমিশন রিপোর্ট</div><div class="dash-stat"><span><i class="fas fa-circle-dollar-to-slot"></i> মোট কমিশন আয়</span> <span>৳ <span id="adminTotalCommission">0</span></span></div><div class="dash-stat"><span><i class="fas fa-calendar-day"></i> এই মাসের কমিশন</span> <span>৳ <span id="adminMonthlyCommission">0</span></span></div><div class="dash-stat"><span><i class="fas fa-hourglass-half"></i> পেন্ডিং পেমেন্ট</span> <span>৳ <span id="adminPendingPayment">0</span></span></div></div>
     <button class="primary-btn" onclick="downloadReport()"><i class="fas fa-download"></i> রিপোর্ট ডাউনলোড</button>
-    <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> অ্যাডমিন লগআউট</button>
+    <button class="logout-btn" onclick="logoutAdmin()"><i class="fas fa-right-from-bracket"></i> অ্যাডমিন লগআউট</button>
 </div>
 
 </div><!-- /app-content -->
 
 <div id="bottom-nav-user">
-    <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-home"></i><span>হোম</span></button>
+    <button class="nav-item active" data-page="page-user-home" onclick="navigateTo('page-user-home')"><i class="fas fa-house-chimney"></i><span>হোম</span></button>
     <button class="nav-item" data-page="page-user-orders" onclick="navigateTo('page-user-orders')"><i class="fas fa-clipboard-list"></i><span>অর্ডার</span></button>
     <button class="nav-item" data-page="page-user-wallet" onclick="navigateTo('page-user-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
     <button class="nav-item" data-page="page-user-profile" onclick="navigateTo('page-user-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
 </div>
 <div id="bottom-nav-provider">
-    <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-home"></i><span>ড্যাশবোর্ড</span></button>
-    <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-clipboard-list"></i><span>বুকিং</span></button>
+    <button class="nav-item active" data-page="page-provider-home" onclick="navigateToProvider('page-provider-home')"><i class="fas fa-chart-line"></i><span>ড্যাশবোর্ড</span></button>
+    <button class="nav-item" data-page="page-provider-orders" onclick="navigateToProvider('page-provider-orders')"><i class="fas fa-inbox"></i><span>বুকিং</span></button>
     <button class="nav-item" data-page="page-provider-wallet" onclick="navigateToProvider('page-provider-wallet')"><i class="fas fa-wallet"></i><span>ওয়ালেট</span></button>
     <button class="nav-item" data-page="page-provider-profile" onclick="navigateToProvider('page-provider-profile')"><i class="fas fa-user"></i><span>প্রোফাইল</span></button>
 </div>
@@ -496,7 +486,7 @@ if(typeof firebase!=='undefined'){
         showToast('OTP পাঠানো হয়েছে!','success');
         const otpInput=role==='user'?document.getElementById('user-otp'):document.getElementById('provider-otp');
         if(otpInput){setTimeout(()=>{otpInput.value=otpCode;otpInput.focus();},500);}
-        btn.disabled=false;btn.innerHTML='<i class="fas fa-sms"></i> ওটিপি পাঠান';
+        btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> ওটিপি পাঠান';
     };
     window.verifyOTP=function(role){
         const otpInput=role==='user'?document.getElementById('user-otp'):document.getElementById('provider-otp');
@@ -561,7 +551,7 @@ if(typeof firebase!=='undefined'){
     function updateUserUI(d){
         document.getElementById('profileName').textContent=d.name||'ইউজার';
         document.getElementById('profileLocation').textContent=d.location||'অজানা';
-        document.getElementById('profilePhone').textContent=d.phone||'';
+        document.getElementById('profilePhone').innerHTML='<i class="fas fa-phone"></i> '+(d.phone||'-');
         document.getElementById('userWalletBalance').textContent=(d.wallet||0).toLocaleString();
         document.getElementById('walletBalanceDisplay').textContent=(d.wallet||0).toLocaleString();
         document.getElementById('profileWallet').textContent=(d.wallet||0).toLocaleString();
@@ -572,11 +562,11 @@ if(typeof firebase!=='undefined'){
         document.getElementById('providerNameDisplay').textContent=d.name||'প্রোভাইডার';
         document.getElementById('providerProfileName').textContent=d.name||'';
         document.getElementById('providerProfileLocation').textContent=d.location||'ঢাকা, মিরপুর';
-        document.getElementById('providerProfilePhone').textContent=d.phone||'';
-        document.getElementById('providerProfileWhatsApp').textContent=d.whatsapp||'নাই';
-        document.getElementById('providerProfileImo').textContent=d.imo||'নাই';
+        document.getElementById('providerProfilePhone').innerHTML='<i class="fas fa-phone"></i> '+(d.phone||'-');
+        document.getElementById('providerProfileWhatsApp').innerHTML='<i class="fab fa-whatsapp"></i> '+(d.whatsapp||'নাই');
+        document.getElementById('providerProfileImo').innerHTML='<i class="fas fa-video"></i> '+(d.imo||'নাই');
         document.getElementById('providerProfileWallet').textContent=(d.wallet||0).toLocaleString();
-        document.getElementById('providerCategory').textContent=d.work||'পেশা';
+        document.getElementById('providerCategory').innerHTML='<i class="fas fa-tag"></i> '+(d.work||'পেশা');
         document.getElementById('providerWalletBalance').textContent=(d.wallet||0).toLocaleString();
         document.getElementById('providerWalletDisplay').textContent=(d.wallet||0).toLocaleString();
         document.getElementById('providerWalletStat').textContent=(d.wallet||0).toLocaleString();
@@ -633,7 +623,7 @@ if(typeof firebase!=='undefined'){
             const bs=await db.collection('bookings').get();document.getElementById('adminTotalOrders').textContent=bs.size;
             const pend=await db.collection('providers').where('status','==','pending').get();
             const c=document.getElementById('adminPendingProviders');
-            if(pend.empty){c.innerHTML='<div style="text-align:center;padding:10px;color:var(--text-muted);"><i class="fas fa-check-circle" style="color:#4CAF50;"></i> কোনো পেন্ডিং প্রোভাইডার নেই</div>';}
+            if(pend.empty){c.innerHTML='<div style="text-align:center;padding:10px;color:var(--text-muted);"><i class="fas fa-circle-check" style="color:#4CAF50;"></i> কোনো পেন্ডিং প্রোভাইডার নেই</div>';}
             else{let html='';pend.forEach(d=>{const data=d.data();html+=`<div class="admin-user-item"><div>${data.name||'নাম নেই'} <span style="font-size:.65rem;color:var(--text-muted);">(${data.work||'পেশা'})</span></div><div class="admin-actions"><button onclick="approveProvider('${d.id}')"><i class="fas fa-check"></i></button><button class="danger" onclick="rejectProvider('${d.id}')"><i class="fas fa-times"></i></button></div></div>`;});c.innerHTML=html;}
         }catch(e){console.error(e);}
     }
@@ -667,7 +657,7 @@ if(typeof firebase!=='undefined'){
             providerMap.on('load',function(){document.getElementById('providerMapLocationText').textContent='আপনার অবস্থান: '+lat.toFixed(4)+', '+lng.toFixed(4);new maplibregl.Marker({color:'#e53935',scale:1.2}).setLngLat([lng,lat]).addTo(providerMap);});
         }catch(e){c.innerHTML='<div style="padding:20px;text-align:center;color:var(--primary);">ম্যাপ লোড করা যায়নি</div>';}
     }
-    window.filterDistance=function(d,e){currentFilter=d;document.querySelectorAll('#distanceFilter button').forEach(b=>b.classList.remove('active'));if(e)e.target.classList.add('active');updateProviderList();addProviderMarkers();};
+    window.filterDistance=function(d,e){currentFilter=d;document.querySelectorAll('#distanceFilter button').forEach(b=>b.classList.remove('active'));if(e)e.target.closest('button').classList.add('active');updateProviderList();addProviderMarkers();};
     window.searchLocation=function(){
         const input=document.getElementById('userLocationInput').value;
         if(!input){showToast('লোকেশন দিন!','error');return;}
@@ -681,8 +671,8 @@ if(typeof firebase!=='undefined'){
         currentCategory=cat;currentFilter='all';
         document.querySelectorAll('#distanceFilter button').forEach(b=>b.classList.remove('active'));
         document.querySelector('#distanceFilter button:first-child')?.classList.add('active');
-        document.getElementById('category-title').textContent='📍 '+cat;
-        document.getElementById('category-sub').textContent='আপনার কাছাকাছি প্রোভাইডার';
+        document.getElementById('category-title').innerHTML='<i class="fas fa-location-dot"></i> '+cat;
+        document.getElementById('category-sub').innerHTML='<i class="fas fa-users"></i> আপনার কাছাকাছি প্রোভাইডার';
         loadProvidersFromFirebase(cat);
     };
     async function loadProvidersFromFirebase(category){
@@ -700,10 +690,10 @@ if(typeof firebase!=='undefined'){
         let f=[...currentProviders];
         if(currentFilter!=='all'){const md=parseFloat(currentFilter);f=f.filter(p=>p.distance<=md);}
         f.sort((a,b)=>a.distance-b.distance);
-        if(f.length===0){c.innerHTML='<div style="text-align:center;padding:20px;color:var(--text-muted);"><i class="fas fa-search" style="font-size:1.3rem;color:var(--primary);"></i><p style="margin-top:4px;font-size:.85rem;">প্রোভাইডার পাওয়া যায়নি</p></div>';return;}
+        if(f.length===0){c.innerHTML='<div style="text-align:center;padding:20px;color:var(--text-muted);"><i class="fas fa-magnifying-glass" style="font-size:1.3rem;color:var(--primary);"></i><p style="margin-top:4px;font-size:.85rem;">প্রোভাইডার পাওয়া যায়নি</p></div>';return;}
         let html='';
         f.forEach((p,i)=>{const wa=`https://wa.me/88${p.whatsapp||p.phone}?text=হ্যালো,%20আমার%20একটি%20${currentCategory}%20সার্ভিস%20দরকার`;const imo=`https://imo.im/contact/88${p.imo||p.phone}`;const ph=`tel:+88${p.phone}`;
-            html+=`<div class="provider-card" style="animation-delay:${i*0.05}s"><div class="avatar" style="background:${p.color};"><i class="fas fa-user"></i></div><div class="info"><div class="name">${p.name}</div><div class="detail"><span>⭐ ${p.rating}</span><span class="badge-distance">${p.distance} কিমি</span><span>${p.experience} বছর</span></div><div class="contact-buttons"><a href="${wa}" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a><a href="${imo}" target="_blank" class="btn-imo"><i class="fas fa-video"></i> IMO</a><a href="${ph}" class="btn-phone-call"><i class="fas fa-phone"></i> ফোন</a></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;"><button class="btn-book" onclick="bookProvider('${p.id}','${currentCategory}','${p.name}')">বুক করুন</button></div></div>`;
+            html+=`<div class="provider-card" style="animation-delay:${i*0.05}s"><div class="avatar" style="background:${p.color};"><i class="fas fa-user"></i></div><div class="info"><div class="name">${p.name}</div><div class="detail"><span><i class="fas fa-star" style="color:#ffc107;"></i> ${p.rating}</span><span class="badge-distance"><i class="fas fa-location-dot"></i> ${p.distance} কিমি</span><span><i class="fas fa-briefcase"></i> ${p.experience} বছর</span></div><div class="contact-buttons"><a href="${wa}" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a><a href="${imo}" target="_blank" class="btn-imo"><i class="fas fa-video"></i> IMO</a><a href="${ph}" class="btn-phone-call"><i class="fas fa-phone"></i> ফোন</a></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0;"><button class="btn-book" onclick="bookProvider('${p.id}','${currentCategory}','${p.name}')"><i class="fas fa-calendar-check"></i> বুক করুন</button></div></div>`;
         });
         c.innerHTML=html;
     }
@@ -719,9 +709,9 @@ if(typeof firebase!=='undefined'){
         const q=this.value.trim().toLowerCase();
         const c=document.getElementById('searchSuggestions');
         if(q.length===0){c.style.display='none';return;}
-        const cats=[{name:'Plumber',bn:'প্লাম্বার'},{name:'Electrician',bn:'ইলেকট্রিশিয়ান'},{name:'AC Technician',bn:'এসি টেকনিশিয়ান'},{name:'Fridge Technician',bn:'ফ্রিজ টেকনিশিয়ান'},{name:'Cleaner',bn:'ক্লিনার'},{name:'Carpenter',bn:'কার্পেন্টার'},{name:'Car Mechanic',bn:'কার মেকানিক'},{name:'Mechanic',bn:'মেকানিক'},{name:'Painter',bn:'পেইন্টার'}];
+        const cats=[{name:'Plumber',bn:'প্লাম্বার',icon:'fa-wrench'},{name:'Electrician',bn:'ইলেকট্রিশিয়ান',icon:'fa-bolt'},{name:'AC Technician',bn:'এসি টেকনিশিয়ান',icon:'fa-snowflake'},{name:'Fridge Technician',bn:'ফ্রিজ টেকনিশিয়ান',icon:'fa-temperature-low'},{name:'Cleaner',bn:'ক্লিনার',icon:'fa-broom'},{name:'Carpenter',bn:'কার্পেন্টার',icon:'fa-hammer'},{name:'Car Mechanic',bn:'কার মেকানিক',icon:'fa-car-side'},{name:'Mechanic',bn:'মেকানিক',icon:'fa-gears'},{name:'Painter',bn:'পেইন্টার',icon:'fa-paint-roller'}];
         const m=cats.filter(cat=>cat.name.toLowerCase().includes(q)||cat.bn.includes(q));
-        if(m.length>0){c.innerHTML=m.map(cat=>`<div class="suggestion-item" onclick="openCategory('${cat.name}')"><i class="fas fa-search" style="color:var(--primary);"></i> ${cat.bn} (${cat.name})</div>`).join('');c.style.display='block';}
+        if(m.length>0){c.innerHTML=m.map(cat=>`<div class="suggestion-item" onclick="openCategory('${cat.name}')"><i class="fas ${cat.icon}" style="color:var(--primary);"></i> ${cat.bn} (${cat.name})</div>`).join('');c.style.display='block';}
         else{c.style.display='none';}
     });
     function startOnboarding(){
