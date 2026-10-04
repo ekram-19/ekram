@@ -3,7 +3,7 @@
   "name": "ZETMO",
   "short_name": "ZETMO",
   "description": "ZETMO - On-demand home services platform connecting verified professionals with urban households in Bangladesh.",
-  "start_url": "https://ekram-gamma.vercel.app/",
+  "start_url": "https://zetmo.vercel.app/",
   "display": "standalone",
   "background_color": "#fff5f5",
   "theme_color": "#e53935",
